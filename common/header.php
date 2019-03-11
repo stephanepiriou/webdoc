@@ -6,22 +6,22 @@
  * Time: 01:40
  */
 echo '<!DOCTYPE html>
-<html lang=\'en\'>
+<html lang="en">
 <head>
-    <meta charset=\'UTF-8\'>
+    <meta charset="UTF-8">
     <title>test1</title>
-    <script language=\'JavaScript\' type=\'text/javascript\' src="jqwidgets/jqx-all.js"></script>
-    <link rel="stylesheet" href="bootstrap/bootstrap.css" >
-    <link rel=\'stylesheet\' href=\'jqwidgets/styles/jqx.base.css\'>
-    <link rel="stylesheet" href="jqwidgets/styles/jqx.bootstrap.css" >
+    <script language="JavaScript" type="text/javascript" src="../jqwidgets/jqx-all.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.css" >
+    <link rel="stylesheet" href="../jqwidgets/styles/jqx.base.css\">
+    <link rel="stylesheet" href="../jqwidgets/styles/jqx.bootstrap.css" >
 
-    <script type=\'text/javascript\' src=\'jquery/jquery.js\'></script>
-    <script type=\'text/javascript\' src="bootstrap/bootstrap.js"></script>
-    <script type=\'text/javascript\' src="jqwidgets/jqxcore.js"></script>
-    <script type=\'text/javascript\' src="jqwidgets/jqxbuttongroup.js"></script>
-    <script type="text/javascript" src="jqwidgets/jqxmenu.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxbuttons.js"></script>
-    <script type=\'text/javascript\' src=\'scripts/demos.js\'></script>
+    <script type="text/javascript" src="../jquery/jquery.js"></script>
+    <script type="text/javascript" src="../bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="../jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="../jqwidgets/jqxbuttongroup.js"></script>
+    <script type="text/javascript" src="../jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="../jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="../scripts/demos.js"></script>
 
     <style>
         html,

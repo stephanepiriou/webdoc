@@ -21,8 +21,8 @@ echo '<div id="menu" class="offset-lg-3 col-lg-6">
                     });
                 });
             </script>
-            <div id=\'jqxWidget\'>
-                <div id=\'jqxMenu\'>
+            <div id="jqxWidget">
+                <div id="jqxMenu">
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li>professeurs
