@@ -25,6 +25,16 @@ body {
 .container .text-muted {
 	margin: 20px 0;
 }
+
+#main-panel{
+	border-style: solid;
+	border-width: 1px;
+	background-color: rgb(216,227,242);
+	border-color: rgb(148, 176,202);
+	border-radius: 3px;
+	padding: 20px;
+}
+
 #footer > .container {
 	padding-left: 15px;
 	padding-right: 15px;
