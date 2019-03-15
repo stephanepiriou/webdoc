@@ -87,10 +87,18 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
+                            <label class="float-right">Matricule :</label>
+                        </div>
+                        <div class="col-6">
+                            <input id="input-matricule" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
                             <label class="float-right">Type d'individu :</label>
                         </div>
                         <div class="col-6">
-                            <div id='type-individu-dropdown'>
+                            <div id='dropdown-type-individu'>
                             </div>
                         </div>
                     </div>
@@ -164,23 +172,24 @@
         "Administration",
         "Elève"
     ]
-    $("#type-individu-dropdown").jqxDropDownList({source: dropdownsource, width: 198, height: 30, theme: "energyblue"});
-    $("#input-surname").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	$("#input-name").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	$("#input-address").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	$("#input-city").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	$("#input-postal-code").jqxInput({width: 200, height: 30, theme: "energyblue"});
+	$("#input-matricule").jqxInput({width: 200, height: 30, placeHolder: "Entrez le matricule", theme: "energyblue"});
+    $("#dropdown-type-individu").jqxDropDownList({source: dropdownsource, width: 198, height: 30, theme: "energyblue"});
+    $("#input-surname").jqxInput({width: 200, height: 30, placeHolder: "Entrez le prénom", theme: "energyblue"});
+	$("#input-name").jqxInput({width: 200, height: 30, placeHolder: "Entrez le nome", theme: "energyblue"});
+	$("#input-address").jqxInput({width: 200, height: 30, placeHolder: "Entrez l'adresse", theme: "energyblue"});
+	$("#input-city").jqxInput({width: 200, height: 30, placeHolder: "Entrez la ville", theme: "energyblue"});
+	$("#input-postal-code").jqxInput({width: 200, height: 30, placeHolder: "Entrez le code postal", theme: "energyblue"});
 	$("#button-save").jqxButton({ width: "150", height: "25", theme: 'energyblue'});
 
 	$("#button-save").on("click", function (event) {
-		var type_individu_item = $("#type-individu-dropdown").jqxDropDownList('getItem', args.index);
-		var type_individu = type_individu_item.label;
+		var matricule = $("#input-matricule").val();
+		var type_individu = $("#dropdown-type-individu").jqxDropDownList('getItem', args.index).label;
 		var surname = $("#input-surname").val();
 		var name = $("#input-name").val();
 		var address = $("#input-address").val();
 		var city = $("#input-city").val();
 		var postal_code = $("#input-postal-code").val();
-		alert(type_individu)
+		alert(type_individu_item);
 	});
 </script>
 </body>
