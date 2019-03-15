@@ -90,7 +90,8 @@
                             <label class="float-right">Type d'individu :</label>
                         </div>
                         <div class="col-6">
-                            <input id="combo-type-individu" />
+                            <div id='type-individu-dropdown'>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -157,7 +158,13 @@
 
 </div>
 <script type="text/javascript">
-	//$("#main-panel").jqxPanel({ width: 250, height: 250, theme: 'energyblue'});
+	var dropdownsource = [
+		"Professeur",
+        "Educateur",
+        "Administration",
+        "Elève"
+    ]
+    $("#type-individu-dropdown").jqxDropDownList({source: dropdownsource, width: 198, height: 30, theme: "energyblue"});
     $("#input-surname").jqxInput({width: 200, height: 30, theme: "energyblue"});
 	$("#input-name").jqxInput({width: 200, height: 30, theme: "energyblue"});
 	$("#input-address").jqxInput({width: 200, height: 30, theme: "energyblue"});
@@ -166,11 +173,14 @@
 	$("#button-save").jqxButton({ width: "150", height: "25", theme: 'energyblue'});
 
 	$("#button-save").on("click", function (event) {
+		var type_individu_item = $("#type-individu-dropdown").jqxDropDownList('getItem', args.index);
+		var type_individu = type_individu_item.label;
 		var surname = $("#input-surname").val();
 		var name = $("#input-name").val();
 		var address = $("#input-address").val();
 		var city = $("#input-city").val();
 		var postal_code = $("#input-postal-code").val();
+		alert(type_individu)
 	});
 </script>
 </body>
