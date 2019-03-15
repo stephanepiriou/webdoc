@@ -86,6 +86,11 @@
             <div id="main-panel"  class="offset-lg-3 col-lg-6">
                 <div class="container">
                     <div class="row">
+                        <div class="col">&nbsp;
+                            <label><b>Individu :</b></label>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6">
                             <label class="float-right">Matricule :</label>
                         </div>
@@ -143,28 +148,33 @@
                         </div>
                     </div>
                     <div class="row" style="align-content: center">
-                        <div class="row">&nbsp;</div>
+                        <div class="col">&nbsp;&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">&nbsp;
+                            <label><b>Documents :</b></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">&nbsp;
+                            <div id="data-documents">
+                            </div>
+                        </div>
                     </div>
                     <div class="row" style="align-content: center">
-                        <div class="row">&nbsp;
-                            <div id="dataDocuments">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="align-content: center">
                         <div class="col-4">
                             <div style="display: block; margin: auto">
-                                <input type="button" value="Update" id='button-update-save' style="align-content: center" />
+                                <input type="button" value="Mettre à jour" id='button-update-save' style="align-content: center" />
                             </div>
                         </div>
                         <div class="col-4">
                             <div style="display: block; margin: auto">
-                                <input type="button" value="Button" id='button-delete' style="align-content: center" />
+                                <input type="button" value="delete" id='button-delete' style="align-content: center" />
                             </div>
                         </div>
                         <div class="col-4">
                             <div style="display: block; margin: auto">
-                                <input type="button" value="Button" id='button-create-document' style="align-content: center" />
+                                <input type="button" value="Create a document" id='button-create-document' style="align-content: center" />
                             </div>
                         </div>
                     </div>
@@ -178,13 +188,13 @@
 
 </div>
 <script type="text/javascript">
-	var dropdownsource = [
+	var typeIndividuSource = [
 		"Professeur",
 		"Educateur",
 		"Administration",
 		"Elève"
 	]
-	$("#dropdown-type-individu").jqxDropDownList({source: dropdownsource, width: 198, height: 30, disabled: true,theme: "energyblue"});
+	$("#dropdown-type-individu").jqxDropDownList({source: typeIndividuSource, width: 198, height: 30, disabled: true,theme: "energyblue"});
 	$("#input-matricule").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 	$("#input-surname").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 	$("#input-name").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
@@ -192,11 +202,35 @@
 	$("#input-city").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 	$("#input-postal-code").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 
+	//DataTable containing list of Document
+	$("#data-documents").jqxDataTable({
+        source: documentDataAdapter,
+		altRows: true,
+		sortable: true,
+		columns: [
+			{ text: 'ID', dataField: 'First Name', width: 100 },
+			{ text: 'Last Name', dataField: 'Last Name', width: 100 },
+			{ text: 'Product', dataField: 'Product', width: 180 },
+			{ text: 'Unit Price', dataField: 'Price', width: 90, align: 'right', cellsAlign: 'right', cellsFormat: 'c2' },
+			{ text: 'Quantity', dataField: 'Quantity', width: 80, align: 'right', cellsAlign: 'right' }
+		]
+    })
+	$("#data-documents").on('rowSelect', function (event) {
+        // event arguments
+        var args = event.args;
+        // row index
+        var index = args.index;
+        // row data
+        var rowData = args.row;
+        // row key
+        var rowKey = args.key;
+    });
+
 	$("#button-update-save").jqxButton({ width: "150", height: "25", theme: 'energyblue'});
 	$("#button-update-save").on("click", function (event) {
 		var value = $("#button-update-save").jqxButton("value");
-		if(value === "Update"){
-			$("#button-update-save").jqxButton({value: "Save"});
+		if(value === "Mettre à jour"){
+			$("#button-update-save").jqxButton({value: "Sauver"});
 			$("#dropdown-type-individu").jqxDropDownList({disabled: false});
 			$("#input-matricule").jqxInput({disabled: false});
 			$("#input-name").jqxInput({disabled: false});
@@ -205,7 +239,7 @@
 			$("#input-city").jqxInput({disabled: false});
 			$("#input-postal-code").jqxInput({disabled: false});
         }else{
-			$("#button-update-save").jqxButton({value: "Update"});
+			$("#button-update-save").jqxButton({value: "Mettre à jour"});
 			$("#dropdown-type-individu").jqxDropDownList({disabled: true});
 			$("#input-matricule").jqxInput({disabled: true});
 			$("#input-name").jqxInput({disabled: true});
