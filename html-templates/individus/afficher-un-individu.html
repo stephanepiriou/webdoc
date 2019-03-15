@@ -3,8 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../../bootstrap/bootstrap.css" >
+    <link rel='stylesheet' href='../../jqwidgets/styles/jqx.base.css'>
+    <link rel="stylesheet" href="../../jqwidgets/styles/jqx.energyblue.css">
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <script type='text/javascript' src="../../jqwidgets/jqx-all.js"></script>
 </head>
 <body>
+<div id="wrap">
+    <div id="pageheader">
+        <h1>webdoc</h1>
+    </div>
+    <!-- Begin page content -->
+    <div class="container">
+        <div class="row">
+            <div id="app-menu" class="offset-lg-3 col-lg-6">
+                <script type="text/javascript">
+					$(document).ready(function () {
+						// Create a jqxMenu
+						$("#jqxMenu").jqxMenu({
+							width: '100%',
+							height: '30px',
+							theme: 'energyblue'
+						});
+						var centerItems = function () {
+							var firstItem = $($("#jqxMenu ul:first").children()[0]);
+							firstItem.css('margin-left', 0);
+							var width = 0;
+							var borderOffset = 2;
+							$.each($("#jqxMenu ul:first").children(), function () {
+								width += $(this).outerWidth(true) + borderOffset;
+							});
+							var menuWidth = $("#jqxMenu").outerWidth();
+							firstItem.css('margin-left', (menuWidth / 2) - (width / 2));
+						};
+						centerItems();
+						$(window).resize(function () {
+							centerItems();
+						});
+					});
+                </script>
+                <!-- <div id='jqxWidget'> -->
+                <div id='jqxMenu'>
+                    <ul>
+                        <li>Home
+                            <ul>
+                                <li><a href="#">Créer un Backup</a></li>
+                                <li><a href="#">Déconnecter</a></li>
+                            </ul>
+                        <li>Individu
+                            <ul>
+                                <li><a href="#">Chercher un Individu</a></li>
+                                <li><a href="#">Créer un Individu</a></li>
+                            </ul>
+                        </li>
+                        <li>Documents
+                            <ul>
+                                <li><a href="#">Chercher un Document</a></li>
+                            </ul>
+                        </li>
+                        <li>Document Type
+                            <ul>
+                                <li><a href="#">Chercher un Type de Document</a></li>
+                                <li><a href="#">Créer un Type de Document</a></li>
+                            </ul>
+                        </li>
+                        <li>?
+                            <ul>
+                                <li><a href="#">Aide</a></li>
+                                <li><a href="#">Au sujet de...</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div id="main-panel"  class="offset-lg-3 col-lg-6">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right">Matricule :</label>
+                        </div>
+                        <div class="col-6">
+                            <input id='input-matricule' />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right">Type d'individu :</label>
+                        </div>
+                        <div class="col-6">
+                            <div id='dropdown-type-individu'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right">Prénom :</label>
+                        </div>
+                        <div class="col-6">
+                            <input id="input-surname" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right">Nom :</label>
+                        </div>
+                        <div class="col-6">
+                            <input id="input-name" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right">Adresse :</label>
+                        </div>
+                        <div class="col-6">
+                            <input id="input-address" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right">Ville :</label>
+                        </div>
+                        <div class="col-6">
+                            <input id="input-city" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 float-right">
+                            <label class="float-right">Code postal :</label>
+                        </div>
+                        <div class="col-6">
+                            <input id="input-postal-code" />
+                        </div>
+                    </div>
+                    <div class="row" style="align-content: center">
+                        <div class="row">&nbsp;</div>
+                    </div>
+                    <div class="row" style="align-content: center">
+                        <div class="row">&nbsp;
+                            <div id="dataDocuments">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="align-content: center">
+                        <div class="col-4">
+                            <div style="display: block; margin: auto">
+                                <input type="button" value="Update" id='button-update-save' style="align-content: center" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div style="display: block; margin: auto">
+                                <input type="button" value="Button" id='button-delete' style="align-content: center" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div style="display: block; margin: auto">
+                                <input type="button" value="Button" id='button-create-document' style="align-content: center" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="col-lg-12" id="footer">
+
+</div>
+<script type="text/javascript">
+	var dropdownsource = [
+		"Professeur",
+		"Educateur",
+		"Administration",
+		"Elève"
+	]
+	$("#dropdown-type-individu").jqxDropDownList({source: dropdownsource, width: 198, height: 30, disabled: true,theme: "energyblue"});
+	$("#input-matricule").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	$("#input-surname").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	$("#input-name").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	$("#input-address").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	$("#input-city").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	$("#input-postal-code").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+
+	$("#button-update-save").jqxButton({ width: "150", height: "25", theme: 'energyblue'});
+	$("#button-update-save").on("click", function (event) {
+		var value = $("#button-update-save").jqxButton("value");
+		if(value === "Update"){
+			$("#button-update-save").jqxButton({value: "Save"});
+			$("#dropdown-type-individu").jqxDropDownList({disabled: false});
+			$("#input-matricule").jqxInput({disabled: false});
+			$("#input-name").jqxInput({disabled: false});
+			$("#input-surname").jqxInput({disabled: false});
+			$("#input-address").jqxInput({disabled: false});
+			$("#input-city").jqxInput({disabled: false});
+			$("#input-postal-code").jqxInput({disabled: false});
+        }else{
+			$("#button-update-save").jqxButton({value: "Update"});
+			$("#dropdown-type-individu").jqxDropDownList({disabled: true});
+			$("#input-matricule").jqxInput({disabled: true});
+			$("#input-name").jqxInput({disabled: true});
+			$("#input-surname").jqxInput({disabled: true});
+			$("#input-address").jqxInput({disabled: true});
+			$("#input-city").jqxInput({disabled: true});
+			$("#input-postal-code").jqxInput({disabled: true});
+        }
+	});
+
+	$("#button-delete").jqxButton({ width: "150", height: "25", theme: 'energyblue'});
+	$("#button-delete").on("click", function (event) {
+
+	});
+
+
+	$("#button-create-document").jqxButton({ width: "150", height: "25", theme: 'energyblue'});
+	$("#button-create-document").on("click", function (event) {
+
+	});
+</script>
 </body>
 </html>
