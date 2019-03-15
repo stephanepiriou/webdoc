@@ -157,7 +157,7 @@
                     </div>
                     <div class="row">
                         <div class="col">&nbsp;
-                            <div id="data-documents">
+                            <div id="documentsDataTable">
                             </div>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
 	$("#input-postal-code").jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 
 	//DataTable containing list of Document
-	$("#data-documents").jqxDataTable({
+	$("#documentsDataTable").jqxDataTable({
         source: documentDataAdapter,
 		altRows: true,
 		sortable: true,
@@ -214,8 +214,8 @@
 			{ text: 'Unit Price', dataField: 'Price', width: 90, align: 'right', cellsAlign: 'right', cellsFormat: 'c2' },
 			{ text: 'Quantity', dataField: 'Quantity', width: 80, align: 'right', cellsAlign: 'right' }
 		]
-    })
-	$("#data-documents").on('rowSelect', function (event) {
+    });
+	$("#documentsDataTable").on('rowSelect', function (event) {
         // event arguments
         var args = event.args;
         // row index
