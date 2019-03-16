@@ -1,11 +1,7 @@
 <?php
 include('../common/header.php');
 include('../common/menu.php');
-?>
 
-
-
-<?php
 echo '<div class="row">
             <div class="col">
                 &nbsp;
