@@ -37,6 +37,7 @@ echo ' <div class="row">
                             <ul>
                                 <li><a href="#">Chercher un Individu</a></li>
                                 <li><a href="#">Créer un Individu</a></li>
+                                <li>---------------------</li>
                                 <li><a href="#">Chercher un Type d\'Individu</a></li>
                                 <li><a href="#">Créer un Type d\'Individu</a></li>
                             </ul>
@@ -44,6 +45,7 @@ echo ' <div class="row">
                         <li>Documents
                             <ul>
                                 <li><a href="#">Chercher un Document</a></li>
+                                <li>---------------------</li>
                                 <li><a href="#">Chercher un Type de Document</a></li>
                                 <li><a href="#">Créer un Type de Document</a></li>
                             </ul>
