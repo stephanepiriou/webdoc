@@ -46,7 +46,7 @@ echo '
                         </div>
                         <div class="col-4">
                             <div id="centerbutton" style="display: block; margin: auto">
-                                <input type="button" value="Sauver" id=\'button-save\' style="align-content: center" />
+                                <input type="button" value="Sauver" id="button-save" style="align-content: center" />
                             </div>
                         </div>
                         <div class="col-4">
@@ -64,7 +64,7 @@ echo '
 <script type="text/javascript">
 	$("#input-denomination").jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d\'individu", theme: "energyblue"});
 
-	$("#button-save").jqxButton({ width: "150", height: "25", theme: \'energyblue\'});
+	$("#button-save").jqxButton({ width: "150", height: "25", theme: "energyblue"});
 	$("#button-save").on("click", function (event) {
 		var denomination = $("#input-denomination").val();
 	});
