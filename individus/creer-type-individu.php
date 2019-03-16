@@ -1,8 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 2019-03-16
- * Time: 09:36
- */
+include('../common/header.php');
+include('../common/menu.php');
 ?>
