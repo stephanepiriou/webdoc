@@ -15,45 +15,59 @@ echo '
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h5 style="text-align: center">Afficher un type de document</h5 >
-                        </div >
-                    </div >
-                </div >
-            </div >
-        </div >
-        <div class="row" >
-            <div class="col" >
+                            <h5 style="text-align: center">Chercher un type de document</h5 >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 &nbsp;
-            </div >
-        </div >
-        <div class="row" >
+            </div>
+        </div>
+        <div class="row">
             <!--MAIN PANEL-->
-            <div id = "main-panel"  class="offset-lg-3 col-lg-6" >
-                <div class="container" >
-                    <div class="row" >
-                        <div class="col-6" >
-                            <label class="float-right" > Type de document :</label >
-                        </div >
-                        <div class="col-6" >
+            <div id = "main-panel"  class="offset-lg-3 col-lg-6">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right"> Type de de document :</label>
+                        </div>
+                        <div class="col-6">
                             <input id ="input-denomination" />
-                        </div >
-                    </div >
-                    <div class="row" >
-                        <div class="row" >&nbsp;</div >
-                    </div >
-                    <div class="row" style = "align-content: center" >
-                        <div class="col-4" style="display: table; margin: auto">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">&nbsp;</div>
+                    </div>
+                    <div class="row" style = "align-content: center">
+                        <div class="col-4">
                            
                         </div>
                         <div class="col-4">
                             <div style="display: table; margin: auto">
-                                <input type="button" value="Effacer" id="button-delete" style="align-content: center" />
+                                <input type="button" value="Chercher" id="button-chercher" style="align-content: center" />
                             </div>
                         </div>
                         <div class="col-4">
                             
                         </div>
                     </div >
+                    <div class="row" style="align-content: center">
+                        <div class="col">&nbsp;&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label><b>Type de document :</b></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">&nbsp;
+                            <div id="typeDocumentDataTable">
+                            </div>
+                        </div>
+                    </div>
                 </div >
             </div >
         </div >
@@ -64,23 +78,32 @@ echo '
 
 </div >
 <script type = "text/javascript" >
-    $("#input-denomination") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d\'individu", disabled: true, theme: "energyblue"});
+    $("#input-denomination") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d\'individu", theme: "energyblue"});
 
-	$("#button-update-save").jqxButton({ width: "150", height: "25", theme: "energyblue"});
-	$("#button-update-save").on("click", function (event) {
-		var value = $("#button-update-save").jqxButton("value");
-		if(value === "Mettre à jour"){
-			$("#button-update-save").jqxButton({value: "Sauver"});
-			$("#input-denomination").jqxInput({disabled: false});
-        }else{
-			$("#button-update-save").jqxButton({value: "Mettre à jour"});
-			$("#input-denomination").jqxInput({disabled: true});
-        }
-	});
-
-	$("#button-delete").jqxButton({ width: "150", height: "25", theme: "energyblue"});
-	$("#button-delete").on("click", function (event) {
-
+    	$("#typeDocumentDataTable").jqxDataTable({
+    	height: 150,
+        theme: "energyblue",
+		altRows: true,
+		sortable: true,
+		columns: [
+			{ text: "ID", dataField: "id", align: "center", width: 50 },
+			{ text: "Type Individu", dataField: "type", align: "center", width: 445 }
+		]
+    });
+	$("#typeDocumentDataTable").on("rowSelect", function (event) {
+        // event arguments
+        var args = event.args;
+        // row index
+        var index = args.index;
+        // row data
+        var rowData = args.row;
+        // row key
+        var rowKey = args.key;
+    });
+    
+	$("#button-chercher").jqxButton({ width: "150", height: "25", theme: "energyblue"});
+	$("#button-chercher").on("click", function (event) {
+		
 	});
 </script >
 </body >
