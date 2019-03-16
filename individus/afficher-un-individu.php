@@ -163,7 +163,7 @@ echo '
 			{ text: "Path", dataField: "path", width: 117, align: "center", cellsAlign: "right", cellsFormat: "c2" }
 		]
     });
-	$("#documentsDataTable").on(\'rowSelect\', function (event) {
+	$("#documentsDataTable").on("rowSelect", function (event) {
         // event arguments
         var args = event.args;
         // row index
