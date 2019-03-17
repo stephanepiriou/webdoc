@@ -39,7 +39,7 @@ echo '
                             <label class="float-right">Matricule :</label>
                         </div>
                         <div class="col-6">
-                            <input id=\'input-matricule\' />
+                            <input id="input-matricule" />
                         </div>
                     </div>
                     <div class="row">
@@ -47,7 +47,7 @@ echo '
                             <label class="float-right">Type d\'individu :</label>
                         </div>
                         <div class="col-6">
-                            <div id=\'dropdown-type-individu\'>
+                            <div id="dropdown-type-individu">
                             </div>
                         </div>
                     </div>
@@ -113,17 +113,17 @@ echo '
                     <div class="row" style="align-content: center">
                         <div class="col-4">
                             <div style="display: table; margin: auto">
-                                <input type="button" value="Mettre à jour" id=\'button-update-save\' style="align-content: center" />
+                                <input type="button" value="Mettre à jour" id="button-update-save"/>
                             </div>
                         </div>
                         <div class="col-4">
                             <div style="display: table; margin: auto">
-                                <input type="button" value="Effacer" id=\'button-delete\' style="align-content: center" />
+                                <input type="button" value="Effacer" id="button-delete" />
                             </div>
                         </div>
                         <div class="col-4">
                             <div style="display: table; margin: auto">
-                                <input type="button" value="Create a document" id=\'button-create-document\' style="align-content: center" />
+                                <input type="button" value="Create a document" id="button-create-document" />
                             </div>
                         </div>
                     </div>
