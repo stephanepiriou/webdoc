@@ -35,15 +35,23 @@ echo '
                             <label class="float-right"> Type de de document :</label>
                         </div>
                         <div class="col-6">
-                            <input id ="input-denomination" />
+                            <input id="input-type-document" />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="row">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">&nbsp;
+                            <div id="datatable-type-document">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="align-content: center">
+                        <div class="col">&nbsp;&nbsp;</div>
                     </div>
                     <div class="row" style = "align-content: center">
                         <div class="col-4">
-                           
                         </div>
                         <div class="col-4">
                             <div style="display: table; margin: auto">
@@ -51,23 +59,8 @@ echo '
                             </div>
                         </div>
                         <div class="col-4">
-                            
                         </div>
                     </div >
-                    <div class="row" style="align-content: center">
-                        <div class="col">&nbsp;&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label><b>Type de document :</b></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">&nbsp;
-                            <div id="typeDocumentDataTable">
-                            </div>
-                        </div>
-                    </div>
                 </div >
             </div >
         </div >
@@ -78,9 +71,9 @@ echo '
 
 </div >
 <script type = "text/javascript" >
-    $("#input-denomination") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d\'individu", theme: "energyblue"});
+    $("#input-type-document") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d\'individu", theme: "energyblue"});
 
-    	$("#typeDocumentDataTable").jqxDataTable({
+    	$("#datatable-type-document").jqxDataTable({
     	height: 150,
         theme: "energyblue",
 		altRows: true,
@@ -90,7 +83,7 @@ echo '
 			{ text: "Type Individu", dataField: "type", align: "center", width: 445 }
 		]
     });
-	$("#typeDocumentDataTable").on("rowSelect", function (event) {
+	$("#datatable-type-document").on("rowSelect", function (event) {
         // event arguments
         var args = event.args;
         // row index

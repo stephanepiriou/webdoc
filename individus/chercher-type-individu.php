@@ -34,39 +34,29 @@ echo '
                             <label class="float-right"> Type de d\'individu :</label>
                         </div>
                         <div class="col-6">
-                            <input id ="input-denomination" />
+                            <input id ="input-type-individu" />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="row">&nbsp;</div>
+                        <div class="col">&nbsp;
+                            <div id="datatable-type-individu">
+                            </div>
+                        </div>
                     </div>
-                    <div class="row" style = "align-content: center">
+                    <div class="row" style="align-content: center">
+                        <div class="col">&nbsp;&nbsp;</div>
+                    </div>
+                     <div class="row" style = "align-content: center">
                         <div class="col-4">
-                           
                         </div>
                         <div class="col-4">
                             <div style="display: table; margin: auto">
                                 <input type="button" value="Chercher" id="button-chercher" style="align-content: center" />
                             </div>
                         </div>
-                        <div class="col-4">
-                            
+                        <div class="col-4">  
                         </div>
                     </div >
-                    <div class="row" style="align-content: center">
-                        <div class="col">&nbsp;&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label><b>Type d\'individu :</b></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">&nbsp;
-                            <div id="typeIndividuDataTable">
-                            </div>
-                        </div>
-                    </div>
                 </div >
             </div >
         </div >
@@ -77,9 +67,9 @@ echo '
 
 </div >
 <script type = "text/javascript" >
-    $("#input-denomination") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d\'individu", theme: "energyblue"});
+    $("#input-type-individu") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d\'individu", theme: "energyblue"});
 
-    	$("#typeIndividuDataTable").jqxDataTable({
+    	$("#datatable-type-individu").jqxDataTable({
     	height: 150,
         theme: "energyblue",
 		altRows: true,
@@ -89,7 +79,7 @@ echo '
 			{ text: "Type Individu", dataField: "type", align: "center", width: 445 }
 		]
     });
-	$("#typeIndividuDataTable").on("rowSelect", function (event) {
+	$("#datatable-type-individu").on("rowSelect", function (event) {
         // event arguments
         var args = event.args;
         // row index
