@@ -1,8 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stephane
- * Date: 2019-03-17
- * Time: 18:46
- */
+header('Location: http://192.168.1.4:3333/login/login.php');
+exit();
 ?>
