@@ -49,7 +49,7 @@ echo ' <div class="row">
                     <ul>
                         <li>Connexion
                             <ul>
-                                <li><a href="#">Déconnecter</a></li>
+                                <li><a href="../login/login.php">Déconnecter</a></li>
                             </ul>
                         <li>Individu
                             <ul>
