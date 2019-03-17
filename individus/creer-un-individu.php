@@ -2,7 +2,6 @@
 include('../common/header.php');
 include('../common/menu.php');
 
-
 echo '
         <div class="row">
             <div class="col">&nbsp;
@@ -30,11 +29,6 @@ echo '
             <!-- MAIN PANEL-->
             <div id="main-panel"  class="offset-lg-3 col-lg-6">
                 <div class="container">
-                    <div class="row">
-                        <div class="col">&nbsp;
-                            <label><b>Individu :</b></label>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-6">
                             <label class="float-right">Matricule :</label>
