@@ -15,7 +15,7 @@ echo '
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h5 style="text-align: center">Chercher un type de document</h5 >
+                            <h5 style="text-align: center">Chercher un utilisateur</h5 >
                         </div>
                     </div>
                 </div>
@@ -32,38 +32,26 @@ echo '
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            <label class="float-right"> Utilisateur :</label>
+                            <label class="float-right"> Pseudo :</label>
                         </div>
                         <div class="col-6">
-                            <input id ="input-utilisateur" />
+                            <input id ="input-pseudo" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">&nbsp;</div>
                     </div>
                     <div class="row">
-                        <div class="col">&nbsp;
-                            <div id="utilisateurdDataTable">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="align-content: center">
-                        <div class="col">&nbsp;&nbsp;</div>
-                    </div>
-                    <div class="row" style = "align-content: center">
                         <div class="col-4">
                         </div>
                         <div class="col-4">
                             <div style="display: table; margin: auto">
-                                <input type="button" value="Chercher" id="button-chercher" style="align-content: center" />
+                                <input type="button" value="Chercher" id="button-chercher"/>
                             </div>
                         </div>
                         <div class="col-4">
                         </div>
                     </div >
-                    <div class="row" style="align-content: center">
-                        <div class="col">&nbsp;&nbsp;</div>
-                    </div>
                 </div >
             </div >
         </div >
@@ -74,28 +62,7 @@ echo '
 
 </div >
 <script type = "text/javascript" >
-    $("#input-utilisater") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d\'individu", theme: "energyblue"});
-
-    	$("#utilisateurdDataTable").jqxDataTable({
-    	height: 150,
-        theme: "energyblue",
-		altRows: true,
-		sortable: true,
-		columns: [
-			{ text: "ID", dataField: "id", align: "center", width: 50 },
-			{ text: "Type Individu", dataField: "type", align: "center", width: 445 }
-		]
-    });
-	$("#utilisateurdDataTable").on("rowSelect", function (event) {
-        // event arguments
-        var args = event.args;
-        // row index
-        var index = args.index;
-        // row data
-        var rowData = args.row;
-        // row key
-        var rowKey = args.key;
-    });
+    $("#input-pseudo") . jqxInput({width: 230, height: 30, placeHolder: "Entrez le pseudo d\'un utilisateur", theme: "energyblue"});
     
 	$("#button-chercher").jqxButton({ width: "150", height: "25", theme: "energyblue"});
 	$("#button-chercher").on("click", function (event) {
