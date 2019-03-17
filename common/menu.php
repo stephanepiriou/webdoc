@@ -24,9 +24,27 @@ echo ' <div class="row">
 						$(window).resize(function () {
 							centerItems();
 						});
+						
+						$("#window-about").jqxWindow({
+						    width: 400,
+						    height: 70,
+						    disabled: false,
+						    theme: "energyblue"
+						});
+						
+						$("#window-about").jqxWindow("close");
+						
+						$("#about").on("click", function(event) {
+						    $("#window-about").jqxWindow("open");
+						});
+						
 					});
                 </script>
-                <!-- <div id=\'jqxWidget\'> -->
+                
+                <div id="window-about">
+                    <div>Au sujet de...</div>
+                    <div>Copyright (c) 2019 [Stéphane Piriou], MIT License.</div>
+                </div>
                 <div id=\'jqxMenu\'>
                     <ul>
                         <li>Connexion
@@ -35,37 +53,37 @@ echo ' <div class="row">
                             </ul>
                         <li>Individu
                             <ul>
-                                <li><a href="#">Chercher un Individu</a></li>
-                                <li><a href="#">Créer un Individu</a></li>
-                                <li>---------------------</li>
-                                <li><a href="#">Chercher un Type d\'Individu</a></li>
-                                <li><a href="#">Créer un Type d\'Individu</a></li>
+                                <li><a href="../individus/chercher-type-individu.php">Chercher un Individu</a></li>
+                                <li><a href="../individus/creer-un-individu.php">Créer un Individu</a></li>
+                                <li style="color: rgb(148, 176,202);">---------------------</li>
+                                <li><a href="../individus/chercher-type-individu.php">Chercher un Type d\'Individu</a></li>
+                                <li><a href="../individus/creer-un-individu.php">Créer un Type d\'Individu</a></li>
                             </ul>
                         </li>
                         <li>Documents
                             <ul>
-                                <li><a href="#">Chercher un Document</a></li>
-                                <li>---------------------</li>
-                                <li><a href="#">Chercher un Type de Document</a></li>
-                                <li><a href="#">Créer un Type de Document</a></li>
+                                <li><a href="../documents/chercher-un-document.php">Chercher un Document</a></li>
+                                <li style="color: rgb(148, 176,202);">---------------------</li>
+                                <li><a href="../documents/chercher-type-document.php">Chercher un Type de Document</a></li>
+                                <li><a href="../documents/creer-type-document.php">Créer un Type de Document</a></li>
                             </ul>
                         </li>
                         <li>Backup
                             <ul>
-                                <li><a href="#">Créer un backup</a></li>
-                                <li><a href="#">Restaurer un backup</a></li>
+                                <li><a href="../backup/creer-un-backup.php">Créer un backup</a></li>
+                                <li><a href="../backup/restaurer-un-backup.php">Restaurer un backup</a></li>
                             </ul>
                         </li>
                         <li>Utilisateurs
                             <ul>
-                                <li><a href="#">Créer un utilisateur</a></li>
-                                <li><a href="#">Chercher un utilisateur</a></li>
+                                <li><a href="../utilisateurs/creer-un-utilisateur.php">Créer un utilisateur</a></li>
+                                <li><a href="../utilisateurs/chercher-un-utilisateur.php">Chercher un utilisateur</a></li>
                             </ul>
                         </li@   >
                         <li>?
                             <ul>
-                                <li><a href="#">Aide</a></li>
-                                <li><a href="#">Au sujet de...</a></li>
+                                <li><a href="../aide/aide.php">Aide</a></li>
+                                <li><a id="about" >Au sujet de...</a></li>
                             </ul>
                         </li>
                     </ul>
