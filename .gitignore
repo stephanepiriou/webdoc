@@ -99,14 +99,8 @@ gen
 # Git
 .git/
 
-# Node
-node_modules/
+# Legacy project
+Legacy/
 
-# jQWidgets
-jqwidgets/
-
-# Bootstrap
-bootstrap/
-
-#jquery
-jquery/
+# logs folder
+logs/

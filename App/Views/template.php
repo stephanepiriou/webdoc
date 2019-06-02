@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?= $title ?></title>
+    <!-- PAGE TITLE -->
+    <title></title>
     <link rel="stylesheet" href="/styles/bootstrap.css" >
     <link rel="stylesheet" href="/styles/jqx.base.css">
     <link rel="stylesheet" href="/styles/jqx.energyblue.css">
@@ -79,12 +80,12 @@
             </div>
         </div>
         <div class="row">
-            <!-- TITLE PAGE-->
+            <!-- DOCUMENT TITLE -->
             <div id="page-title" class="offset-lg-3 col-lg-6">
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h5 style="text-align: center"><?= $titlepage ?></h5>
+                            <h5 style="text-align: center"></h5>
                         </div>
                     </div>
                 </div>
@@ -95,11 +96,12 @@
                 &nbsp;
             </div>
         </div>
+        <!-- MAIN PANEL -->
         <div class="row">
             <div id="main-panel"  class="offset-lg-3 col-lg-6">
                 <div class="container">
                     <div class="row">
-                        &nbsp;<?= $mainpanel ?>
+                        &nbsp;
                     </div>
                 </div>
             </div>
@@ -108,10 +110,9 @@
 </div>
 
 <div class="col-lg-12" id="footer">
-
 </div>
 <script type="text/javascript">
-<?= $bottomscript ?>
+
 </script>
 </body>
 </html>

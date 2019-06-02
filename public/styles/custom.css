@@ -60,3 +60,22 @@ code {
 	background-color: rgb(216,227,242);
 	border-top-color: rgb(148, 176,202);
 }
+
+
+/* Flash Message Styles */
+.alert{
+	border: 1px solid #ccc;
+	padding: 6px;
+}
+
+.alert-info{
+	background-color: #d9edf7;
+}
+
+.alert-success{
+	background-color: #dff0d8;
+}
+
+.alert-warning{
+	background-color: #fcf8e3;
+}
