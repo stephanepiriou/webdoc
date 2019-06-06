@@ -56,7 +56,7 @@
                 <form id="form-login" action="/login/create" method="post">
                     <div class="container">
                         <div class="row">
-                            &nbsp;<div class="col-6">
+                            <div class="col-6">
                                 <label class="float-right">Email :</label>
                             </div>
                             <div class="col-6">
@@ -76,7 +76,8 @@
                                 <label class="float-right">Remember me :</label>
                             </div>
                             <div class="col-6">
-                                <input id="remember_me" type="checkbox" name="remember_me" <?=$checked?>/>
+                                <!--<input id="remember_me" type="checkbox" name="remember_me" <?=$checked?>/>-->
+                                <div id="remember_me" name="remember_me"></div>
                             </div>
                         </div>
                         <div class="row" style="align-content: center">
@@ -108,7 +109,7 @@
 
 	$("#button-submit").jqxButton({ width: "150", height: "25", theme: "energyblue"});
 	$('#button-submit').click(function(){
-		$('#login-form').submit();
+		$('#form-login').submit();
     });
 </script>
 </body>
