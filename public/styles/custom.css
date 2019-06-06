@@ -66,6 +66,7 @@ code {
 .alert{
 	border: 1px solid #ccc;
 	padding: 6px;
+	/*align-content: center;*/
 }
 
 .alert-info{
