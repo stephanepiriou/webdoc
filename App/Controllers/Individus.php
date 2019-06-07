@@ -4,7 +4,25 @@
 namespace App\Controllers;
 
 
-class Individu
+class Individus extends Authenticated
 {
+    public function newAction(){
 
+    }
+
+    public function createAction(){
+
+    }
+
+    public function showAction(){
+
+    }
+
+    public function updateAction(){
+
+    }
+
+    public function deleteAction(){
+
+    }
 }

@@ -16,17 +16,17 @@
     <?php isset($email) ? $email = $email : $email = "";?>
     <?php isset($remember) ? $checked = "checked=\"checked\"" : $checked = "";?>
 
-    <!--Flash message section-->
-    <!-- Note : has to be included once in base template for project ECI -->
-    <?php use App\Flash; ?>
-    <?php $messages = Flash::getMessage()?>
-    <?php if (isset($messages)):?>
-        <?php foreach( $messages as $message): ?>
-            <div class="alert alert-<?= $message['type'] ?>">
-                <?= $message['body'] ?>
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
+ <!--Flash message section-->
+ <!-- Note : has to be included once in base template for project ECI -->
+ <?php use App\Flash; ?>
+ <?php $messages = Flash::getMessage()?>
+ <?php if (isset($messages)):?>
+     <?php foreach( $messages as $message): ?>
+         <div class="alert alert-<?= $message['type'] ?>">
+             <?= $message['body'] ?>
+         </div>
+     <?php endforeach; ?>
+ <?php endif; ?>
 <div id="wrap">
     <div id="pageheader">
         <h1>WEBDOC</h1>

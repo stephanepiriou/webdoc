@@ -1,44 +1,55 @@
-<?php
-use \App\Auth;
-use \App\Flash;
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
+<?php include("entete.php")?>
+    <title>TEMPLATE TITLE</title>
+<?php include("header.php")?>
+<?php include("menu.php")?>
 
-    <!--Flash message section-->
-    <!-- Note : has to be included once in base template for project ECI -->
-    <?php $messages = Flash::getMessage()?>
-    <?php if (isset($messages)):?>
-        <?php foreach( $messages as $message): ?>
-            <div class="alert alert-<?= $message['type'] ?>">
-                <?= $message['body'] ?>
+
+
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <!-- TITLE PAGE-->
+        <div id="page-title" class="offset-lg-3 col-lg-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h5 style="text-align: center">Home</h5>
+                    </div>
+                </div>
             </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div id="main-panel"  class="offset-lg-3 col-lg-6">
+            <!--MAIN PANEL -->
+            <div class="container">
+                <div class="row" style="align-content: center">
+                    <div class="col">
+                        <div style="display: table; margin: auto">
 
-    <h1>Welcome</h1>
+                            <span>Use the menu to start using Webdoc</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
 
-    <!--Authenticated message section-->
-    <?php if(Auth::getUser()): ?>
-        Hello <?=$user->name?><br/>
-        <a href="/logout">Log out</a>.
-    <?php else: ?>
-        <a href="/signup/new">Sign up</a> or <a href="/login">Log In</a>
-    <?php endif; ?>
-    <!--
-    <p>Hello <?php echo htmlspecialchars($name); ?>!</p>
+    <div class="col-lg-12" id="footer">
 
-    <ul>
-        <?php foreach ($colours as $colour): ?>
-            <li><?php echo htmlspecialchars($colour); ?></li>
-        <?php endforeach; ?>
-    </ul>
-    -->
-</body>
-</html>
+    </div>
+    <script type="text/javascript">
+
+    </script>
+
+<?php include("footer.php") ?>
