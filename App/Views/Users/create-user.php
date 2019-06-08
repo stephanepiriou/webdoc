@@ -45,7 +45,7 @@
                             <label class="float-right">Nom d'utilisateur :</label>
                         </div>
                         <div class="col">
-                            <input type="text" id="inputName" name="name" placeholder="Nom d\'utilisateur" required />
+                            <input type="text" id="inputName" name="name" placeholder="Nom d&apos;utilisateur" required />
                         </div>
                     </div>
                     <div class="row">
@@ -78,8 +78,6 @@
     <div class="col-lg-12" id="footer">
 
     </div>
-   <!-- <script crossorigin="anonymous" type="text/javascript" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js" ></script>-->
     <script type="text/javascript">
 
 	    $('#inputName').jqxInput({width: 200, height: 30, theme: "energyblue"});
