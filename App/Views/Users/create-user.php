@@ -1,7 +1,5 @@
 <?php include("entete.php")?>
     <title>Créer un utilisateur</title>
-    <script crossorigin="anonymous" type="text/javascript" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js" ></script>
 <?php include("header.php")?>
 <?php include("menu.php")?>
 
@@ -30,8 +28,20 @@
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
-            <form action="/users/create" id="form-create-user">
+            <form method="post" action="/users/create" id="form-create-user">
                 <div class="container">
+                    <?php if (!empty($user->errors)){
+                        $errors_message = '<div class="row"><div class="col"><p>Errors</p>
+                        <ul>';
+                        foreach($user->errors as $error){
+                            $errors_message .= '<li>';
+                            $errors_message .= $error;
+                            $errors_message .= '</i>';
+                        }
+                        $errors_message .= '</ul></div></div>';
+                        echo $errors_message;
+                    }
+                    ?>
                     <div class="row">
                         <div class="col">
                             <label class="float-right">Email :</label>
@@ -64,7 +74,7 @@
                     <div class="row" style="align-content: center">
                         <div class="col">
                             <div style="display: table; margin: auto">
-                                <input type="button" value="Log in" id="button-submit" />
+                                <input type="button" value="Créer utilisateur" id="button-submit" />
                             </div>
                         </div>
                     </div>
@@ -110,7 +120,7 @@
 	    );
 
 	    $(document).ready(function(){
-		    $("#formSignup").validate({
+		    $("#form-create-user").validate({
 			    rules: {
 				    name: 'required',
 				    email: {
