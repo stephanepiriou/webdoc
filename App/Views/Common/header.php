@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="/styles/jqx.base.css">
 <link rel="stylesheet" href="/styles/jqx.energyblue.css">
 <link rel="stylesheet" href="/styles/custom.css">
+<script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="/scripts/jquery.js"></script>
+<script type="text/javascript" src="/scripts/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/scripts/jqx-all.js"></script>
 <script type="text/javascript" src="/scripts/menu.js"></script>
 </head>
