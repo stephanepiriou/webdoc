@@ -63,7 +63,10 @@ class TypeDocument extends Model
 
     }
 
-    public function liste(){
+    /**
+     * Fetch all user
+     */
+    public function list(){
 
     }
 }

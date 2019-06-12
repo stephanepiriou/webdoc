@@ -27,7 +27,7 @@ class TypesDocument extends Authenticated
         } else {
 
             View::render('TypesDocument/create-type-document.php', [
-                'type_document' => $typeDocument
+                'typeDocument' => $typeDocument
             ]);
         }
     }

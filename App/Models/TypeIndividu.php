@@ -2,10 +2,14 @@
 namespace App\Models;
 
 use \Core\Model;
+use function json_encode;
 use PDO;
+use function utf8_encode;
+use function var_dump;
 
 class TypeIndividu extends Model
 {
+    public $typeindividuid;
 
     public $errors = [];
 
@@ -60,7 +64,40 @@ class TypeIndividu extends Model
 
     }
 
-    public function liste(){
-
+    /**
+     * Return a json list of all name of type of individu
+     * @return json object
+     */
+    public static function getListAsJson(){
+        $sql = 'SELECT name FROM typesindividu';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
     }
+
+    /**
+     * Get the id of the index of
+     * @param $name $name The name of the TypeIndividu
+     *
+     */
+    public static function getIndexFromName($name){
+        $sql = 'SELECT * FROM typesindividu WHERE name=:name ';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute(['name' => $name]);
+        $array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        foreach ($array as $key =>$value){
+            $index = $value;
+            break;
+        }
+        return $index;
+    }
+
+    public function getList(){
+        $sql = 'SELECT name FROM typesindividu';
+    }
+
 }

@@ -18,17 +18,11 @@ class Users extends Authenticated
     }
 
     public function createAction(){
-
         $user = new User($_POST);
 
         if ($user->save()) {
-
             $this->redirect('/users/create-user-success');
-            //header('Location: http://' . $_SERVER['HTTP_HOST'] . '/signup/success', true, 303);
-            //exit;
-
-        } else {
-
+         } else {
             View::render('Users/create-user.php', [
                 'user' => $user
             ]);

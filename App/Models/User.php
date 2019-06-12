@@ -200,4 +200,10 @@ class User extends \Core\Model
         return $stmt->execute();
     }
 
+    /**
+     * Fetch all users
+     */
+    public function list(){
+
+    }
 }

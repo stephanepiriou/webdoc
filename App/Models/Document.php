@@ -23,7 +23,10 @@ class Document extends Model
 
     }
 
-    public function liste(){
+    /**
+     * Fetch all documents
+     */
+    public function list(){
 
     }
 }

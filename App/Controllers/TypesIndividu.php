@@ -22,15 +22,10 @@ class TypesIndividu extends Authenticated
         $typeIndividu = new TypeIndividu($_POST);
 
         if ($typeIndividu->save()) {
-
             $this->redirect('/types-individu/create-type-individu-success');
-            //header('Location: http://' . $_SERVER['HTTP_HOST'] . '/signup/success', true, 303);
-            //exit;
-
         } else {
-
             View::render('TypesIndividu/create-type-individu.php', [
-                'type_individu' => $typeIndividu
+                'typeIndividu' => $typeIndividu
             ]);
         }
     }
