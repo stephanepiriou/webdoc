@@ -1,9 +1,4 @@
 <div class="container">
-    <div class=""row>
-        <div class="col">
-            &nbsp;
-        </div>
-    </div>
     <div class="row">
         <div id="app-menu" class="offset-lg-3 col-lg-6">
             <script type="text/javascript">

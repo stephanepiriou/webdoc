@@ -1,3 +1,5 @@
+<?php header('Content-type: text/html; charset=utf-8'); ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" href="/styles/bootstrap.css" >
 <link rel="stylesheet" href="/styles/jqx.base.css">
 <link rel="stylesheet" href="/styles/jqx.energyblue.css">
