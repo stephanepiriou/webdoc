@@ -1,5 +1,5 @@
 <?php include("entete.php")?>
-    <title>TEMPLATE TITLE</title>
+    <title>Succès</title>
 <?php include("header.php")?>
 <?php include("menu.php")?>
 
@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h5 style="text-align: center">TEMPLATE HEADER</h5>
+                        <h5 style="text-align: center">Créer un individu</h5>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <!--MAIN PANEL -->
             <div class="container">
                 <div class="row">
-                    TEMPLATE MAIN PANEL
+                    <h6 style="text-align: center; color: green;" >Individu créé.</h6>
                 </div>
             </div>
         </div>
