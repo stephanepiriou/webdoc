@@ -30,6 +30,17 @@
             <!--MAIN PANEL -->
             <form id="form-create-type-individu" method="post" action="/types-individu/create">
                 <div class="container">
+                    <?php if (!empty($typeIndividu->errors)){
+                        $errors_message = '<div class="alert alert-danger alert-dismissible fade show"><strong>Errors</strong>
+                        <ul>';
+                        foreach($typeIndividu->errors as $error){
+                            $errors_message .= '<li>';
+                            $errors_message .= $error;
+                            $errors_message .= '</li>';
+                        }
+                        $errors_message .= '</ul></div>';
+                        echo $errors_message;
+                    }?>
                     <div class="row">
                         <div class="col-6">
                             <label class="float-right">Nom :</label>
@@ -72,16 +83,16 @@
 	    //
 	    // Document type name validator function
 	    //
-	    $.validator.addMethod('validTypeIndividuName',
+	    $.validator.addMethod('validAlphaNum',
 		    function(value, element, param){
 			    if(value !== ''){
-				    if (value.match(/.*[a-z]+.*/i) == null){
+				    if (value.match(/.*[a-zA-Z0-9]+.*/i) == null){
 					    return false;
 				    }
 			    }
 			    return true;
 		    },
-		    'Must contain at least 1 letter'
+		    'Ne doit contenir que des chiffres et des lettres'
 	    );
 
 	    $(document).ready(function(){
@@ -89,8 +100,8 @@
 			    rules: {
 				    name: {
 				    	required: true,
-                        minlength: 5,
-					    validTypeIndividuName: true
+                        minlength: 3,
+					    validAlphaNum: true
 				    }
 			    }
 		    });

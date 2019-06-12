@@ -30,6 +30,17 @@
             <!--MAIN PANEL -->
             <form id="form-create-type-document" method="post" action="/types-document/create">
                 <div class="container">
+                    <?php if (!empty($typeDocument->errors)){
+                        $errors_message = '<div class="alert alert-danger alert-dismissible fade show"><strong>Errors</strong>
+                        <ul>';
+                        foreach($typeDocument->errors as $error){
+                            $errors_message .= '<li>';
+                            $errors_message .= $error;
+                            $errors_message .= '</li>';
+                        }
+                        $errors_message .= '</ul></div>';
+                        echo $errors_message;
+                    }?>
                     <div class="row">
                         <div class="col-6">
                             <label class="float-right">Nom :</label>
@@ -72,7 +83,7 @@
 	    //
 	    // Document type name validator function
 	    //
-	    $.validator.addMethod('validTypeDocumentName',
+	    $.validator.addMethod('validAlpha',
 		    function(value, element, param){
 			    if(value !== ''){
 				    if (value.match(/.*[a-z]+.*/i) == null){
@@ -90,7 +101,7 @@
 				    name: {
 					    required: true,
 					    minlength: 5,
-					    validTypeDocumentName: true
+					    validAlpha: true
 				    }
 			    }
 		    });

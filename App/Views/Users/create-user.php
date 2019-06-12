@@ -31,17 +31,16 @@
             <form method="post" action="/users/create" id="form-create-user">
                 <div class="container">
                     <?php if (!empty($user->errors)){
-                        $errors_message = '<div class="row"><div class="col"><p>Errors</p>
+                        $errors_message = '<div class="alert alert-danger alert-dismissible fade show"><strong>Errors</strong>
                         <ul>';
                         foreach($user->errors as $error){
                             $errors_message .= '<li>';
                             $errors_message .= $error;
-                            $errors_message .= '</i>';
+                            $errors_message .= '</li>';
                         }
-                        $errors_message .= '</ul></div></div>';
+                        $errors_message .= '</ul></div>';
                         echo $errors_message;
-                    }
-                    ?>
+                    }?>
                     <div class="row">
                         <div class="col">
                             <label class="float-right">Email :</label>
@@ -118,7 +117,6 @@
 		    },
 		    'Must contain at least 1 letter and 1 number'
 	    );
-
 	    $(document).ready(function(){
 		    $("#form-create-user").validate({
 			    rules: {
@@ -132,10 +130,7 @@
 					    required: true,
 					    minlength: 6,
 					    validPassword: true
-				    }/*,
-                    password_confirmation: {
-                		equalTo: "#inputPassword"
-                    }*/
+				    }
 			    },
 			    messages: {
 				    email: {
