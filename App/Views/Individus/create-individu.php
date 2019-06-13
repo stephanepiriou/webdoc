@@ -181,7 +181,7 @@
        );
 
        $(document).ready(function(){
-	       $("#form-create-type-individu").validate({
+	       $("#form-create-individu").validate({
 		       rules: {
                    matricule: {
 	                   required: true,
