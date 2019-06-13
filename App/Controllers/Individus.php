@@ -8,6 +8,11 @@ use function var_dump;
 
 class Individus extends Authenticated
 {
+    /**
+     * @var $jsonListTypesIndividu TypeIndividu dropdown values in json format to be injected in the view
+     */
+    public $jsonListTypesIndividu;
+
     public function newAction(){
         $jsonListTypesIndividu = TypeIndividu::getListAsJson();
         View::render('Individus/create-individu.php', [
@@ -27,8 +32,10 @@ class Individus extends Authenticated
         if ($individu->save()) {
             $this->redirect('/individus/create-individu-success');
         } else {
+            $jsonListTypesIndividu = TypeIndividu::getListAsJson();
             View::render('Individus/create-individu.php', [
-                'individu' => $individu
+                'individu' => $individu,
+                'jsonListTypesIndividu' => $jsonListTypesIndividu
             ]);
         }
     }
