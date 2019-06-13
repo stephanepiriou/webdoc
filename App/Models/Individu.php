@@ -74,7 +74,7 @@ class Individu extends Model
         }
 
         if (preg_match('/.*[A-Za-z]+.*/i', $this->lastname) === 0) {
-            $this->errors[] = 'Nom de famille n&aposaccepte que des lettres !';
+            $this->errors[] = 'Nom de famille n&apos;accepte que des lettres !';
         }
 
         if ($this->adress === '') {
