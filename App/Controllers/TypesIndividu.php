@@ -38,8 +38,23 @@ class TypesIndividu extends Authenticated
         View::render('TypesIndividu/create-type-individu-success.php');
     }
 
-    public function showAction(){
+    public function searchAction(){
+        View::render('TypesIndividu/search-type-individu.php');
+    }
 
+    public function listAction(){
+        $subTypeIndividuName = substr($_POST['inputTypeIndividuName'], 0, 3);
+        $typesIndividuAsJson = TypeIndividu::getListSubAsJson($subTypeIndividuName);
+        View::render('TypesIndividu/list-types-individu.php', [
+            'typesIndividuAsJson' => $typesIndividuAsJson
+        ]);
+    }
+
+
+    public function showAction(){
+        $typeIndividuName = $_POST['typesIndividuName'];
+        var_dump($typeIndividuName);
+        View::render('TypesIndividu/show-type-individu.php');
     }
 
     public function updateAction(){
