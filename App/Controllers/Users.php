@@ -38,9 +38,22 @@ class Users extends Authenticated
     }
 
 
+    public function searchAction(){
+        View::render('Users/search-user.php');
+    }
+
+    public function listAction(){
+        $subEmails = substr($_POST['inputEmail'], 0, 3);
+        $emailsAsJson = User::getEmailListSubAsJson($subEmails);
+        View::render('Users/list-users.php', [
+            'emailsAsJson' => $emailsAsJson
+        ]);
+    }
 
     public function showAction(){
-
+        $email = $_POST['userEmail'];
+        var_dump($email);
+        View::render('Users/show-user.php');
     }
 
     public function updateAction(){
