@@ -65,6 +65,10 @@ class TypeDocument extends Model
 
     }
 
+    /**
+     * Get list of name of TypesDocument as json object
+     * @return false|string
+     */
     public static function getListAsJson(){
         $sql = 'SELECT name FROM typesdocument';
         $db = static::getDB();
@@ -76,7 +80,9 @@ class TypeDocument extends Model
     }
 
     /**
-     * Fetch all user
+     * Get TypeDocument list as Json object
+     * @param $subStringName The subtring of the name of document type entered in the search field
+     * @return $jsonList List of DocumentType as json list
      */
     public static function getListSubAsJson($subStringName){
         $subStringName = strtolower($subStringName);
