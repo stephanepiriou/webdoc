@@ -36,6 +36,7 @@ class TypeIndividu extends Model
 
         if (empty($this->errors)) {
 
+            $this->name = strtolower($this->name);
             $sql = 'INSERT INTO typesIndividu (name) VALUES (:name)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -49,6 +50,9 @@ class TypeIndividu extends Model
 
     }
 
+    /**
+     * validate the fields of form create and update and fill error[] viariable for user insight
+     */
     public function validate(){
 
         if ($this->name === '') {
@@ -96,8 +100,20 @@ class TypeIndividu extends Model
         return $index;
     }
 
-    public function getList(){
-        $sql = 'SELECT name FROM typesindividu';
+    /**
+     * Get TypeDocument list as Json object
+     * @param $subStringName The subtring of the name of document type entered in the search field
+     * @return $jsonList List of DocumentType as json list
+     */
+    public static function getListSubAsJson($subStringName){
+        $subStringName = strtolower($subStringName);
+        $sql = 'SELECT * FROM typesindividu WHERE name LIKE concat(:substring, "%")';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':substring', $subStringName, PDO::PARAM_STR);
+        $stmt->execute();
+        $array = $stmt->fetchAll();
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
     }
-
 }
