@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Token;
 use function get_called_class;
 use PDO;
+use function strtolower;
 
 /**
  * User model
@@ -48,14 +49,11 @@ class User extends \Core\Model
         $this->validate();
 
         if (empty($this->errors)) {
-
+            $this->name = strtolower($this->name);
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-
             $sql = 'INSERT INTO users (name, email, password_hash) VALUES (:name, :email, :password_hash)';
-
             $db = static::getDB();
             $stmt = $db->prepare($sql);
-
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
@@ -201,9 +199,19 @@ class User extends \Core\Model
     }
 
     /**
-     * Fetch all users
+     * Get TypeDocument list as Json object
+     * @param $subStringName The subtring of the name of document type entered in the search field
+     * @return $jsonList List of DocumentType as json list
      */
-    public function list(){
-
+    public static function getEmailListSubAsJson($subEmail){
+        $subStringName = strtolower($subEmail);
+        $sql = 'SELECT * FROM users WHERE email LIKE concat(:substring, "%")';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':substring', $subStringName, PDO::PARAM_STR);
+        $stmt->execute();
+        $array = $stmt->fetchAll();
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
     }
 }
