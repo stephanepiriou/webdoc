@@ -1,5 +1,5 @@
 <?php include("entete.php")?>
-    <title>TEMPLATE TITLE</title>
+    <title>Chercher un type de document</title>
 <?php include("header.php")?>
 <?php include("menu.php")?>
 
@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h5 style="text-align: center">TEMPLATE HEADER</h5>
+                        <h5 style="text-align: center">Chercher un type de document</h5>
                     </div>
                 </div>
             </div>
@@ -27,12 +27,32 @@
     </div>
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
-            <!--MAIN PANEL -->
-            <div class="container">
-                <div class="row">
-                    TEMPLATE MAIN PANEL
-                </div>
-            </div>
+           <form id="form-search-types-document" method="post" action="/types-document/list">
+               <div class="container">
+                   <div class="row">
+                       <div class="col-6">
+                           <label class="float-right"> Type de document :</label>
+                       </div>
+                       <div class="col-6">
+                           <input id="input-type-document" name="inputTypeDocumentName"/>
+                       </div>
+                   </div>
+                   <div class="row" style="align-content: center">
+                       <div class="col">&nbsp;<div id="grid-types-document"></div></div>
+                   </div>
+                   <div class="row" style = "align-content: center">
+                       <div class="col-4">
+                       </div>
+                       <div class="col-4">
+                           <div style="display: table; margin: auto">
+                               <input type="button" value="Chercher" id="button-search" style="align-content: center" />
+                           </div>
+                       </div>
+                       <div class="col-4">
+                       </div>
+                   </div >
+               </div >
+           </form>
         </div>
     </div>
     </div>
@@ -42,7 +62,12 @@
 
     </div>
     <script type="text/javascript">
+	    $("#input-type-document") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d'individu", theme: "energyblue"});
 
+	    $("#button-search").jqxButton({ width: "150", height: "25", theme: "energyblue"});
+	    $("#button-search").on("click", function (event) {
+            $("#form-search-types-document").submit();
+	    });
     </script>
 
 <?php include("footer.php") ?>

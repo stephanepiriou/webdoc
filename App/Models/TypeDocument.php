@@ -2,8 +2,11 @@
 namespace App\Models;
 
 use Core\Model;
+use function json_encode;
+use const JSON_UNESCAPED_UNICODE;
 use PDOException;
 use PDO;
+use function strtolower;
 
 class TypeDocument extends Model
 {
@@ -16,8 +19,7 @@ class TypeDocument extends Model
      *
      * @return void
      */
-    public function __construct($data = [])
-    {
+    public function __construct($data = []){
         foreach ($data as $key => $value) {
             $this->$key = $value;
         };
@@ -31,7 +33,7 @@ class TypeDocument extends Model
         $this->validate();
 
         if (empty($this->errors)) {
-
+            $this->name = strtolower($this->name);
             $sql = 'INSERT INTO typesdocument (name) VALUES (:name)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -54,7 +56,7 @@ class TypeDocument extends Model
             $this->errors[] = 'Nom de type de document requit !';
         }
 
-        if (preg_match('/.*[a-z]+.*/i', $this->name) === 0) {
+        if (preg_match('/.*[A-Za-z]+.*/i', $this->name) === 0) {
             $this->errors[] = 'Nom de type de document requière au moins une lettre !';
         }
     }
@@ -63,10 +65,28 @@ class TypeDocument extends Model
 
     }
 
+    public static function getListAsJson(){
+        $sql = 'SELECT name FROM typesdocument';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
+    }
+
     /**
      * Fetch all user
      */
-    public function list(){
-
+    public static function getListSubAsJson($subStringName){
+        $subStringName = strtolower($subStringName);
+        $sql = 'SELECT * FROM typesdocument WHERE name LIKE concat(:substring, "%")';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':substring', $subStringName, PDO::PARAM_STR);
+        $stmt->execute();
+        $array = $stmt->fetchAll();
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
     }
 }
