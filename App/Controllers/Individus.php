@@ -47,6 +47,24 @@ class Individus extends Authenticated
         View::render('Individus/create-individu-success.php');
     }
 
+    public function searchAction(){
+        View::render('Individus/search-individu.php');
+    }
+
+    public function listAction(){
+        $searchType = $_POST['dropdownSearchType'];
+
+        if($searchType === 'matricule'){
+            $individusAsJson = Individu::listByMatricule($_POST['inputSearchTerm']);
+        }elseif ($searchType === 'nom'){
+            $individusAsJson = Individu::listByName($_POST['inputSearchTerm']);
+        }
+
+        View::render('Individus/list-individus.php', [
+            'individusAsJson' => $individusAsJson
+        ]);
+    }
+
     public function showAction(){
 
     }

@@ -5,6 +5,7 @@ use Core\Model;
 use PDOException;
 use PDO;
 use function strlen;
+use function strtolower;
 use function var_dump;
 
 class Individu extends Model
@@ -32,6 +33,10 @@ class Individu extends Model
 
         if (empty($this->errors)) {
 
+            $this->firstname = strtolower($this->firstname);
+            $this->lastname = strtolower($this->lastname);
+            $this->adress = strtolower($this->adress);
+            $this->city = strtolower($this->city);
             $sql = 'INSERT INTO individus (matricule, firstname, lastname, adress, city, postalcode, typeindividuid) VALUES (:matricule, :firstname, :lastname, :adress, :city, :postalcode, :typeindividuid)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -115,8 +120,31 @@ class Individu extends Model
      * Search user with the current matricule
      * @param string matricule
      */
-    public function searchByMatricule($matricule){
+    public static function listByMatricule($matricule){
+        $sql = 'SELECT * FROM individus WHERE matricule LIKE concat(:substring, "%")';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':substring', $matricule, PDO::PARAM_STR);
+        $stmt->execute();
+        $array = $stmt->fetchAll();
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
+    }
 
+    /**
+     * Search user with the current name
+     * @param string matricule
+     */
+    public static function listByName($name){
+        $subStringName = strtolower($name);
+        $sql = 'SELECT * FROM individus WHERE name LIKE concat(:substring, "%")';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':substring', $name, PDO::PARAM_STR);
+        $stmt->execute();
+        $array = $stmt->fetchAll();
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
     }
 
     /**
