@@ -204,11 +204,11 @@ class User extends \Core\Model
      * @return $jsonList List of DocumentType as json list
      */
     public static function getEmailListSubAsJson($subEmail){
-        $subStringName = strtolower($subEmail);
+        $subStringEmail = strtolower($subEmail);
         $sql = 'SELECT * FROM users WHERE email LIKE concat(:substring, "%")';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
-        $stmt->bindValue(':substring', $subStringName, PDO::PARAM_STR);
+        $stmt->bindValue(':substring', $subStringEmail, PDO::PARAM_STR);
         $stmt->execute();
         $array = $stmt->fetchAll();
         $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
