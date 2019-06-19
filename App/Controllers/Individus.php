@@ -66,7 +66,9 @@ class Individus extends Authenticated
     }
 
     public function showAction(){
-
+        $matricule = $_POST['individuMatricule'];
+        var_dump($matricule);
+        View::render('Individus/show-individu.php');
     }
 
     public function updateAction(){
