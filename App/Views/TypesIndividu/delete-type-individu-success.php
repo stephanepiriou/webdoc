@@ -1,5 +1,5 @@
 <?php include("entete.php")?>
-    <title>Effacer un type de document</title>
+    <title>Effacer un type d&apos;individu</title>
 <?php include("header.php")?>
 <?php include("menu.php")?>
 
@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h5 style="text-align: center">Effacer un type de document</h5>
+                        <h5 style="text-align: center">Effacer un type d&apos;individu</h5>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <!--MAIN PANEL -->
             <div class="container">
                 <div class="alert alert-success alert-dismissible fade show">
-                    Le type de document a bien été effacé !
+                    Le type d&apos;individu a bien été effacé !
                 </div>
             </div>
         </div>
