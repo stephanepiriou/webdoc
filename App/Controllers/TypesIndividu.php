@@ -40,7 +40,6 @@ class TypesIndividu extends Authenticated
 
     /**
      * Call the search form
-     * @throws \Exception
      */
     public function searchAction(){
         View::render('TypesIndividu/search-type-individu.php');
@@ -48,7 +47,6 @@ class TypesIndividu extends Authenticated
 
     /**
      * Call and handles the list results of the search form
-     * @throws \Exception
      */
     public function listAction(){
         $subTypeIndividuName = substr($_POST['inputTypeIndividuName'], 0, 3);
@@ -58,7 +56,9 @@ class TypesIndividu extends Authenticated
         ]);
     }
 
-
+    /**
+     * Handle show-type-individu.php view
+     */
     public function showAction(){
         $typeIndividuId = $_POST['typesIndividuId'];
         $typeIndividu = TypeIndividu::getById($typeIndividuId);
@@ -67,6 +67,9 @@ class TypesIndividu extends Authenticated
         ]);
     }
 
+    /**
+     * Handle database update operation view and redirect according to result of operation
+     */
     public function updateAction(){
         $typeIndividu = new TypeIndividu($_POST);
 
@@ -87,6 +90,9 @@ class TypesIndividu extends Authenticated
         View::render('TypesIndividu/update-type-individu-success.php');
     }
 
+    /**
+     * Call databate delete operation and redirect according to result of operation
+     */
     public function deleteAction(){
         $id = $_POST['id'];
         if(TypeIndividu::delete($id) === true){
