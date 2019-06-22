@@ -32,7 +32,7 @@
                 </div>
             </div >
             <form id="form-show-types-document" method="post" action="/types-document/show">
-                <input id='input-types-document' name='typesDocumentName' type='hidden'>
+                <input id='input-types-document' name='typesDocumentId' type='hidden'>
             </form>
         </div>
     </div>
@@ -75,7 +75,7 @@
         });
 
         $("#grid").on('rowselect', function (event) {
-	        $('#input-types-document').val(event.args.row.name);
+	        $('#input-types-document').val(event.args.row.id);
 	        $('#form-show-types-document').submit();
         });
 

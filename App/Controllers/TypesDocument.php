@@ -30,17 +30,23 @@ class TypesDocument extends Authenticated
     }
 
     /**
-     *
+     * Redirection after Type document creation
      */
     public function createTypeDocumentSuccessAction()
     {
         View::render('TypesDocument/create-type-document-success.php');
     }
 
+    /**
+     * Handle search view
+     */
     public function searchAction(){
         View::render('TypesDocument/search-type-document.php');
     }
 
+    /**
+     * Call and handles the list results of the search form
+     */
     public function listAction(){
         $subTypeDocumentName = substr($_POST['inputTypeDocumentName'], 0, 3);
         $typesDocumentAsJson = TypeDocument::getListSubAsJson($subTypeDocumentName);
@@ -49,17 +55,50 @@ class TypesDocument extends Authenticated
         ]);
     }
 
+    /**
+     * Handle show-type-individu.php view
+     */
     public function showAction(){
-        $typeDocumentName = $_POST['typesDocumentName'];
-        var_dump($typeDocumentName);
-        View::render('TypesDocument/show-type-document.php');
+        $typeDocumentId = $_POST['typesDocumentId'];
+        $typeDocument = TypeDocument::getById($typeDocumentId);
+        View::render('TypesDocument/show-type-document.php', [
+            'typeDocument' => $typeDocument
+        ]);
     }
 
+    /**
+     * Handle database update operation view and redirect according to result of operation
+     */
     public function updateAction(){
+        $typeDocument = new TypeDocument($_POST);
 
+        if($typeDocument->update() === true){
+            $this->redirect('/types-document/update-type-document-success');
+        }else{
+            View::render('TypesDocument/show-type-document.php', [
+                'typeDocument' => $typeDocument,
+            ]);
+        }
     }
 
-    public function deleteAction(){
+    /**
+     * Redirect to update-type-document-success after update Action
+     */
+    public function updateTypeDocumentSuccessAction()
+    {
+        View::render('TypesDocument/update-type-document-success.php');
+    }
 
+    /**
+     * Call databate delete operation and redirect according to result of operation
+     * @throws \Exception
+     */
+    public function deleteAction(){
+        $id = $_POST['id'];
+        if(TypeDocument::delete($id) === true){
+            View::render('TypesDocument/delete-type-document-success.php');
+        }else{
+            View::render('TypesDocument/delete-type-document-faillure.php');
+        }
     }
 }

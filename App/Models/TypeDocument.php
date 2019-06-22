@@ -43,10 +43,6 @@ class TypeDocument extends Model
         return false;
     }
 
-    public function update(){
-
-    }
-
     /**
      * Validate field in type document name and record error in case of wrong entry
      */
@@ -59,10 +55,6 @@ class TypeDocument extends Model
         if (preg_match('/.*[A-Za-z]+.*/i', $this->name) === 0) {
             $this->errors[] = 'Nom de type de document requière au moins une lettre !';
         }
-    }
-
-    public function delete(){
-
     }
 
     /**
@@ -94,5 +86,54 @@ class TypeDocument extends Model
         $array = $stmt->fetchAll();
         $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
         return $jsonList;
+    }
+
+    /**
+     * @param $id The id of the looked for typesDocument
+     * @return return TypeDocument object
+     */
+    public static function getById($id){
+
+        $sql = 'SELECT * FROM typesdocument WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $typesIndividu = $stmt->fetch();
+        return $typesIndividu;
+    }
+
+    /**
+     * Update TypeDocument object in the database
+     * @param $id The id of the object to update
+     * @return boolean True if success, false otherwise.
+     */
+    public function update(){
+        $this->validate();
+
+        if(empty($this->errors)){
+            $this->name = strtolower($this->name);
+            $sql = 'UPDATE typesdocument SET name=:name WHERE id=:id';
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
+            return $stmt->execute();
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Delete TypeDocument object in the database if not used
+     * @param $id The id of the object to delete
+     * @return mixed
+     */
+    public static function delete($id){
+        $sql = 'DELETE FROM typesdocument WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }
