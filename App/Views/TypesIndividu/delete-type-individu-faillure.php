@@ -1,5 +1,5 @@
 <?php include("entete.php")?>
-    <title>Effacer un type de document</title>
+    <title>Effacer un type d&apos;individu</title>
 <?php include("header.php")?>
 <?php include("menu.php")?>
 
@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h5 style="text-align: center">Effacer un type de document</h5>
+                        <h5 style="text-align: center">Effacer un type d&apos;individu</h5>
                     </div>
                 </div>
             </div>
@@ -29,8 +29,11 @@
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
             <div class="container">
-                <div class="alert alert-success alert-dismissible fade show">
-                    Le type de document a bien été effacé !
+                <div class="alert alert-alert alert-dismissible fade show">
+                    Le type d&apos;individu n'a bien été effacé ! <br/>
+                    Etes-vous certain certain que ce type d&apos;individu n'est pas actuellement utilisé ? <br/>
+                    Un type d&apos;individu ne peut pas être effacé tant qu'il est utilisé pour décrire un individu.<br/>
+                    Veuiller <strong>effacer les/l&apos;individu</strong> ou <strong>changer leur type</strong> avant d'essayer à nouveau.
                 </div>
             </div>
         </div>

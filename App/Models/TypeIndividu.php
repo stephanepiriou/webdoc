@@ -4,6 +4,7 @@ namespace App\Models;
 use \Core\Model;
 use function json_encode;
 use PDO;
+use function strtolower;
 use function utf8_encode;
 use function var_dump;
 
@@ -46,10 +47,6 @@ class TypeIndividu extends Model
         return false;
     }
 
-    public function update(){
-
-    }
-
     /**
      * validate the fields of form create and update and fill error[] viariable for user insight
      */
@@ -59,13 +56,9 @@ class TypeIndividu extends Model
             $this->errors[] = 'Nom de type d&apos;individu requit !';
         }
 
-        if (preg_match('/.*[a-z]+.*/i', $this->name) === 0) {
+        if (preg_match('/.*[A-Za-z]+.*/i', $this->name) === 0) {
             $this->errors[] = 'Nom de type d&apos;individu requière au moins une lettre !';
         }
-    }
-
-    public function delete(){
-
     }
 
     /**
@@ -116,4 +109,54 @@ class TypeIndividu extends Model
         $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
         return $jsonList;
     }
+
+    /**
+     * @param $id The id of the looked for typesIndividu
+     * @return return TypeIndividu object
+     */
+    public static function getById($id){
+
+        $sql = 'SELECT * FROM typesindividu WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $typesIndividu = $stmt->fetch();
+        return $typesIndividu;
+    }
+
+    /**
+     * Update TypeIndividu object in the database
+     * @param $id The id of the object to update
+     * @return boolean True if success, false otherwise.
+     */
+    public function update(){
+        $this->validate();
+
+        if(empty($this->errors)){
+            $this->name = strtolower($this->name);
+            $sql = 'UPDATE typesindividu SET name=:name WHERE id=:id';
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
+            return $stmt->execute();
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Delete TypeIndividu object in the database if not used
+     * @param $id The id of the object to delete
+     * @return mixed
+     */
+    public static function delete($id){
+        $sql = 'DELETE FROM typesindividu WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
 }
