@@ -158,5 +158,4 @@ class TypeIndividu extends Model
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
 }
