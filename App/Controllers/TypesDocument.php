@@ -61,6 +61,7 @@ class TypesDocument extends Authenticated
     public function showAction(){
         $typeDocumentId = $_POST['typesDocumentId'];
         $typeDocument = TypeDocument::getById($typeDocumentId);
+        //var_dump($typeDocument);
         View::render('TypesDocument/show-type-document.php', [
             'typeDocument' => $typeDocument
         ]);

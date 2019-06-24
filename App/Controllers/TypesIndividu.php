@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\TypeIndividu;
 use Core\View;
+use function var_dump;
 
 class TypesIndividu extends Authenticated
 {
@@ -62,6 +63,7 @@ class TypesIndividu extends Authenticated
     public function showAction(){
         $typeIndividuId = $_POST['typesIndividuId'];
         $typeIndividu = TypeIndividu::getById($typeIndividuId);
+        var_dump($typeIndividu);
         View::render('TypesIndividu/show-type-individu.php', [
             'typeIndividu' => $typeIndividu
         ]);

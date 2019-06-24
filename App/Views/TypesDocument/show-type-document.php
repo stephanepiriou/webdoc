@@ -4,8 +4,9 @@
 <?php include("menu.php")?>
 
 <?php if (isset($typeDocument)){
-    $id = $typeDocument['id'];
-    $name = $typeDocument['name'];
+    $id = $typeDocument->id;
+    $name = $typeDocument->name;
+    $errors = $typeDocument->errors;
 }?>
 
     <div class="row">
@@ -34,10 +35,10 @@
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <form id="form-show-type-document" method="post">
                 <div class="container">
-                    <?php if (!empty($typeIndividu->errors)){
+                    <?php if (!empty($errors)){
                         $errors_message = '<div class="alert alert-danger alert-dismissible fade show"><strong>Errors</strong>
                         <ul>';
-                        foreach($typeIndividu->errors as $error){
+                        foreach($errors as $error){
                             $errors_message .= '<li>';
                             $errors_message .= $error;
                             $errors_message .= '</li>';

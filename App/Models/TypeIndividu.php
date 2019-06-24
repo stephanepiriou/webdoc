@@ -120,6 +120,7 @@ class TypeIndividu extends Model
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
         $stmt->execute();
         $typesIndividu = $stmt->fetch();
         return $typesIndividu;
