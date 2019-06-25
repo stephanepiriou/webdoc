@@ -29,8 +29,8 @@
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
             <div class="container">
-                <div class="row">
-                    <h6 style="text-align: center; color: green;" >Nouvel utilisateur créé avec succès !</h6>
+                <div class="alert alert-success alert-dismissible fade show">
+                    L&apos;utilisateur n'a bien été crée !
                 </div>
             </div>
         </div>

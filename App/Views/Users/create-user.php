@@ -46,7 +46,7 @@
                             <label class="float-right">Email :</label>
                         </div>
                         <div class="col">
-                            <input id="inputEmail" name="email" placeholder="Email adresse" required autofocus type="email" />
+                            <input id="input-email" name="email" placeholder="Email adresse" required autofocus type="email" />
                         </div>
                     </div>
                     <div class="row">
@@ -54,7 +54,7 @@
                             <label class="float-right">Nom d'utilisateur :</label>
                         </div>
                         <div class="col">
-                            <input type="text" id="inputName" name="name" placeholder="Nom d&apos;utilisateur" required />
+                            <input type="text" id="input-name" name="name" placeholder="Nom d&apos;utilisateur" required />
                         </div>
                     </div>
                     <div class="row">
@@ -62,7 +62,7 @@
                             <label class="float-right">Password :</label>
                         </div>
                         <div class="col">
-                            <input type="password" id="inputPassword" name="password" placeholder="Password" />
+                            <input type="password" id="input-password" name="password" placeholder="Password" />
                         </div>
                     </div>
                     <div class="row">
@@ -89,11 +89,11 @@
     </div>
     <script type="text/javascript">
 
-	    $('#inputName').jqxInput({width: 200, height: 30, theme: "energyblue"});
+	    $('#input-name').jqxInput({width: 200, height: 30, theme: "energyblue"});
 
-	    $('#inputEmail').jqxInput({width: 200, height: 30, theme: "energyblue"});
+	    $('#input-email').jqxInput({width: 200, height: 30, theme: "energyblue"});
 
-	    $('#inputPassword').jqxPasswordInput({width: 200, height: 30, theme: "energyblue"});
+	    $('#input-password').jqxPasswordInput({width: 200, height: 30, theme: "energyblue"});
 
 	    $('#button-submit').jqxButton({ width: "150", height: "25", theme: "energyblue"});
 	    $('#button-submit').click(function(){

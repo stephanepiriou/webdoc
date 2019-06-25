@@ -99,6 +99,30 @@ class User extends \Core\Model
     }
 
     /**
+     * Validation for update opération. (Removed email validation))
+     */
+    public function validateForUpdate()
+    {
+        // Name
+        if ($this->name == '') {
+            $this->errors[] = 'Name is required';
+        }
+
+        // Password
+        if (strlen($this->password) < 6) {
+            $this->errors[] = 'Please enter at least 6 characters for the password';
+        }
+
+        if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
+            $this->errors[] = 'Password needs at least one letter';
+        }
+
+        if (preg_match('/.*\d+.*/i', $this->password) == 0) {
+            $this->errors[] = 'Password needs at least one number';
+        }
+    }
+
+    /**
      * See if a user record already exists with the specified email
      *
      * @param string $email email address to search for
@@ -120,15 +144,11 @@ class User extends \Core\Model
     public static function findByEmail($email)
     {
         $sql = 'SELECT * FROM users WHERE email = :email';
-
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
-
         $stmt->execute();
-
         return $stmt->fetch();
     }
 
@@ -142,15 +162,11 @@ class User extends \Core\Model
     public static function findByID($id)
     {
         $sql = 'SELECT * FROM users WHERE id = :id';
-
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
-
         $stmt->execute();
-
         return $stmt->fetch();
     }
 
@@ -185,16 +201,12 @@ class User extends \Core\Model
         $hashed_token = $token->getHash();
         $this->expiry_timestamp = time()+60 * 60 * 24*30;
         $this->remember_token = $token->getValue();
-
         $sql = 'INSERT INTO remembered_logins (token_hash, user_id, expires_at) VALUE (:token_hash, :user_id, :expires_at)';
-
         $db = static::getDB();
         $stmt = $db->prepare($sql);
-
         $stmt->bindValue(':token_hash', $hashed_token, PDO::PARAM_STR);
         $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
         $stmt->bindValue(':expires_at', date('Y-m-d H:i:s',$this->expiry_timestamp), PDO::PARAM_STR);
-
         return $stmt->execute();
     }
 
@@ -213,5 +225,41 @@ class User extends \Core\Model
         $array = $stmt->fetchAll();
         $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
         return $jsonList;
+    }
+
+    /**
+     * Update TypeDocument object in the database
+     * @param $id The id of the object to update
+     * @return boolean True if success, false otherwise.
+     */
+    public function update(){
+        $this->validateForUpdate();
+
+        if(empty($this->errors)){
+            $this->name = strtolower($this->name);
+            $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+            $sql = 'UPDATE users SET name=:name, password_hash=:password_hash WHERE id=:id';
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
+            $stmt->bindParam(':password_hash', $password_hash, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            return $stmt->execute();
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Delete TypeDocument object in the database if not used
+     * @param $id The id of the object to delete
+     * @return mixed
+     */
+    public static function delete($id){
+        $sql = 'DELETE FROM users WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

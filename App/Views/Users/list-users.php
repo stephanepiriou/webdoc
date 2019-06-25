@@ -32,7 +32,7 @@
                 </div>
             </div >
             <form id="form-show-users" method="post" action="/users/show">
-                <input id='input-user-email' name='userEmail' type='hidden'>
+                <input id='input-user-id' name='userId' type='hidden'>
             </form>
         </div>
     </div>
@@ -77,7 +77,7 @@
 		});
 
 		$("#grid").on('rowselect', function (event) {
-			$('#input-user-email').val(event.args.row.email);
+			$('#input-user-id').val(event.args.row.id);
 			$('#form-show-users').submit();
 		});
 

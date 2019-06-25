@@ -30,18 +30,23 @@ class Users extends Authenticated
     }
 
     /**
-     *
+     * Handle user creation view
      */
     public function createUserSuccessAction()
     {
         View::render('Users/create-user-success.php');
     }
 
-
+    /**
+     * Handle user search form view
+     */
     public function searchAction(){
         View::render('Users/search-user.php');
     }
 
+    /**
+     * Handle list result view
+     */
     public function listAction(){
         $subEmails = substr($_POST['inputEmail'], 0, 3);
         $emailsAsJson = User::getEmailListSubAsJson($subEmails);
@@ -50,17 +55,50 @@ class Users extends Authenticated
         ]);
     }
 
+    /**
+     * Handle show-user.php
+     */
     public function showAction(){
-        $email = $_POST['userEmail'];
-        var_dump($email);
-        View::render('Users/show-user.php');
+        $userId = $_POST['userId'];
+        $user = User::findByID($userId);
+        var_dump($user);
+        View::render('Users/show-user.php', [
+            'user' => $user
+        ]);
     }
 
+    /**
+     * Handle update of a user and redirect on specific view according to result of operation
+     */
     public function updateAction(){
+        $user = new User($_POST);
 
+        if($user->update() === true){
+            $this->redirect('/users/update-user-success');
+        }else{
+            View::render('Users/show-user.php', [
+                'user' => $user,
+            ]);
+        }
     }
 
-    public function deleteAction(){
+    /**
+     * Redirect to update-user-success after update Action
+     */
+    public function updateUserSuccessAction()
+    {
+        View::render('Users/update-user-success.php');
+    }
 
+    /**
+     * Handle update of a user and redirect on specific view according to result of operation
+     */
+    public function deleteAction(){
+        $id = $_POST['id'];
+        if(User::delete($id) === true){
+            View::render('Users/delete-user-success.php');
+        }else{
+            View::render('Users/delete-user-faillure.php');
+        }
     }
 }

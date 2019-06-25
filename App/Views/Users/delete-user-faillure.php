@@ -29,9 +29,10 @@
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
             <div class="container">
-                <div class="alert alert-success alert-dismissible fade show">
-                    L&apos;utilisateur n'a bien été effacé ! <br/>
-
+                <div class="alert alert-danger alert-dismissible fade show">
+                    Un problème est survenu. <br/>
+                    L&apos;utilisateur n&apos;a pas pu être effacé.<br/>
+                    Veuillez recommencer !
                 </div>
             </div>
         </div>
