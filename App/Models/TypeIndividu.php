@@ -10,8 +10,10 @@ use function var_dump;
 
 class TypeIndividu extends Model
 {
+
     public $typeindividuid;
 
+    //Errors from create and update operation (see validate() method)
     public $errors = [];
 
     /**
@@ -115,7 +117,6 @@ class TypeIndividu extends Model
      * @return return TypeIndividu object
      */
     public static function getById($id){
-
         $sql = 'SELECT * FROM typesindividu WHERE id=:id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -124,6 +125,21 @@ class TypeIndividu extends Model
         $stmt->execute();
         $typesIndividu = $stmt->fetch();
         return $typesIndividu;
+    }
+
+    /**
+     * @param $id
+     * @return get TypeIndividu name from index
+     */
+    public static function getNameFromIndex($id){
+        $sql = 'SELECT * FROM typesindividu WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+        $typesIndividu = $stmt->fetch();
+        return $typesIndividu->name;
     }
 
     /**
