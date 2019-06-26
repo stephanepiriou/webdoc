@@ -47,10 +47,16 @@ class Individus extends Authenticated
         View::render('Individus/create-individu-success.php');
     }
 
+    /**
+     * Redirect to search-individu.php view
+     */
     public function searchAction(){
         View::render('Individus/search-individu.php');
     }
 
+    /**
+     * List all Individus objects corresponding to search term from search form
+     */
     public function listAction(){
         $searchType = $_POST['dropdownSearchType'];
 
@@ -65,17 +71,55 @@ class Individus extends Authenticated
         ]);
     }
 
+    /**
+     * Handle show-individu.php view
+     */
     public function showAction(){
-        $matricule = $_POST['individuMatricule'];
-        var_dump($matricule);
-        View::render('Individus/show-individu.php');
+        $individuId = $_POST['individuId'];
+        $individu = Individu::getById($individuId);
+        $jsonListTypesIndividu = TypeIndividu::getListAsJson();
+        $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
+        View::render('Individus/show-individu.php', [
+            'individu' => $individu,
+            'jsonListTypesIndividu' => $jsonListTypesIndividu,
+            'chosenTypeIndividu' => $chosenTypeIndividu
+        ]);
     }
 
+    /**
+     * Handle update of a user and redirect on specific view according to result of operation
+     */
     public function updateAction(){
-
+        $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
+        $_POST['typeindividuid']= $typeindividuid;
+        $individu = new Individu($_POST);
+        var_dump($individu);
+        if($individu->update() === true){
+            $this->redirect('/individus/update-individu-success');
+        }else{
+            View::render('Individus/show-individu.php', [
+                'individu' => $individu
+            ]);
+        }
     }
 
-    public function deleteAction(){
+    /**
+     * Redirect to update-user-success after update Action
+     */
+    public function updateIndividuSuccessAction()
+    {
+        View::render('Individus/update-individu-success.php');
+    }
 
+    /**
+     * Handle update of a user and redirect on specific view according to result of operation
+     */
+    public function deleteAction(){
+        $id = $_POST['id'];
+        if(Individu::delete($id) === true){
+            View::render('Individus/delete-individu-success.php');
+        }else{
+            View::render('Individus/delete-individu-faillure.php');
+        }
     }
 }

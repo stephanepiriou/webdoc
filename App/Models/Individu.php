@@ -10,6 +10,9 @@ use function var_dump;
 
 class Individu extends Model
 {
+    //Error messages from create and update operation (see validate() method)
+    public $errors = [];
+
     /**
      * Class constructor
      *
@@ -50,10 +53,6 @@ class Individu extends Model
             return $stmt->execute();
         }
         return false;
-    }
-
-    public function update(){
-
     }
 
     public function validate(){
@@ -112,10 +111,6 @@ class Individu extends Model
 
     }
 
-    public function delete(){
-
-    }
-
     /**
      * Search user with the current matricule
      * @param string matricule
@@ -133,7 +128,7 @@ class Individu extends Model
 
     /**
      * Search user with the current name
-     * @param string matricule
+     * @param string name
      */
     public static function listByName($name){
         $subStringName = strtolower($name);
@@ -153,5 +148,65 @@ class Individu extends Model
      */
     public function listByLastName($lastname){
 
+    }
+
+    /**
+     * Get Individu object from db with the current id passed in parametre
+     * @param $id of the individu in the db
+     * @return an individu object created from database field or false
+     */
+    public static function getById($id)
+    {
+        $sql = 'SELECT * FROM individus WHERE id = :id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+        $individu = $stmt->fetch();
+        return $individu;
+    }
+
+    /**
+     * Update Individu object in the database
+     * @param $id The id of the object to update
+     * @return boolean True if success, false otherwise.
+     */
+    public function update(){
+        $this->validate();
+
+        if(empty($this->errors)){
+            $this->firstname = strtolower($this->firstname);
+            $this->lastname = strtolower($this->lastname);
+            $this->city = strtolower($this->city);
+
+            $sql = 'UPDATE individus SET matricule=:matricule, firstname=:firstname, lastname=:lastname, adress=:adress, city=:city, postalcode=:postalcode, typeindividuid=:typeindividuid WHERE id=:id';
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':matricule', $this->matricule, PDO::PARAM_STR);
+            $stmt->bindParam(':firstname', $this->firstname, PDO::PARAM_STR);
+            $stmt->bindParam(':lastname', $this->lastname, PDO::PARAM_STR);
+            $stmt->bindParam(':adress', $this->adress, PDO::PARAM_STR);
+            $stmt->bindParam(':city', $this->city, PDO::PARAM_STR);
+            $stmt->bindParam(':postalcode', $this->postalcode, PDO::PARAM_STR);
+            $stmt->bindValue(':typeindividuid', $this->typeindividuid, PDO::PARAM_INT);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            return $stmt->execute();
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Delete Individu object in the database if not used
+     * @param $id The id of the object to delete
+     * @return mixed
+     */
+    public static function delete($id){
+        $sql = 'DELETE FROM individus WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

@@ -32,7 +32,7 @@
                 </div>
             </div >
             <form id="form-show-individus" method="post" action="/individus/show">
-                <input id='input-individu-matricule' name='individuMatricule' type='hidden'>
+                <input id='input-individu-id' name='individuId' type='hidden'>
             </form>
         </div>
     </div>
@@ -79,7 +79,7 @@
 		});
 
 		$("#grid").on('rowselect', function (event) {
-			$('#input-individu-matricule').val(event.args.row.matricule);
+			$('#input-individu-id').val(event.args.row.id);
 			$('#form-show-individus').submit();
 		});
 

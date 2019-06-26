@@ -1,5 +1,5 @@
 <?php include("entete.php")?>
-    <title>Succès</title>
+    <title>Effacer un individu</title>
 <?php include("header.php")?>
 <?php include("menu.php")?>
 
@@ -28,8 +28,13 @@
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
-            <div class="alert alert-success alert-dismissible fade show">
-                L&apos;individu a bien été effacé ! <br/>
+            <div class="container">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    Un problème est survenu. <br/>
+                    L&apos;individu n&apos;a pas pu être effacé.<br/>
+                    Etes-vous sûr qu'un document n&apos;est pas attaché à cette individu ? <br/>
+                    Veuillez d&apos;abord effacé tous les documents à cet individu avant de recommencer la procédure d&apos;effacement.
+                </div>
             </div>
         </div>
     </div>
