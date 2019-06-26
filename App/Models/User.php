@@ -15,11 +15,7 @@ use function strtolower;
 class User extends \Core\Model
 {
 
-    /**
-     * Error messages
-     *
-     * @var array
-     */
+    //Error messages from create and update operation (see validate() method)
     public $errors = [];
 
     public $remember_token;

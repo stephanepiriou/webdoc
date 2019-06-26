@@ -10,6 +10,7 @@ use function strtolower;
 
 class TypeDocument extends Model
 {
+    //Errors from create and update operation (see validate() method)
     public $errors = [];
 
     /**
