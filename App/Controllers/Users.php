@@ -61,7 +61,6 @@ class Users extends Authenticated
     public function showAction(){
         $userId = $_POST['userId'];
         $user = User::findByID($userId);
-        var_dump($user);
         View::render('Users/show-user.php', [
             'user' => $user
         ]);
@@ -72,7 +71,6 @@ class Users extends Authenticated
      */
     public function updateAction(){
         $user = new User($_POST);
-
         if($user->update() === true){
             $this->redirect('/users/update-user-success');
         }else{

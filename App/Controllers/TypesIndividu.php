@@ -63,7 +63,6 @@ class TypesIndividu extends Authenticated
     public function showAction(){
         $typeIndividuId = $_POST['typesIndividuId'];
         $typeIndividu = TypeIndividu::getById($typeIndividuId);
-        var_dump($typeIndividu);
         View::render('TypesIndividu/show-type-individu.php', [
             'typeIndividu' => $typeIndividu
         ]);
