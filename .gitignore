@@ -104,3 +104,6 @@ Legacy/
 
 # logs folder
 logs/
+
+# Jqwidget Assets
+public/styles/images/
