@@ -43,7 +43,7 @@
 
             <div id="window-about">
                 <div>Au sujet de...</div>
-                <div>Copyright (c) 2019 [Stéphane Piriou], MIT License.</div>
+                <div>Copyright &copy; 2019 [Stéphane Piriou], MIT License.</div>
             </div>
             <div id='jqxMenu'>
                 <ul>
