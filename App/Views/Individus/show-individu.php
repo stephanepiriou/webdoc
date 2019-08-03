@@ -2,8 +2,7 @@
     <title>Editer un individu</title>
 <?php include("header.php")?>
 <?php include("menu.php")?>
-<?php
-if (isset($individu)){
+<?php if (isset($individu)){
     $id = $individu->id;
     $matricule = $individu->matricule;
     $firstname = $individu->firstname;
@@ -12,8 +11,8 @@ if (isset($individu)){
     $city = $individu->city;
     $postalcode = $individu->postalcode;
     $errors = $individu->errors;
-}
-?>
+    $typeindividuid = $individu->typeindividuid;
+};?>
 
     <div class="row">
         <div class="col">
@@ -74,6 +73,7 @@ if (isset($individu)){
                             <label class="float-right">Type d&apos;individu :</label>
                         </div>
                         <div class="col-6">
+                           <input type="hidden" id="input-type-individu-id" name="typeindividuid" value="<?php if(isset($typeindividuid)){echo "$typeindividuid";}else{echo "";}?>">
                             <div id="dropdown-type-individu" name="typeindividu">
                             </div>
                         </div>
@@ -124,18 +124,43 @@ if (isset($individu)){
                         </div>
                     </div>
                     <div class="row" style = "align-content: center" >
-                        <div class="col-6" style="display: table; margin: auto">
-                            <div style="display: table; margin: auto">
-                                <input type="button" value="Mettre à jour" id="button-update-save" style="align-content: center" />
+                        <div class="col-6">
+                            <div>
+                                <input type="button" value="Mettre à jour" id="button-update-save" />
                             </div>
                         </div>
                         <div class="col-6">
-                            <div style="display: table; margin: auto">
-                                <input type="button" value="Effacer" id="button-delete" style="align-content: center" />
+                            <div >
+                                <input type="button" value="Effacer" id="button-delete" />
                             </div>
                         </div>
                     </div >
+                    <div class="row">
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><h6 style="text-align: center;">Documents</h6></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div id="grid-documents"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <div class="row" style = "align-content: center" >
+                        <div class="col">
+                            <div>
+                                <input type="button" value="Ajouter Document" id="button-ajouter-document" />
+                            </div>
+                        </div>
+                    </div >
+
                 </div>
+            </form>
+            <form id="form-show-document" method="post" action="/documents/show">
+                <input id='input-document-id' name='documentid' type='hidden'>
             </form>
         </div>
     </div>
@@ -147,11 +172,16 @@ if (isset($individu)){
     </div>
     <script type="text/javascript">
 
-        <?php if(isset($jsonListTypesIndividu)){
-            echo 'var typeIndividuSource ='.$jsonListTypesIndividu;
-        }?>
+        <?php if (isset($jsonListDocument)) {
+                echo 'var documentsDataSource =' . $jsonListDocument.';';
+            };?>
 
-	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuSource, disabled: true, width: 198, height: 30, theme: "energyblue"});
+
+        <?php if(isset($jsonListTypesIndividu)){
+                echo 'var typeIndividuDataSource ='.$jsonListTypesIndividu .';';
+            };?>
+
+	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuDataSource, disabled: true, width: 198, height: 30, theme: "energyblue"});
         $("#dropdown-type-individu").jqxDropDownList('selectItem', "<?php if(isset($chosenTypeIndividu)){echo $chosenTypeIndividu;}?>" );
         $('#input-id').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 	    $('#input-matricule').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
@@ -161,7 +191,7 @@ if (isset($individu)){
 	    $('#input-city').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 	    $('#input-postal-code').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 
-	    $("#button-update-save").jqxButton({ width: "150", height: "25", theme: "energyblue"});
+	    $("#button-update-save").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
 	    $("#button-update-save").on("click", function (event) {
 		    var value = $("#button-update-save").val();
 		    if(value === "Mettre à jour"){
@@ -181,12 +211,50 @@ if (isset($individu)){
 		    }
 	    });
 
-	    $("#button-delete").jqxButton({ width: "150", height: "25", theme: "energyblue"});
+	    $("#button-delete").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
 	    $("#button-delete").on("click", function (event) {
 		    $("#input-id").jqxInput({disabled: false});
 		    $("#form-show-individu").attr("action", "/individus/delete");
 		    $("#form-show-individu").submit();
 	    });
+
+        // prepare the data
+        var source = {
+	        datatype: "json",
+	        datafields: [
+		        { name: 'document_id', type: 'string'},
+		        { name: 'document_name', type: 'string'},
+		        { name: 'type_document_name', type: 'string'}
+	        ],
+	        localdata: documentsDataSource
+        };
+
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#grid-documents").jqxGrid({
+	        width: '100%',
+	        source: dataAdapter,
+	        autoheight: true,
+	        enablehover: true,
+	        theme: 'energyblue',
+	        selectionmode: 'singlerow',
+	        columns: [
+		        { text: 'Id', datafield: 'document_id', width: '10%' },
+		        { text: 'Nom document', datafield: 'document_name', width: '50%' },
+		        { text: 'Type de document', datafield: 'type_document_name', width: '40%' },
+	        ]
+        });
+
+        $("#grid-documents").on('rowselect', function (event) {
+	        $('#input-document-id').val(event.args.row.document_id);
+	        $('#form-show-document').submit();
+        });
+
+        $("#button-ajouter-document").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
+        $("#button-ajouter-document").on("click", function (event) {
+
+        });
+
     </script>
 
 <?php include("footer.php") ?>
