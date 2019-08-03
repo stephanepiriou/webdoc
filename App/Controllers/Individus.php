@@ -4,6 +4,7 @@ namespace App\Controllers;
 use Core\View;
 use App\Models\Individu;
 use App\Models\TypeIndividu;
+use App\Models\Document;
 use function var_dump;
 
 class Individus extends Authenticated
@@ -75,14 +76,16 @@ class Individus extends Authenticated
      * Handle show-individu.php view
      */
     public function showAction(){
-        $individuId = $_POST['individuId'];
+        $individuId = $_POST['individuid'];
         $individu = Individu::getById($individuId);
         $jsonListTypesIndividu = TypeIndividu::getListAsJson();
         $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
+        $jsonListDocument = Document::listByIndividuId($individuId);
         View::render('Individus/show-individu.php', [
             'individu' => $individu,
             'jsonListTypesIndividu' => $jsonListTypesIndividu,
-            'chosenTypeIndividu' => $chosenTypeIndividu
+            'chosenTypeIndividu' => $chosenTypeIndividu,
+            'jsonListDocument' => $jsonListDocument
         ]);
     }
 
@@ -90,15 +93,25 @@ class Individus extends Authenticated
      * Handle update of a user and redirect on specific view according to result of operation
      */
     public function updateAction(){
+
         $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
         $_POST['typeindividuid']= $typeindividuid;
         $individu = new Individu($_POST);
+        $jsonListDocument = Document::listByIndividuId($individuId);
+
         var_dump($individu);
+
         if($individu->update() === true){
             $this->redirect('/individus/update-individu-success');
         }else{
+            $jsonListTypesIndividu = TypeIndividu::getListAsJson();
+            $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
+            $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
             View::render('Individus/show-individu.php', [
-                'individu' => $individu
+                'individu' => $individu,
+                'jsonListTypesIndividu' => $jsonListTypesIndividu,
+                'chosenTypeIndividu' => $chosenTypeIndividu,
+                'jsonListDocument' => $jsonListDocument
             ]);
         }
     }
