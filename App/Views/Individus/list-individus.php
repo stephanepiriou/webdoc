@@ -32,7 +32,7 @@
                 </div>
             </div >
             <form id="form-show-individus" method="post" action="/individus/show">
-                <input id='input-individu-id' name='individuId' type='hidden'>
+                <input id='input-individu-id' name='individuid' type='hidden'>
             </form>
         </div>
     </div>
@@ -43,8 +43,6 @@
 
     </div>
     <script type="text/javascript">
-
-		//var data = [{"id": "1", "name": "carte d'identite"}, {"id": "2", "name": "diplome"}, {"id": "3", "name": "certificat medicale"}]
 
         <?php if(isset($individusAsJson)){
             echo 'var data ='.$individusAsJson;
@@ -67,6 +65,7 @@
 		$("#grid").jqxGrid({
 			width: '100%',
 			source: dataAdapter,
+			autoheight: true,
 			enablehover: true,
 			theme: 'energyblue',
 			selectionmode: 'singlerow',

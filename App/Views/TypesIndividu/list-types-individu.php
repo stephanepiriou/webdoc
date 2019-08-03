@@ -66,6 +66,7 @@
 			width: '100%',
 			source: dataAdapter,
 			enablehover: true,
+			autoheight: true,
 			theme: 'energyblue',
 			selectionmode: 'singlerow',
 			columns: [

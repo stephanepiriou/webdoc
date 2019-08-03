@@ -65,6 +65,7 @@
 	    $("#grid").jqxGrid({
 			    width: '100%',
 			    source: dataAdapter,
+		        autoheight: true,
 			    enablehover: true,
                 theme: 'energyblue',
 			    selectionmode: 'singlerow',
