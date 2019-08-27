@@ -156,11 +156,18 @@
                             </div>
                         </div>
                     </div >
-
                 </div>
             </form>
             <form id="form-show-document" method="post" action="/documents/show">
+                <input id='individu-id' name='individuid' type='hidden' value="<?php if(isset($id)){echo "$id";}else{echo "";}?>">s
                 <input id='input-document-id' name='documentid' type='hidden'>
+                <!--<input id='user-id' name='userid' type='hidden' value="<?php //if(isset($id)){echo "$id";}else{echo "";}?>">-->
+            </form>
+            <form id="form-new-document" method="post" action="/documents/new">
+                <input id='individu-id' name='individuid' type='hidden' value="<?php if(isset($id)){echo "$id";}else{echo "";}?>">
+                <input id='individu-first-name' name='individufirstname' type="hidden" value="<?php if(isset($firstname)){echo "$firstname";}else{ "";}?>">
+                <input id='individu-last-name' name='individulastname' type="hidden" value="<?php if(isset($lastname)){echo "$lastname";}else{ "";}?>">
+
             </form>
         </div>
     </div>
@@ -183,13 +190,13 @@
 
 	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuDataSource, disabled: true, width: 198, height: 30, theme: "energyblue"});
         $("#dropdown-type-individu").jqxDropDownList('selectItem', "<?php if(isset($chosenTypeIndividu)){echo $chosenTypeIndividu;}?>" );
-        $('#input-id').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
-	    $('#input-matricule').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
-	    $('#input-firstname').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
-	    $('#input-lastname').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
-	    $('#input-adress').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
-	    $('#input-city').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
-	    $('#input-postal-code').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+        $('#input-id').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-matricule').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-firstname').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-lastname').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-adress').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-city').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-postal-code').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
 	    $("#button-update-save").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
 	    $("#button-update-save").on("click", function (event) {
@@ -252,7 +259,7 @@
 
         $("#button-ajouter-document").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
         $("#button-ajouter-document").on("click", function (event) {
-
+	        $('#form-new-document').submit();
         });
 
     </script>
