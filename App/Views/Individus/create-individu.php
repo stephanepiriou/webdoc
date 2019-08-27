@@ -2,6 +2,7 @@
     <title>Créer un individu</title>
 <?php include("header.php")?>
 <?php include("menu.php")?>
+
     <div class="row">
         <div class="col">
             &nbsp;
@@ -131,15 +132,17 @@
            echo 'var typeIndividuSource ='.$jsonListTypesIndividu;
        }?>
 
-	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuSource, width: 198, height: 30, theme: "energyblue"});
-	    $("#input-matricule").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	    $("#input-surname").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	    $("#input-name").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	    $("#input-address").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	    $("#input-city").jqxInput({width: 200, height: 30, theme: "energyblue"});
-	    $("#input-postal-code").jqxInput({width: 200, height: 30, theme: "energyblue"});
+	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuSource, width: '100%', height: 30, theme: "energyblue"});
+       $("#dropdown-type-individu")..jqxDropDownList('selectIndex', 0 );
 
-	    $('#button-submit').jqxButton({ width: "150", height: "25", theme: "energyblue"});
+	    $("#input-matricule").jqxInput({width: '100%', height: 30, theme: "energyblue"});
+	    $("#input-surname").jqxInput({width: '100%', height: 30, theme: "energyblue"});
+	    $("#input-name").jqxInput({width: '100%', height: 30, theme: "energyblue"});
+	    $("#input-address").jqxInput({width: '100%', height: 30, theme: "energyblue"});
+	    $("#input-city").jqxInput({width: '100%', height: 30, theme: "energyblue"});
+	    $("#input-postal-code").jqxInput({width: '100%', height: 30, theme: "energyblue"});
+
+	    $('#button-submit').jqxButton({ width: '100%', height: "25", theme: "energyblue"});
 	    $('#button-submit').click(function(){
 		    $('#form-create-individu').submit();
 	    });
