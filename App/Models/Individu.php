@@ -4,9 +4,6 @@ namespace App\Models;
 use Core\Model;
 use PDOException;
 use PDO;
-use function strlen;
-use function strtolower;
-use function var_dump;
 
 class Individu extends Model
 {
@@ -40,7 +37,9 @@ class Individu extends Model
             $this->lastname = strtolower($this->lastname);
             $this->adress = strtolower($this->adress);
             $this->city = strtolower($this->city);
-            $sql = 'INSERT INTO individus (matricule, firstname, lastname, adress, city, postalcode, typeindividuid) VALUES (:matricule, :firstname, :lastname, :adress, :city, :postalcode, :typeindividuid)';
+            $sql = 'INSERT 
+                    INTO individus (matricule, firstname, lastname, adress, city, postalcode, typeindividuid) 
+                    VALUES (:matricule, :firstname, :lastname, :adress, :city, :postalcode, :typeindividuid)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':matricule', $this->matricule, PDO::PARAM_STR);
@@ -116,7 +115,9 @@ class Individu extends Model
      * @param string matricule
      */
     public static function listByMatricule($matricule){
-        $sql = 'SELECT * FROM individus WHERE matricule LIKE concat(:substring, "%")';
+        $sql = 'SELECT * 
+                FROM individus 
+                WHERE matricule LIKE concat(:substring, "%")';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':substring', $matricule, PDO::PARAM_STR);
@@ -132,7 +133,9 @@ class Individu extends Model
      */
     public static function listByName($name){
         $subStringName = strtolower($name);
-        $sql = 'SELECT * FROM individus WHERE name LIKE concat(:substring, "%")';
+        $sql = 'SELECT * 
+                FROM individus 
+                WHERE name LIKE concat(:substring, "%")';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':substring', $name, PDO::PARAM_STR);
@@ -143,21 +146,15 @@ class Individu extends Model
     }
 
     /**
-     * List all user with the lastname starting by the first 4 letters of the current lastname
-     * @param string lastname
-     */
-    public function listByLastName($lastname){
-
-    }
-
-    /**
      * Get Individu object from db with the current id passed in parametre
      * @param $id of the individu in the db
      * @return an individu object created from database field or false
      */
     public static function getById($id)
     {
-        $sql = 'SELECT * FROM individus WHERE id = :id';
+        $sql = 'SELECT * 
+                FROM individus 
+                WHERE id = :id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -178,9 +175,12 @@ class Individu extends Model
         if(empty($this->errors)){
             $this->firstname = strtolower($this->firstname);
             $this->lastname = strtolower($this->lastname);
+            $this->adress = strtolower($this->adress);
             $this->city = strtolower($this->city);
 
-            $sql = 'UPDATE individus SET matricule=:matricule, firstname=:firstname, lastname=:lastname, adress=:adress, city=:city, postalcode=:postalcode, typeindividuid=:typeindividuid WHERE id=:id';
+            $sql = 'UPDATE individus 
+                    SET matricule=:matricule, firstname=:firstname, lastname=:lastname, adress=:adress, city=:city, postalcode=:postalcode, typeindividuid=:typeindividuid 
+                    WHERE id=:id';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':matricule', $this->matricule, PDO::PARAM_STR);
@@ -203,7 +203,9 @@ class Individu extends Model
      * @return mixed
      */
     public static function delete($id){
-        $sql = 'DELETE FROM individus WHERE id=:id';
+        $sql = 'DELETE 
+                FROM individus 
+                WHERE id=:id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

@@ -35,7 +35,9 @@ class TypeDocument extends Model
 
         if (empty($this->errors)) {
             $this->name = strtolower($this->name);
-            $sql = 'INSERT INTO typesdocument (name) VALUES (:name)';
+            $sql = 'INSERT 
+                    INTO typesdocument (name) 
+                    VALUES (:name)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
@@ -63,7 +65,8 @@ class TypeDocument extends Model
      * @return false|string
      */
     public static function getListAsJson(){
-        $sql = 'SELECT name FROM typesdocument';
+        $sql = 'SELECT name 
+                FROM typesdocument';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->execute();
@@ -73,13 +76,52 @@ class TypeDocument extends Model
     }
 
     /**
+     * Get the id of the index of
+     * @param $name $name The name of the TypeIndividu
+     *
+     */
+    public static function getIndexFromName($name){
+        $sql = 'SELECT * 
+                FROM typesdocument 
+                WHERE name=:name ';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute(['name' => $name]);
+        $array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        foreach ($array as $key =>$value){
+            $index = $value;
+            break;
+        }
+        return $index;
+    }
+
+    /**
+     * @param $id
+     * @return get TypeIndividu name from index
+     */
+    public static function getNameFromIndex($id){
+        $sql = 'SELECT * 
+                FROM typesdocument 
+                WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+        $typesIndividu = $stmt->fetch();
+        return $typesIndividu->name;
+    }
+
+    /**
      * Get TypeDocument list as Json object
      * @param $subStringName The subtring of the name of document type entered in the search field
      * @return $jsonList List of DocumentType as json list
      */
     public static function getListSubAsJson($subStringName){
         $subStringName = strtolower($subStringName);
-        $sql = 'SELECT * FROM typesdocument WHERE name LIKE concat(:substring, "%")';
+        $sql = 'SELECT * 
+                FROM typesdocument 
+                WHERE name LIKE concat(:substring, "%")';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':substring', $subStringName, PDO::PARAM_STR);
@@ -95,7 +137,9 @@ class TypeDocument extends Model
      */
     public static function getById($id){
 
-        $sql = 'SELECT * FROM typesdocument WHERE id=:id';
+        $sql = 'SELECT * 
+                FROM typesdocument 
+                WHERE id=:id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -115,7 +159,9 @@ class TypeDocument extends Model
 
         if(empty($this->errors)){
             $this->name = strtolower($this->name);
-            $sql = 'UPDATE typesdocument SET name=:name WHERE id=:id';
+            $sql = 'UPDATE typesdocument 
+                    SET name=:name 
+                    WHERE id=:id';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
@@ -132,7 +178,9 @@ class TypeDocument extends Model
      * @return mixed
      */
     public static function delete($id){
-        $sql = 'DELETE FROM typesdocument WHERE id=:id';
+        $sql = 'DELETE 
+                FROM typesdocument 
+                WHERE id=:id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

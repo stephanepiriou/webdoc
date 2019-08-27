@@ -47,7 +47,9 @@ class User extends \Core\Model
         if (empty($this->errors)) {
             $this->name = strtolower($this->name);
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-            $sql = 'INSERT INTO users (name, email, password_hash) VALUES (:name, :email, :password_hash)';
+            $sql = 'INSERT 
+                    INTO users (name, email, password_hash) 
+                    VALUES (:name, :email, :password_hash)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
@@ -139,7 +141,9 @@ class User extends \Core\Model
      */
     public static function findByEmail($email)
     {
-        $sql = 'SELECT * FROM users WHERE email = :email';
+        $sql = 'SELECT * 
+                FROM users 
+                WHERE email = :email';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -157,7 +161,9 @@ class User extends \Core\Model
      */
     public static function findByID($id)
     {
-        $sql = 'SELECT * FROM users WHERE id = :id';
+        $sql = 'SELECT * 
+                FROM users 
+                WHERE id = :id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -197,7 +203,9 @@ class User extends \Core\Model
         $hashed_token = $token->getHash();
         $this->expiry_timestamp = time()+60 * 60 * 24*30;
         $this->remember_token = $token->getValue();
-        $sql = 'INSERT INTO remembered_logins (token_hash, user_id, expires_at) VALUE (:token_hash, :user_id, :expires_at)';
+        $sql = 'INSERT 
+                INTO remembered_logins (token_hash, user_id, expires_at) 
+                VALUE (:token_hash, :user_id, :expires_at)';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':token_hash', $hashed_token, PDO::PARAM_STR);
@@ -213,7 +221,9 @@ class User extends \Core\Model
      */
     public static function getEmailListSubAsJson($subEmail){
         $subStringEmail = strtolower($subEmail);
-        $sql = 'SELECT * FROM users WHERE email LIKE concat(:substring, "%")';
+        $sql = 'SELECT * 
+                FROM users 
+                WHERE email LIKE concat(:substring, "%")';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':substring', $subStringEmail, PDO::PARAM_STR);
@@ -234,7 +244,9 @@ class User extends \Core\Model
         if(empty($this->errors)){
             $this->name = strtolower($this->name);
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-            $sql = 'UPDATE users SET name=:name, password_hash=:password_hash WHERE id=:id';
+            $sql = 'UPDATE users 
+                    SET name=:name, password_hash=:password_hash 
+                    WHERE id=:id';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
@@ -252,7 +264,9 @@ class User extends \Core\Model
      * @return mixed
      */
     public static function delete($id){
-        $sql = 'DELETE FROM users WHERE id=:id';
+        $sql = 'DELETE 
+                FROM users 
+                WHERE id=:id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

@@ -40,7 +40,9 @@ class TypeIndividu extends Model
         if (empty($this->errors)) {
 
             $this->name = strtolower($this->name);
-            $sql = 'INSERT INTO typesIndividu (name) VALUES (:name)';
+            $sql = 'INSERT 
+                    INTO typesIndividu (name) 
+                    VALUES (:name)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
@@ -68,7 +70,8 @@ class TypeIndividu extends Model
      * @return json object
      */
     public static function getListAsJson(){
-        $sql = 'SELECT name FROM typesindividu';
+        $sql = 'SELECT name 
+                FROM typesindividu';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->execute();
@@ -83,7 +86,9 @@ class TypeIndividu extends Model
      *
      */
     public static function getIndexFromName($name){
-        $sql = 'SELECT * FROM typesindividu WHERE name=:name ';
+        $sql = 'SELECT * 
+                FROM typesindividu 
+                WHERE name=:name ';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->execute(['name' => $name]);
@@ -102,7 +107,9 @@ class TypeIndividu extends Model
      */
     public static function getListSubAsJson($subStringName){
         $subStringName = strtolower($subStringName);
-        $sql = 'SELECT * FROM typesindividu WHERE name LIKE concat(:substring, "%")';
+        $sql = 'SELECT * 
+                FROM typesindividu 
+                WHERE name LIKE concat(:substring, "%")';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':substring', $subStringName, PDO::PARAM_STR);
@@ -117,7 +124,9 @@ class TypeIndividu extends Model
      * @return return TypeIndividu object
      */
     public static function getById($id){
-        $sql = 'SELECT * FROM typesindividu WHERE id=:id';
+        $sql = 'SELECT * 
+                FROM typesindividu 
+                WHERE id=:id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -132,7 +141,9 @@ class TypeIndividu extends Model
      * @return get TypeIndividu name from index
      */
     public static function getNameFromIndex($id){
-        $sql = 'SELECT * FROM typesindividu WHERE id=:id';
+        $sql = 'SELECT * 
+                FROM typesindividu 
+                WHERE id=:id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -152,7 +163,9 @@ class TypeIndividu extends Model
 
         if(empty($this->errors)){
             $this->name = strtolower($this->name);
-            $sql = 'UPDATE typesindividu SET name=:name WHERE id=:id';
+            $sql = 'UPDATE typesindividu 
+                    SET name=:name 
+                    WHERE id=:id';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
@@ -169,7 +182,9 @@ class TypeIndividu extends Model
      * @return mixed
      */
     public static function delete($id){
-        $sql = 'DELETE FROM typesindividu WHERE id=:id';
+        $sql = 'DELETE 
+                FROM typesindividu 
+                WHERE id=:id';
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
