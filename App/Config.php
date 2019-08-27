@@ -41,4 +41,19 @@ class Config
      * Secret key for hashing token
      */
     const SECRET_KEY = 'KaYHJi790Au70xMeJWjKt5UG9Ns5Jt9S';
+
+    /**
+     * Absolute Uplaod folder
+     */
+    const ABSOLUTE_UPLOAD_FOLDER = '/Users/stephane/PhpstormProjects/webdoc/public/uploads/';
+
+    /**
+     * Relative Upload folder
+     */
+    const RELATIVE_UPLOAD_FOLDER = '/uploads/';
+
+    /**
+     * Server URL
+     */
+    const SERVER_URL = 'http://webdoc.local';
 }
