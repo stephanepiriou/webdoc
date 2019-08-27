@@ -73,9 +73,9 @@
     </div>
     <script type="text/javascript">
 
-	    $('#inputName').jqxInput({width: 200, height: 30, theme: "energyblue"});
+	    $('#inputName').jqxInput({width: '100%', height: 30, theme: "energyblue"});
 
-	    $('#button-submit').jqxButton({ width: "150", height: "25", theme: "energyblue"});
+	    $('#button-submit').jqxButton({ width: '100%', height: "25", theme: "energyblue"});
 	    $('#button-submit').click(function(){
 		    $('#form-create-type-document').submit();
 	    });
