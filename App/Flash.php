@@ -6,7 +6,7 @@ namespace App;
 /**
  * Class Flash
  *
- * Display message intended to inform the user
+ * Display message intended to inform the user regarding the login
  * @package App
  */
 class Flash

@@ -93,13 +93,10 @@ class Individus extends Authenticated
      * Handle update of a user and redirect on specific view according to result of operation
      */
     public function updateAction(){
-
         $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
         $_POST['typeindividuid']= $typeindividuid;
         $individu = new Individu($_POST);
         $jsonListDocument = Document::listByIndividuId($individuId);
-
-        var_dump($individu);
 
         if($individu->update() === true){
             $this->redirect('/individus/update-individu-success');
@@ -119,8 +116,7 @@ class Individus extends Authenticated
     /**
      * Redirect to update-user-success after update Action
      */
-    public function updateIndividuSuccessAction()
-    {
+    public function updateIndividuSuccessAction(){
         View::render('Individus/update-individu-success.php');
     }
 

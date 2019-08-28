@@ -34,8 +34,7 @@ class TypesIndividu extends Authenticated
     /**
      * Redirect to create-type-individu-success
      */
-    public function createTypeIndividuSuccessAction()
-    {
+    public function createTypeIndividuSuccessAction(){
         View::render('TypesIndividu/create-type-individu-success.php');
     }
 
@@ -86,8 +85,7 @@ class TypesIndividu extends Authenticated
     /**
      * Redirect to update-type-individu-success after update Action
      */
-    public function updateTypeIndividuSuccessAction()
-    {
+    public function updateTypeIndividuSuccessAction(){
         View::render('TypesIndividu/update-type-individu-success.php');
     }
 

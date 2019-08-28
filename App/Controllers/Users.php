@@ -12,8 +12,7 @@ class Users extends Authenticated
      *
      * @return void
      */
-    public function newAction()
-    {
+    public function newAction(){
         View::render('Users/create-user.php');
     }
 
@@ -32,8 +31,7 @@ class Users extends Authenticated
     /**
      * Handle user creation view
      */
-    public function createUserSuccessAction()
-    {
+    public function createUserSuccessAction(){
         View::render('Users/create-user-success.php');
     }
 
@@ -83,8 +81,7 @@ class Users extends Authenticated
     /**
      * Redirect to update-user-success after update Action
      */
-    public function updateUserSuccessAction()
-    {
+    public function updateUserSuccessAction(){
         View::render('Users/update-user-success.php');
     }
 

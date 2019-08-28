@@ -80,7 +80,7 @@ class Uploader
 
         //Check if file is .jpg, .png, .jpeg, .gif
         if($this->imageFileType !== "jpg" && $this->imageFileType !== "png" && $this->imageFileType !== "jpeg" && $this->imageFileType !== "gif" ) {
-            $this->errors[]= "Désolé. Seuls les fichiers .jpg, .jpeg, .png et .gif";
+            $this->errors[]= "Désolé. Seuls les fichiers .jpg, .jpeg, .png et .gif sont acceptés.";
             $this->uploadOk = false;
         }
 
@@ -101,7 +101,5 @@ class Uploader
             $this->errors[] = "Désolé. La taille du fichier est limité à 5Mo.";
             $this->uploadOk = false;
         }
-
-
     }
 }

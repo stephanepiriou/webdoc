@@ -88,6 +88,10 @@ class Documents extends Authenticated
         ]);
     }
 
+    /**
+     * Call Document::delete and redirect according to result
+     * @throws \Exception
+     */
     public function deleteAction(){
         $documentid = $_POST['documentid'];
         $individuid = $_POST['individuid'];

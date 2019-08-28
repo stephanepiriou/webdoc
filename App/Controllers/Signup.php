@@ -18,8 +18,7 @@ class Signup extends \Core\Controller
      *
      * @return void
      */
-    public function newAction()
-    {
+    public function newAction(){
         View::render('Signup/new.php');
     }
 
@@ -28,22 +27,15 @@ class Signup extends \Core\Controller
      *
      * @return void
      */
-    public function createAction()
-    {
+    public function createAction(){
         $user = new User($_POST);
 
         if ($user->save()) {
-
             $this->redirect('/signup/success');
-            //header('Location: http://' . $_SERVER['HTTP_HOST'] . '/signup/success', true, 303);
-            //exit;
-
         } else {
-
             View::render('Signup/new.php', [
                 'user' => $user
             ]);
-
         }
     }
 
@@ -52,8 +44,7 @@ class Signup extends \Core\Controller
      *
      * @return void
      */
-    public function successAction()
-    {
+    public function successAction(){
         View::render('Signup/success.php');
     }
 }

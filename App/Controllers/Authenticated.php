@@ -3,7 +3,10 @@
 
 namespace App\Controllers;
 
-
+/**
+ * Class Authenticated : Allow to require login before accessing controllers inherited from this class
+ * @package App\Controllers
+ */
 abstract class Authenticated extends \Core\Controller
 {
     /**

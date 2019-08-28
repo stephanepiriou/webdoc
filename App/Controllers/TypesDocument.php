@@ -9,6 +9,10 @@ use function var_dump;
 
 class TypesDocument extends Authenticated
 {
+    /**
+     * Control /types-document/new
+     * @throws \Exception
+     */
     public function newAction(){
         View::render('TypesDocument/create-type-document.php');
     }
@@ -32,8 +36,7 @@ class TypesDocument extends Authenticated
     /**
      * Redirection after Type document creation
      */
-    public function createTypeDocumentSuccessAction()
-    {
+    public function createTypeDocumentSuccessAction(){
         View::render('TypesDocument/create-type-document-success.php');
     }
 
@@ -85,8 +88,7 @@ class TypesDocument extends Authenticated
     /**
      * Redirect to update-type-document-success after update Action
      */
-    public function updateTypeDocumentSuccessAction()
-    {
+    public function updateTypeDocumentSuccessAction(){
         View::render('TypesDocument/update-type-document-success.php');
     }
 

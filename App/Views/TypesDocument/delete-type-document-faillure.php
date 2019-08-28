@@ -28,13 +28,11 @@
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
-            <div class="container">
-                <div class="alert alert-danger alert-dismissible fade show">
-                    Le type de document n'a bien été effacé ! <br/>
-                    Etes-vous certain certain que ce type de document n'est pas actuellement utilisé ? <br/>
-                    Un type de document ne peut pas être effacé tant qu'il est utilisé pour décrire un document.<br/>
-                    Veuiller <strong>effacer les/le document(s)</strong> ou <strong>changer leur type</strong> avant d'essayer à nouveau.
-                </div>
+            <div class="alert alert-danger alert-dismissible fade show">
+                Le type de document n'a bien été effacé ! <br/>
+                Etes-vous certain certain que ce type de document n'est pas actuellement utilisé ? <br/>
+                Un type de document ne peut pas être effacé tant qu'il est utilisé pour décrire un document.<br/>
+                Veuiller <strong>effacer les/le document(s)</strong> ou <strong>changer leur type</strong> avant d'essayer à nouveau.
             </div>
         </div>
     </div>

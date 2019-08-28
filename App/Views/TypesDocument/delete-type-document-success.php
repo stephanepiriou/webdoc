@@ -28,10 +28,8 @@
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
-            <div class="container">
-                <div class="alert alert-success alert-dismissible fade show">
-                    Le type de document a bien été effacé !
-                </div>
+            <div class="alert alert-success alert-dismissible fade show">
+                Le type de document a bien été effacé !
             </div>
         </div>
     </div>

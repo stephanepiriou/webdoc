@@ -102,7 +102,7 @@ class Document extends Model
 
     /**
      * @param $documentid The id of the document
-     * @return string The relative document path in the file system
+     * @return string The document Name
      */
     public static function getDocumentName($documentid){
         $sql = 'SELECT name
@@ -116,6 +116,10 @@ class Document extends Model
         return $documentname;
     }
 
+    /**
+     * @param $documentid The id of the document
+     * @return mixed The file name in the file system
+     */
     public static function getFileName($documentid){
         $sql = 'SELECT filename
                 FROM documents

@@ -54,6 +54,9 @@ class Individu extends Model
         return false;
     }
 
+    /**
+     * Validate field and fill errors array in case of error
+     */
     public function validate(){
 
         if ($this->matricule === '') {
@@ -150,8 +153,7 @@ class Individu extends Model
      * @param $id of the individu in the db
      * @return an individu object created from database field or false
      */
-    public static function getById($id)
-    {
+    public static function getById($id){
         $sql = 'SELECT * 
                 FROM individus 
                 WHERE id = :id';

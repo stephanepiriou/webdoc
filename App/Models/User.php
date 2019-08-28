@@ -28,8 +28,7 @@ class User extends \Core\Model
      *
      * @return void
      */
-    public function __construct($data = [])
-    {
+    public function __construct($data = []){
         foreach ($data as $key => $value) {
             $this->$key = $value;
         };
@@ -40,8 +39,7 @@ class User extends \Core\Model
      *
      * @return boolean  True if the user was saved, false otherwise
      */
-    public function save()
-    {
+    public function save(){
         $this->validate();
 
         if (empty($this->errors)) {
@@ -58,7 +56,6 @@ class User extends \Core\Model
 
             return $stmt->execute();
         }
-
         return false;
     }
 
@@ -67,8 +64,7 @@ class User extends \Core\Model
      *
      * @return void
      */
-    public function validate()
-    {
+    public function validate(){
         // Name
         if ($this->name == '') {
             $this->errors[] = 'Name is required';
@@ -99,8 +95,7 @@ class User extends \Core\Model
     /**
      * Validation for update opération. (Removed email validation))
      */
-    public function validateForUpdate()
-    {
+    public function validateForUpdate(){
         // Name
         if ($this->name == '') {
             $this->errors[] = 'Name is required';
@@ -127,8 +122,7 @@ class User extends \Core\Model
      *
      * @return boolean  True if a record already exists with the specified email, false otherwise
      */
-    public static function emailExists($email)
-    {
+    public static function emailExists($email){
         return static::findByEmail($email) !== false;
     }
 
@@ -139,8 +133,7 @@ class User extends \Core\Model
      *
      * @return mixed User object if found, false otherwise
      */
-    public static function findByEmail($email)
-    {
+    public static function findByEmail($email){
         $sql = 'SELECT * 
                 FROM users 
                 WHERE email = :email';
@@ -159,8 +152,7 @@ class User extends \Core\Model
      *
      * @return mixed User object if found, false otherwise
      */
-    public static function findByID($id)
-    {
+    public static function findByID($id){
         $sql = 'SELECT * 
                 FROM users 
                 WHERE id = :id';
@@ -180,8 +172,7 @@ class User extends \Core\Model
      *
      * @return mixed  The user object or false if authentication fails
      */
-    public static function authenticate($email, $password)
-    {
+    public static function authenticate($email, $password){
         $user = static::findByEmail($email);
 
         if ($user) {

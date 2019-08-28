@@ -1,5 +1,5 @@
 <?php include("entete.php")?>
-    <title>TEMPLATE TITLE</title>
+    <title>Webdoc Home</title>
 <?php include("header.php")?>
 <?php include("menu.php")?>
 

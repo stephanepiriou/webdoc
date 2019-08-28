@@ -45,7 +45,7 @@
             <div id="main-panel"  class="offset-lg-3 col-lg-6">
                 <div class="container">
                     <div class="row">
-                        &nbsp;<h6 style="text-align: center"><strong>Sorry, an internal error occured</strong></h6>
+                        &nbsp;<h6 style="text-align: center"><strong>Sorry, an internal error occured.</strong></h6>
                     </div>
                 </div>
             </div>

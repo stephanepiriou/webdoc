@@ -28,10 +28,8 @@
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
-            <div class="container">
-                <div class="row">
-                    <h6 style="text-align: center; color: green;" >Type d&apos;individu créé.</h6>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show">
+                Le type d&apos;individu a bien été créé ! <br/>
             </div>
         </div>
     </div>

@@ -53,7 +53,6 @@ class Auth
                 $params["httponly"]
             );
         }
-
         // Finally, destroy the session.
         session_destroy();
         static::forgetLogin();

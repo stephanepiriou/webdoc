@@ -28,10 +28,8 @@
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
-            <div class="container">
-                <div class="alert alert-success alert-dismissible fade show">
-                    L&apos;utilisateur n'a bien été crée !
-                </div>
+            <div class="alert alert-success alert-dismissible fade show">
+                L&apos;utilisateur n'a bien été crée !
             </div>
         </div>
     </div>

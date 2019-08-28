@@ -28,6 +28,9 @@
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
+            <div class="alert alert-success alert-dismissible fade show">
+                Le document a bien été uploadé ! <br/>
+            </div>
             <form id="form-return-to-individu-view" method="post" action="/individus/show">
                 <input type="hidden" name="individuid" value="<?php if (isset($individuid)){echo $individuid;} ?>" />
                 <div class="container">

@@ -30,7 +30,7 @@
             <!--MAIN PANEL -->
             <div class="container">
                 <div class="alert alert-success alert-dismissible fade show">
-                    L&apos;individu n'a bien été mis à jour !
+                    L&apos;individu a bien été mis à jour !
                 </div>
             </div>
         </div>
