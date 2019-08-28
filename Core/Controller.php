@@ -7,9 +7,8 @@ use function header;
 use App\Auth;
 
 /**
- * Base controller
- *
- * PHP version 5.4
+ * Base controller : Parent class of the controller component of the app
+ * Handles the params from get request and url redirection to Controllers and controller methods
  */
 abstract class Controller
 {
@@ -22,13 +21,10 @@ abstract class Controller
 
     /**
      * Class constructor
-     *
      * @param array $route_params  Parameters from the route
-     *
      * @return void
      */
-    public function __construct($route_params)
-    {
+    public function __construct($route_params){
         $this->route_params = $route_params;
     }
 
@@ -36,15 +32,12 @@ abstract class Controller
      * Magic method called when a non-existent or inaccessible method is
      * called on an object of this class. Used to execute before and after
      * filter methods on action methods. Action methods need to be named
-     * with an "Action" suffix, e.g. indexAction, showAction etc.
-     *
+     * with an "Action" suffix : indexAction, showAction etc.
      * @param string $name  Method name
      * @param array $args Arguments passed to the method
-     *
      * @return void
      */
-    public function __call($name, $args)
-    {
+    public function __call($name, $args){
         $method = $name . 'Action';
 
         if (method_exists($this, $method)) {
@@ -59,7 +52,6 @@ abstract class Controller
 
     /**
      * Before filter - called before an action method.
-     *
      * @return void
      */
     protected function before()
@@ -68,7 +60,6 @@ abstract class Controller
 
     /**
      * After filter - called after an action method.
-     *
      * @return void
      */
     protected function after()
@@ -77,13 +68,10 @@ abstract class Controller
 
     /**
      * Redirect to a different page
-     *
      * @param string $url  The relative URL
-     *
      * @return void
      */
-    public function redirect($url)
-    {
+    public function redirect($url){
         header('Location: http://' . $_SERVER['HTTP_HOST'] . $url, true, 303);
         exit;
     }
@@ -94,15 +82,10 @@ abstract class Controller
      *
      * @return void
      */
-    public function requireLogin()
-    {
+    public function requireLogin(){
         if (! Auth::getUser()) {
-
-            //Flash::addMessage('Please login to access that page');
             Flash::addMessage('Please login to access that page', Flash::INFO);
-
             Auth::rememberRequestedPage();
-
             $this->redirect('/login');
         }
     }

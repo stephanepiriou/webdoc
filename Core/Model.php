@@ -6,8 +6,16 @@ use App\Config;
 use PDO;
 use PDOException;
 
+/**
+ * Class Model : Parent Class of the Model component of the app.
+ * @package Core
+ */
 abstract class Model
 {
+    /**
+     * Static function allowing the connection to the database to use in children
+     * @return PDO|null
+     */
     static function getDB(){
         static $db = null;
 

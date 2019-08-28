@@ -7,6 +7,10 @@ namespace Core;
 use Exception;
 use App\Config;
 
+/**
+ * Class Error : Handles errors and if errors have to be shown to the tester or logged in .log file (in log folder)
+ * @package Core
+ */
 class Error
 {
     /**
@@ -35,6 +39,7 @@ class Error
         }
         http_response_code($code);
 
+        //Check if Configuration allow to show errors.
         if (Config::SHOW_ERROR){
             echo '<h1>Fatal Error</h1>';
             echo "<p>Uncaught Exception: '". get_class($exception) ."'</p>";
@@ -48,14 +53,7 @@ class Error
             $message .= "Message: '". $exception->getMessage() ."'. \n";
             $message .= "\nStack: '". $exception->getTraceAsString()."'. \n";
             $message .= "\nThrown in '". $exception->getFile() ."' on line ". $exception->getLine(). ".\n\n";
-
             error_log($message);
-            /*if ($code == 404){
-                echo "<h1>Page not found.</h1>";
-            }else{
-                echo "<h1>An error occured.</h1>";
-            }
-            */
             View::render("$code.php");
         }
     }
