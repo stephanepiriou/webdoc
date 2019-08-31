@@ -76,11 +76,11 @@ class Individus extends Authenticated
      * Handle show-individu.php view
      */
     public function showAction(){
-        $individuId = $_POST['individuid'];
-        $individu = Individu::getById($individuId);
+        $individuid = $_POST['individuid'];
+        $individu = Individu::getById($individuid);
         $jsonListTypesIndividu = TypeIndividu::getListAsJson();
         $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
-        $jsonListDocument = Document::listByIndividuId($individuId);
+        $jsonListDocument = Document::listByIndividuId($individuid);
         View::render('Individus/show-individu.php', [
             'individu' => $individu,
             'jsonListTypesIndividu' => $jsonListTypesIndividu,
@@ -94,9 +94,9 @@ class Individus extends Authenticated
      */
     public function updateAction(){
         $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
-        $_POST['typeindividuid']= $typeindividuid;
+        $_POST['typeindividuid'] = $typeindividuid;
         $individu = new Individu($_POST);
-        //$jsonListDocument = Document::listByIndividuId($individuId);
+        $jsonListDocument = Document::listByIndividuId($individu->id);
 
         if($individu->update() === true){
             $this->redirect('/individus/update-individu-success');
