@@ -96,7 +96,7 @@ class Individus extends Authenticated
         $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
         $_POST['typeindividuid']= $typeindividuid;
         $individu = new Individu($_POST);
-        $jsonListDocument = Document::listByIndividuId($individuId);
+        //$jsonListDocument = Document::listByIndividuId($individuId);
 
         if($individu->update() === true){
             $this->redirect('/individus/update-individu-success');
