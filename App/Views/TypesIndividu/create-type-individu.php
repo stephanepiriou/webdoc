@@ -72,7 +72,9 @@
 
     </div>
     <script type="text/javascript">
-
+	    //////////////
+	    // jqWidgets//
+	    //////////////
 	    $('#inputName').jqxInput({width: 200, height: 30, theme: "energyblue"});
 
 	    $('#button-submit').jqxButton({ width: "150", height: "25", theme: "energyblue"});
@@ -86,13 +88,13 @@
 	    $.validator.addMethod('validAlphaNum',
 		    function(value, element, param){
 			    if(value !== ''){
-				    if (value.match(/.*[a-zA-Z0-9]+.*/i) == null){
+				    if (value.match(/^[0-9A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
 					    return false;
 				    }
 			    }
 			    return true;
 		    },
-		    'Ne doit contenir que des chiffres et des lettres'
+		    'Ne doit contenir que des chiffres et des lettres (A-Z & a-z) des tirets et des espaces!'
 	    );
 
 	    $(document).ready(function(){

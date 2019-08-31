@@ -88,7 +88,9 @@
 
     </div>
     <script type="text/javascript">
-
+	    //////////////
+	    // jqWidgets//
+	    //////////////
 	    $('#input-name').jqxInput({width: 200, height: 30, theme: "energyblue"});
 
 	    $('#input-email').jqxInput({width: 200, height: 30, theme: "energyblue"});
@@ -103,6 +105,18 @@
 	    //
 	    // Password validator function
 	    //
+	    $.validator.addMethod('validAlphaNum',
+		    function(value, element, param){
+			    if(value !== ''){
+				    if (value.match(/^[0-9A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
+					    return false;
+				    }
+			    }
+			    return true;
+		    },
+		    'Ne doit contenir que des chiffres et des lettres (A-Z & a-z) des tirets et des espaces!'
+	    );
+
 	    $.validator.addMethod('validPassword',
 		    function(value, element, param){
 			    if(value !== ''){
@@ -120,7 +134,11 @@
 	    $(document).ready(function(){
 		    $("#form-create-user").validate({
 			    rules: {
-				    name: 'required',
+				    name: {
+					    required: true,
+					    minlength: 3,
+					    validAlphaNum: true
+				    },
 				    email: {
 					    required: true,
 					    email: true,

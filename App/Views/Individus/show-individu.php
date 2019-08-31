@@ -179,6 +179,9 @@
     </div>
     <script type="text/javascript">
 
+	    //////////////
+	    // jqWidgets//
+	    //////////////
         <?php if (isset($jsonListDocument)) {
                 echo 'var documentsDataSource =' . $jsonListDocument.';';
             };?>
@@ -262,6 +265,82 @@
 	        $('#form-new-document').submit();
         });
 
+        //////////////////////////
+        //Jquery field validator//
+        //////////////////////////
+	    $.validator.addMethod('validAlpha',
+		    function(value, element, param){
+			    if(value !== ''){
+				    if (value.match(/^[A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
+					    return false;
+				    }
+			    }
+			    return true;
+		    },
+		    'Ne doit contenir que des lettres, des tirets et des espaces !'
+	    );
+
+	    $.validator.addMethod('validAlphaNum',
+		    function(value, element, param){
+			    if(value !== ''){
+				    if (value.match(/^[0-9A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
+					    return false;
+				    }
+			    }
+			    return true;
+		    },
+		    'Ne doit contenir que des chiffres et des lettres (A-Z & a-z) des tirets et des espaces!'
+	    );
+
+	    $.validator.addMethod('validNum',
+		    function(value, element, param){
+			    if(value !== ''){
+				    if (value.match(/^[0-9]*$/) == null){
+					    return false;
+				    }
+			    }
+			    return true;
+		    },
+		    'Ne doit contenir que des chiffres !'
+	    );
+
+        $(document).ready(function(){
+	        $("#form-show-individu").validate({
+		        rules: {
+			        matricule: {
+				        required: true,
+				        minlength: 3,
+				        validAlphaNum: true
+			        },
+			        firstname: {
+				        required: true,
+				        minlength: 2,
+				        validAlpha: true
+			        },
+			        lastname: {
+				        required: true,
+				        minlength: 2,
+				        validAlpha: true
+			        },
+			        adress: {
+				        required: true,
+				        minlength: 7,
+				        validAlphaNum: true
+			        },
+			        city: {
+				        required: true,
+				        minlength: 2,
+				        validAlpha: true
+			        },
+			        postalcode: {
+				        required: true,
+				        minlength: 4,
+				        maxlength: 4,
+				        validNum: true
+			        }
+		        }
+	        });
+        });
     </script>
 
 <?php include("footer.php") ?>

@@ -90,6 +90,9 @@
 
     </div>
     <script type="text/javascript">
+	    //////////////
+	    // jqWidgets//
+	    //////////////
 		$("#input-id").jqxInput({width: 250, height: 30, disabled: true, theme: "energyblue"});
 
 		$("#input-name").jqxInput({width: 250, height: 30, disabled: true, theme: "energyblue"});
@@ -114,6 +117,33 @@
 			$("#form-show-type-document").attr("action", "/types-document/delete");
 			$("#form-show-type-document").submit();
 		});
+
+	    //
+	    // Document type name validator function
+	    //
+	    $.validator.addMethod('validAlphaNum',
+		    function(value, element, param){
+			    if(value !== ''){
+				    if (value.match(/^[0-9A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
+					    return false;
+				    }
+			    }
+			    return true;
+		    },
+		    'Ne doit contenir que des chiffres et des lettres (A-Z & a-z) des tirets et des espaces!'
+	    );
+
+	    $(document).ready(function(){
+		    $("#form-show-type-document").validate({
+			    rules: {
+				    name: {
+					    required: true,
+					    minlength: 5,
+					    validAlphaNum: true
+				    }
+			    }
+		    });
+	    });
     </script>
 
 <?php include("footer.php"); ?>

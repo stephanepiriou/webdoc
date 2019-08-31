@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="row">
-        <!-- TITLE PAGE-->
+        <!-- PAGE TITLE-->
         <div id="page-title" class="offset-lg-3 col-lg-6">
             <div class="container">
                 <div class="row">
@@ -30,6 +30,7 @@
             <!--MAIN PANEL -->
             <form id="form-create-individu" method="post" action="/individus/create">
                 <div class="container">
+                    <!-- ERROR MESSAGES -->
                     <?php if (!empty($individu->errors)){
                         $errors_message = '<div class="alert alert-danger alert-dismissible fade show"><strong>Errors</strong>
                         <ul>';
@@ -63,7 +64,7 @@
                             <label class="float-right">Prénom :</label>
                         </div>
                         <div class="col-6">
-                            <input id="input-surname" name="firstname" placeholder="Prénom"/>
+                            <input id="input-firstname" name="firstname" placeholder="Prénom"/>
                         </div>
                     </div>
                     <div class="row">
@@ -71,7 +72,7 @@
                             <label class="float-right">Nom :</label>
                         </div>
                         <div class="col-6">
-                            <input id="input-name" name="lastname" placeholder="Nom"/>
+                            <input id="input-lastname" name="lastname" placeholder="Nom"/>
                         </div>
                     </div>
                     <div class="row">
@@ -132,12 +133,15 @@
            echo 'var typeIndividuSource ='.$jsonListTypesIndividu;
        }?>
 
+       //////////////
+       // jqWidgets//
+       //////////////
 	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuSource, width: '100%', height: 30, theme: "energyblue"});
-       $("#dropdown-type-individu")..jqxDropDownList('selectIndex', 0 );
+       $("#dropdown-type-individu").jqxDropDownList('selectIndex', 0 );
 
 	    $("#input-matricule").jqxInput({width: '100%', height: 30, theme: "energyblue"});
-	    $("#input-surname").jqxInput({width: '100%', height: 30, theme: "energyblue"});
-	    $("#input-name").jqxInput({width: '100%', height: 30, theme: "energyblue"});
+	    $("#input-firstname").jqxInput({width: '100%', height: 30, theme: "energyblue"});
+	    $("#input-lastname").jqxInput({width: '100%', height: 30, theme: "energyblue"});
 	    $("#input-address").jqxInput({width: '100%', height: 30, theme: "energyblue"});
 	    $("#input-city").jqxInput({width: '100%', height: 30, theme: "energyblue"});
 	    $("#input-postal-code").jqxInput({width: '100%', height: 30, theme: "energyblue"});
@@ -146,41 +150,43 @@
 	    $('#button-submit').click(function(){
 		    $('#form-create-individu').submit();
 	    });
-
+        //////////////////////////
+	    //Jquery field validator//
+       ///////////////////////////
        $.validator.addMethod('validAlpha',
 	       function(value, element, param){
 		       if(value !== ''){
-			       if (value.match(/.*[A-Za-z]+.*/i) == null){
-				       return false;
-			       }
+			       if (value.match(/^[A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
+                       return false;
+                   }
 		       }
 		       return true;
 	       },
-	       'Ne doit contenir que des lettres'
+	       'Ne doit contenir que des lettres, des tirets et des espaces !'
        );
 
        $.validator.addMethod('validAlphaNum',
 	       function(value, element, param){
 		       if(value !== ''){
-			       if (value.match(/.*[A-Za-z0-1]+.*/i) == null){
-				       return false;
-			       }
+			       if (value.match(/^[0-9A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
+				           return false;
+                   }
 		       }
 		       return true;
 	       },
-	       'Ne doit contenir que des chiffres et des lettres'
+	       'Ne doit contenir que des chiffres et des lettres (A-Z & a-z) des tirets et des espaces!'
        );
 
        $.validator.addMethod('validNum',
 	       function(value, element, param){
 		       if(value !== ''){
-			       if (value.match(/.*[0-9]+.*/i) == null){
+			       if (value.match(/^[0-9]*$/) == null){
 				       return false;
 			       }
 		       }
 		       return true;
 	       },
-	       'Ne doit contenir que des chiffres'
+	       'Ne doit contenir que des chiffres !'
        );
 
        $(document).ready(function(){

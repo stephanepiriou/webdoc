@@ -46,7 +46,7 @@
                             <label class="float-right">Nom :</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" id="inputName" name="name" placeholder="Nom de type de document" required />
+                            <input type="text" id="input-name" name="name" placeholder="Nom de type de document" required />
                         </div>
                     </div>
                     <div class="row">
@@ -72,8 +72,10 @@
 
     </div>
     <script type="text/javascript">
-
-	    $('#inputName').jqxInput({width: '100%', height: 30, theme: "energyblue"});
+	    //////////////
+	    // jqWidgets//
+	    //////////////
+	    $('#input-name').jqxInput({width: '100%', height: 30, theme: "energyblue"});
 
 	    $('#button-submit').jqxButton({ width: '100%', height: "25", theme: "energyblue"});
 	    $('#button-submit').click(function(){
@@ -83,16 +85,16 @@
 	    //
 	    // Document type name validator function
 	    //
-	    $.validator.addMethod('validAlpha',
+	    $.validator.addMethod('validAlphaNum',
 		    function(value, element, param){
 			    if(value !== ''){
-				    if (value.match(/.*[a-z]+.*/i) == null){
+				    if (value.match(/^[0-9A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
 					    return false;
 				    }
 			    }
 			    return true;
 		    },
-		    'Must contain at least 1 letter'
+		    'Ne doit contenir que des chiffres et des lettres (A-Z & a-z) des tirets et des espaces!'
 	    );
 
 	    $(document).ready(function(){
@@ -101,7 +103,7 @@
 				    name: {
 					    required: true,
 					    minlength: 5,
-					    validAlpha: true
+					    validAlphaNum: true
 				    }
 			    }
 		    });

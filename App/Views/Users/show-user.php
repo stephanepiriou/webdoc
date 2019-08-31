@@ -109,6 +109,9 @@
 
     </div>
     <script type="text/javascript">
+	    //////////////
+	    // jqWidgets//
+	    //////////////
 	    $('#input-id').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
 
 	    $('#input-name').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
@@ -137,6 +140,56 @@
 		    $("#input-id").jqxInput({disabled: false});
 		    $("#form-show-user").attr("action", "/users/delete");
 		    $("#form-show-user").submit();
+	    });
+
+	    //
+	    // Password validator function
+	    //
+	    $.validator.addMethod('validPassword',
+		    function(value, element, param){
+			    if(value !== ''){
+				    if (value.match(/.*[a-z]+.*/i) == null){
+					    return false;
+				    }
+				    if (value.match(/.*\d+.*/) == null){
+					    return false;
+				    }
+			    }
+			    return true;
+		    },
+		    'Must contain at least 1 letter and 1 number'
+	    );
+
+	    $.validator.addMethod('validAlphaNum',
+		    function(value, element, param){
+			    if(value !== ''){
+				    if (value.match(/^[0-9A-Za-zéèëêïîôöûüäâ\- ]*$/) == null){
+					    return false;
+				    }
+			    }
+			    return true;
+		    },
+		    'Ne doit contenir que des chiffres et des lettres (A-Z & a-z) des tirets et des espaces!'
+	    );
+	    $(document).ready(function(){
+		    $("#form-show-user").validate({
+			    rules: {
+				    name: {
+				    	required: true,
+					    minlength: 3,
+                        validAlphaNum: true,
+				    },
+				    email: {
+					    required: true,
+					    email: true,
+				    },
+				    password: {
+					    required: true,
+					    minlength: 6,
+					    validPassword: true
+				    }
+			    }
+		    });
 	    });
     </script>
 
