@@ -199,10 +199,9 @@
  </div>
 
 <script type="text/javascript">
-	$(document).ready(function () {
-
-	});
-
+	//////////////
+	// jqWidgets//
+	//////////////
 	$('#inputEmail').jqxInput({width: 200, height: 30, theme: "energyblue"});
 
 	$('#inputPassword').jqxPasswordInput({ width: 200, height: 30, theme: "energyblue"});

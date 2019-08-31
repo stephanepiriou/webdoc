@@ -1,3 +1,4 @@
+<!-- Header of the page -->
 <?php header('Content-type: text/html; charset=utf-8'); ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" href="/styles/bootstrap.css" >
@@ -11,7 +12,7 @@
 <script type="text/javascript" src="/scripts/menu.js"></script>
 </head>
 <body>
-<!--Flash message section-->
+<!--Flash message section for login, signin and logout method-->
 <!-- Note : has to be included once in base template for project ECI -->
 <?php use App\Flash; ?>
 <?php $messages = Flash::getMessage()?>

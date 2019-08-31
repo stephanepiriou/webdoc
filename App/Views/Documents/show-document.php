@@ -69,7 +69,9 @@
 
     </div>
     <script type="text/javascript">
-
+	    //////////////
+	    // jqWidgets//
+	    //////////////
         $('#button-submit').jqxButton({width: "100%", height: "25", theme: "energyblue"});
         $('#button-submit').on('click', function(event){
         	$("#form-delete-document").submit();
@@ -84,6 +86,7 @@
 	        pwa.document.close();
         })
 
+        //function to show the print interface of the browser in a new windows
         function ImagetoPrint(source)
         {
 	        return "<html><head><scri"+"pt>function step1(){\n" +

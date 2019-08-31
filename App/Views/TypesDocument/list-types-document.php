@@ -43,9 +43,9 @@
 
     </div>
     <script type="text/javascript">
-
-        //var data = [{"id": "1", "name": "carte d'identite"}, {"id": "2", "name": "diplome"}, {"id": "3", "name": "certificat medicale"}]
-
+	    /////////////
+	    //jqWidgets//
+	    //////////////
         <?php if(isset($typesDocumentAsJson)){
             echo 'var data ='.$typesDocumentAsJson;
         }?>

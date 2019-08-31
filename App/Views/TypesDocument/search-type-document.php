@@ -62,6 +62,9 @@
 
     </div>
     <script type="text/javascript">
+	    //////////////
+	    // jqWidgets//
+	    //////////////
 	    $("#input-type-document") . jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type de document", theme: "energyblue"});
 
 	    $("#button-search").jqxButton({ width: "150", height: "25", theme: "energyblue"});

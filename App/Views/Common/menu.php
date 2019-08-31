@@ -1,9 +1,11 @@
+<!-- Menu of the page -->
 <div class="container">
     <div class="row">
         <div id="app-menu" class="offset-lg-3 col-lg-6">
             <script type="text/javascript">
+	            // Create a jqxMenu
                 $(document).ready(function () {
-                    // Create a jqxMenu
+
                     $("#jqxMenu").jqxMenu({
                         width: '100%',
                         height: '30px',
@@ -40,11 +42,12 @@
 
                 });
             </script>
-
+            <!--About window-->
             <div id="window-about">
                 <div>Au sujet de...</div>
                 <div>Copyright &copy; 2019 [Stéphane Piriou], MIT License.</div>
             </div>
+            <!--Html menu structure-->
             <div id='jqxMenu'>
                 <ul>
                     <li>Connexion

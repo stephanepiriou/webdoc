@@ -63,6 +63,9 @@
 
     </div>
     <script type="text/javascript">
+	    //////////////
+	    // jqWidgets//
+	    //////////////
 	    $("#input-user-email") . jqxInput({width: 250, height: 30, placeHolder: "Entrez l'email de l'utilisateur", theme: "energyblue"});
 
 	    $("#button-search").jqxButton({ width: "150", height: "25", theme: "energyblue"});

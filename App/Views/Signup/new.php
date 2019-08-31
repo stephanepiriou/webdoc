@@ -46,6 +46,9 @@
     <script src="/js/hideShowPassword.min.js"></script>
     <script>
 
+	    //////////////////////////
+	    //Jquery field validator//
+	    //////////////////////////
         $.validator.addMethod('validPassword',
             function(value, element, param){
         	    if(value !== ''){

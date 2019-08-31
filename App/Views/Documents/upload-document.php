@@ -34,6 +34,7 @@
             <form id="form-upload-document" method="post" action="/documents/upload" enctype="multipart/form-data">
                 <input type="hidden" id="individu-id" name="individuid" value="<?php if(isset($individuid)){echo $individuid;}else{echo "";}?>">
                 <div class="container">
+                    <!--Error messages-->
                     <?php if (isset($errors)){
                         $errors_message = '<div class="alert alert-danger alert-dismissible fade show"><strong>Errors</strong>
                             <ul>';
@@ -112,6 +113,9 @@
     </div>
     <script type="text/javascript">
 
+	    //////////////
+	    // jqWidgets//
+	    //////////////
         <?php if(isset($jsonListTypesDocument)){
             echo 'var typeDocumentSource ='.$jsonListTypesDocument.';';
         }?>

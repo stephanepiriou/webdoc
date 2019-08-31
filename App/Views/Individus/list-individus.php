@@ -43,7 +43,9 @@
 
     </div>
     <script type="text/javascript">
-
+	    //////////////
+	    // jqWidgets//
+	    //////////////
         <?php if(isset($individusAsJson)){
             echo 'var data ='.$individusAsJson;
         }?>

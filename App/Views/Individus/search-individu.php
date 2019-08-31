@@ -87,13 +87,17 @@
 
     </div>
     <script type="text/javascript">
+	    //////////////
+	    // jqWidgets//
+	    //////////////
 	    var typeRechercheSource = [
 		    "matricule",
 		    "nom"
 	    ]
 	    $("#dropdown-search-type").jqxDropDownList({source: typeRechercheSource, width: "100%", height: 30, disabled: false,theme: "energyblue"});
+        $("#dropdown-search-type").jqxDropDownList('selectIndex', 0 );
 
-	    $("#input-search-term") . jqxInput({width: "100%", height: 30, placeHolder: "nom/matricule", theme: "energyblue"});
+	    $("#input-search-term").jqxInput({width: "100%", height: 30, placeHolder: "nom/matricule", theme: "energyblue"});
 
 	    $("#button-search").jqxButton({ width: "150", height: "25", theme: "energyblue"});
 	    $("#button-search").on("click", function (event) {

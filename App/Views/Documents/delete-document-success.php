@@ -48,6 +48,9 @@
 
     </div>
     <script type="text/javascript">
+	    //////////////
+	    // jqWidgets//
+	    //////////////
 	    $('#button-submit').jqxButton({width: "100%", height: "25", theme: "energyblue"});
 	    $('#button-submit').click(function(){
 		    $('#form-return-to-individu-view').submit();
