@@ -52,7 +52,8 @@
                 <ul>
                     <li>Connexion
                         <ul>
-                            <li><a href="logout">Déconnecter</a></li>
+                            <li><a href="/login/new">Se Connecter</a></li>
+                            <li><a href="/login/destroy">Déconnecter</a></li>
                         </ul>
                     <li>Individu
                         <ul>
