@@ -30,15 +30,8 @@
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
-            <div class="container">
-                <div class="row" style="align-content: center">
-                    <div class="col">
-                        <div style="display: table; margin: auto">
-
-                            <span>Use the menu to start using Webdoc</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show">
+                <?php if(isset($message_home)){echo $message_home;} ?>
             </div>
         </div>
     </div>
