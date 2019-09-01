@@ -184,6 +184,17 @@ class User extends \Core\Model
         return false;
     }
 
+    public static function isThereFirstUser(){
+        $sql = 'SELECT count(*)
+                FROM users';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        return ($count > 0 ? true : false);
+    }
+
     /**
      * Remember the login by inserting a unique token into the remember_logins table
      * for this user record
