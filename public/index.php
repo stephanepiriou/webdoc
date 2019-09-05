@@ -39,7 +39,7 @@ $router = new Core\Router();
 /*
  * Include Path
  */
-$path = "/Users/stephane/PhpstormProjects/webdoc/App/Views/Common/";
+$path = "/home/stephane/PhpstormProjects/webdoc/App/Views/Common/";
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 // Add the routes

@@ -47,7 +47,7 @@ class Config
      * Absolute Uplaod folder
      * @var string
      */
-    const ABSOLUTE_UPLOAD_FOLDER = '/Users/stephane/PhpstormProjects/webdoc/public/uploads/';
+    const ABSOLUTE_UPLOAD_FOLDER = '/home/stephane/PhpstormProjects/webdoc/public/uploads/';
 
     /**
      * Relative Upload folder
