@@ -19,7 +19,7 @@ class Documents extends Authenticated
         $individufirstname = $_POST['individufirstname'];
         $individulastname = $_POST['individulastname'];
         $jsonListTypesDocument = TypeDocument::getListAsJson();
-        View::render('/documents/upload-document.php',[
+        View::render('Documents/upload-document.php',[
             'individuid' => $individuid,
             'individufirstname' => $individufirstname,
             'individulastname' => $individulastname,
@@ -44,7 +44,7 @@ class Documents extends Authenticated
         $upload = new Uploader($file, $documentname, $typedocumentid, $individuid);
 
         if($upload->uploadFile()){
-            View::render('/documents/upload-document-success.php', [
+            View::render('Documents/upload-document-success.php', [
                 'individuid' => $individuid,
                 'individulastname' => $individulastname,
                 'individufirstname' => $individufirstname,
@@ -52,7 +52,7 @@ class Documents extends Authenticated
             ]);
         }else{
             $jsonListTypesDocument = TypeDocument::getListAsJson();
-            View::render('/documents/upload-document.php',[
+            View::render('Documents/upload-document.php',[
                 'individuid' => $individuid,
                 'individufirstname' => $individufirstname,
                 'individulastname' => $individulastname,
@@ -78,7 +78,7 @@ class Documents extends Authenticated
         $absolutefilepath = Config::ABSOLUTE_UPLOAD_FOLDER . $filename;
         echo $serverfilepath;
 
-        View::render('/documents/show-document.php',[
+        View::render('Documents/show-document.php',[
             'individuid' => $individuid,
             'documentname' => $documentname,
             'filepath' => $filepath,
