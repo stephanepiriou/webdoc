@@ -23,9 +23,7 @@ class User extends \Core\Model
     public $expiry_timestamp;
     /**
      * Class constructor
-     *
      * @param array $data  Initial property values (optional)
-     *
      * @return void
      */
     public function __construct($data = []){
@@ -36,8 +34,7 @@ class User extends \Core\Model
 
     /**
      * Save the user model with the current property values
-     *
-     * @return boolean  True if the user was saved, false otherwise
+     * @return boolean True if the user was saved, false otherwise
      */
     public function save(){
         $this->validate();
@@ -61,7 +58,6 @@ class User extends \Core\Model
 
     /**
      * Validate current property values, adding valiation error messages to the errors array property
-     *
      * @return void
      */
     public function validate(){
@@ -94,6 +90,7 @@ class User extends \Core\Model
 
     /**
      * Validation for update opération. (Removed email validation))
+     * @return void
      */
     public function validateForUpdate(){
         // Name
@@ -117,10 +114,8 @@ class User extends \Core\Model
 
     /**
      * See if a user record already exists with the specified email
-     *
      * @param string $email email address to search for
-     *
-     * @return boolean  True if a record already exists with the specified email, false otherwise
+     * @return boolean True if a record already exists with the specified email, false otherwise
      */
     public static function emailExists($email){
         return static::findByEmail($email) !== false;
@@ -128,9 +123,7 @@ class User extends \Core\Model
 
     /**
      * Find a user model by email address
-     *
      * @param string $email email address to search for
-     *
      * @return mixed User object if found, false otherwise
      */
     public static function findByEmail($email){
@@ -147,9 +140,7 @@ class User extends \Core\Model
 
     /**
      * Find a user model by email address
-     *
      * @param string $email email address to search for
-     *
      * @return mixed User object if found, false otherwise
      */
     public static function findByID($id){
@@ -166,10 +157,8 @@ class User extends \Core\Model
 
     /**
      * Authenticate a user by email and password.
-     *
      * @param string $email email address
      * @param string $password password
-     *
      * @return mixed  The user object or false if authentication fails
      */
     public static function authenticate($email, $password){
@@ -180,10 +169,13 @@ class User extends \Core\Model
                 return $user;
             }
         }
-
         return false;
     }
 
+    /**
+     * Check if a user already exist in the database
+     * @return boolean false if not user, true otherwise
+     **/
     public static function isThereFirstUser(){
         $sql = 'SELECT count(*)
                 FROM users';
