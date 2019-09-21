@@ -15,9 +15,7 @@ class TypeDocument extends Model
 
     /**
      * Class constructor
-     *
      * @param array $data Initial property values (optional)
-     *
      * @return void
      */
     public function __construct($data = []){
@@ -31,10 +29,14 @@ class TypeDocument extends Model
      * @return bool Return false if error exists, true otherwise
      */
     public function save(){
-        $this->validate();
+	    $this->name = strtolower($this->name);
+        if($this->checkTypeDocumentExist($this->name)){
+            $this->errors[] = 'Un type de document avec ce nom existe déjà.';
+        }else {
+		    $this->validate();
+	    }
 
         if (empty($this->errors)) {
-            $this->name = strtolower($this->name);
             $sql = 'INSERT 
                     INTO typesdocument (name) 
                     VALUES (:name)';
@@ -46,8 +48,41 @@ class TypeDocument extends Model
         return false;
     }
 
-    /**
+	/**
+	 * Check if typedocument exist in the DB
+	 * @param string $documentname The document name
+	 * @return bool True if document exist false otherwise
+	 */
+	private function checkTypeDocumentExist($name){
+		$sql = 'SELECT count(*)
+                FROM typesdocument
+                WHERE name=:name';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->execute();
+		$count = $stmt->fetchColumn();
+
+		return ($count > 0 ? true : false);
+	}
+
+	/**
+	 * Check if there is already a typedocument in the database
+	 * @return boolean false if not user, true otherwise
+	 **/
+	public static function isThereFirstTypeDocument(){
+		$sql = 'SELECT count(*)
+                FROM typesdocument';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->execute();
+		$count = $stmt->fetchColumn();
+		return ($count > 0 ? true : false);
+	}
+
+	/**
      * Validate field in type document name and record error in case of wrong entry
+     * @return void
      */
     public function validate(){
 
@@ -59,6 +94,32 @@ class TypeDocument extends Model
             $this->errors[] = 'Nom de type de document requière au moins une lettre !';
         }
     }
+
+        /**
+	     * See if a typesdocument record already exists with the specified name
+	     * @param string $name name to search for
+	     * @return boolean True if a record already exists with the specified email, false otherwise
+	     */
+        public static function nameExists($name){
+    	    return static::findByName($name) !== false;
+        }
+
+		/**
+		 * Find a typedocument model by name
+		 * @param string $name to search for
+		 * @return mixed User object if found, false otherwise
+		 */
+		public static function findByName($name){
+			$sql = 'SELECT * 
+	                FROM typesdocument 
+	                WHERE name =:name';
+			$db = static::getDB();
+			$stmt = $db->prepare($sql);
+			$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+			$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+			$stmt->execute();
+			return $stmt->fetch();
+		}
 
     /**
      * Get list of name of TypesDocument as json object
@@ -77,8 +138,7 @@ class TypeDocument extends Model
 
     /**
      * Get the id of the index of
-     * @param $name $name The name of the TypeIndividu
-     *
+     * @param string $name The name of the TypeIndividu
      */
     public static function getIndexFromName($name){
         $sql = 'SELECT * 
@@ -96,8 +156,8 @@ class TypeDocument extends Model
     }
 
     /**
-     * @param $id
-     * @return get TypeIndividu name from index
+     * @param $id int Ined of searched TypeIndividu
+     * @return string TypeIndividu name from index
      */
     public static function getNameFromIndex($id){
         $sql = 'SELECT * 
@@ -114,8 +174,8 @@ class TypeDocument extends Model
 
     /**
      * Get TypeDocument list as Json object
-     * @param $subStringName The subtring of the name of document type entered in the search field
-     * @return $jsonList List of DocumentType as json list
+     * @param string $subStringName The subtring of the name of document type entered in the search field
+     * @return string $jsonList List of DocumentType as json list
      */
     public static function getListSubAsJson($subStringName){
         $subStringName = strtolower($subStringName);
@@ -132,8 +192,8 @@ class TypeDocument extends Model
     }
 
     /**
-     * @param $id The id of the looked for typesDocument
-     * @return return TypeDocument object
+     * @param int $id The id of the looked for typesDocument
+     * @return object TypeDocument object
      */
     public static function getById($id){
 
@@ -151,7 +211,7 @@ class TypeDocument extends Model
 
     /**
      * Update TypeDocument object in the database
-     * @param $id The id of the object to update
+     * @param int $id The id of the object to update
      * @return boolean True if success, false otherwise.
      */
     public function update(){
@@ -174,7 +234,7 @@ class TypeDocument extends Model
 
     /**
      * Delete TypeDocument object in the database if not used
-     * @param $id The id of the object to delete
+     * @param int $id The id of the object to delete
      * @return mixed
      */
     public static function delete($id){

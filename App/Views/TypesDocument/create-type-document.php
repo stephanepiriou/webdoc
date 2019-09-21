@@ -103,9 +103,15 @@
 				    name: {
 					    required: true,
 					    minlength: 5,
-					    validAlphaNum: true
+					    validAlphaNum: true,
+                        remote: '/types-document/validate-name'
 				    }
-			    }
+			    },
+                messages: {
+			        name:{
+			            remote: 'Nom déjà prit!'
+                    }
+                }
 		    });
 	    });
     </script>
