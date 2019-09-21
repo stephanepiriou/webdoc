@@ -195,7 +195,8 @@
                    matricule: {
 	                   required: true,
 	                   minlength: 3,
-                       validAlphaNum: true
+                       validAlphaNum: true,
+                       remote: '/individus/validate-matricule'
                    },
 			       firstname: {
 				       required: true,
@@ -223,7 +224,12 @@
                        maxlength: 4,
 	                   validNum: true
                    }
-		       }
+		       },
+               messages: {
+		           matricule: {
+		               remote: 'Matricule déjà utilisé!'
+                   }
+               }
 	       });
        });
     </script>

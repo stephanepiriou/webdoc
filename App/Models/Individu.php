@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Core\Model;
+use App\Models\TypeIndividu;
 use PDOException;
 use PDO;
 
@@ -29,10 +30,17 @@ class Individu extends Model
      * @return boolean  True if the individu was saved, false otherwise
      */
     public function save(){
-        $this->validate();
+    	if(TypeIndividu::isThereFirstTypeIndividu()){
+    	    if($this->checkIndividuExist($this->matricule) ){
+    		    $this->errors[] = 'Un individu avec ce matricule existe déjà.';
+	        }else {
+		        $this->validate();
+	        }
+	    }else{
+    		$this->errors[]= 'Il n\'y a pas de type d\'individu auquel lié cet individu. Veuillez créer un type d\'individu avant de procéder à la création d\'un individu';
+	    }
 
         if (empty($this->errors)) {
-
             $this->firstname = strtolower($this->firstname);
             $this->lastname = strtolower($this->lastname);
             $this->adress = strtolower($this->adress);
@@ -54,8 +62,27 @@ class Individu extends Model
         return false;
     }
 
+
+	/**
+	 * Check if individu exist in the DB
+	 * @param string $documentname The document name
+	 * @return boolean True if document exist false otherwise
+	 */
+	private function checkIndividuExist($matricule){
+		$sql = 'SELECT count(*)
+                FROM individus
+                WHERE matricule=:matricule';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+		$stmt->execute();
+		$count = $stmt->fetchColumn();
+		return ($count > 0 ? true : false);
+	}
+
     /**
      * Validate field and fill errors array in case of error
+     * @return void
      */
     public function validate(){
 
@@ -113,6 +140,34 @@ class Individu extends Model
 
     }
 
+
+	/**
+	 * See if a individu record already exists with the specified matricule
+	 * @param string $matricule matricule to search for
+	 * @return boolean True if a record already exists with the specified email, false otherwise
+	 */
+	public static function matriculeExists($matricule){
+		return static::findByMatricule($matricule) !== false;
+	}
+
+	/**
+	 * Find a user model by matricule
+	 * @param string $matricule to search for
+	 * @return mixed User object if found, false otherwise
+	 */
+	public static function findByMatricule($matricule){
+		$sql = 'SELECT * 
+                FROM individus 
+                WHERE matricule = :matricule';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+		$stmt->execute();
+		return $stmt->fetch();
+	}
+
+
     /**
      * Search user with the current matricule
      * @param string matricule
@@ -132,7 +187,7 @@ class Individu extends Model
 
     /**
      * Search user with the current name
-     * @param string name
+     * @param string $name
      */
     public static function listByName($name){
         $subStringName = strtolower($name);
@@ -150,8 +205,8 @@ class Individu extends Model
 
     /**
      * Get Individu object from db with the current id passed in parametre
-     * @param $id of the individu in the db
-     * @return an individu object created from database field or false
+     * @param int $id of the individu in the db
+     * @return object an individu object created from database field or false
      */
     public static function getById($id){
         $sql = 'SELECT * 
@@ -168,7 +223,7 @@ class Individu extends Model
 
     /**
      * Update Individu object in the database
-     * @param $id The id of the object to update
+     * @param int $id The id of the object to update
      * @return boolean True if success, false otherwise.
      */
     public function update(){
@@ -201,8 +256,8 @@ class Individu extends Model
 
     /**
      * Delete Individu object in the database if not used
-     * @param $id The id of the object to delete
-     * @return mixed
+     * @param int $id The id of the object to delete
+     * @return boolean mixed
      */
     public static function delete($id){
         $sql = 'DELETE 
