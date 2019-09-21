@@ -41,7 +41,7 @@ CREATE TABLE users (
 
 CREATE TABLE remembered_logins (
   token_hash varchar(255) NOT NULL,
-  users_id   int(10) NOT NULL,
+  user_id   int(10) NOT NULL,
   expires_at datetime NOT NULL,
   PRIMARY KEY (token_hash)
 );
@@ -52,4 +52,4 @@ ALTER TABLE documents ADD CONSTRAINT FKdocuments126498 FOREIGN KEY (typedocument
 
 ALTER TABLE documents ADD CONSTRAINT FKdocuments24492 FOREIGN KEY (individuid) REFERENCES individus (id);
 
-ALTER TABLE remembered_logins ADD CONSTRAINT FKremembered183786 FOREIGN KEY (users_id) REFERENCES users (id);
+ALTER TABLE remembered_logins ADD CONSTRAINT FKremembered183786 FOREIGN KEY (user_id) REFERENCES users (id);
