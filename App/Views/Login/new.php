@@ -27,6 +27,9 @@
         </div>
         <div class="row">
             <div id="main-panel"  class="offset-lg-3 col-lg-6">
+                <div class="alert alert-success alert-dismissible fade show">
+		            <?php if(isset($message_home)){echo $message_home;} ?>
+                </div>
                 <form id="form-login" action="/login/create" method="post">
                     <div class="container">
                         <div class="row">
