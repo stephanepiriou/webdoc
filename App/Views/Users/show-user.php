@@ -112,13 +112,13 @@
 	    //////////////
 	    // jqWidgets//
 	    //////////////
-	    $('#input-id').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-id').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
-	    $('#input-name').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-name').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
-	    $('#input-email').jqxInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-email').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
-	    $('#input-password').jqxPasswordInput({width: 200, height: 30, disabled: true, theme: "energyblue"});
+	    $('#input-password').jqxPasswordInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
 	    $("#button-update-save").jqxButton({ width: "150", height: "25", theme: "energyblue"});
 	    $("#button-update-save").on("click", function (event) {
