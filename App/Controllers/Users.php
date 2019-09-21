@@ -20,6 +20,7 @@ class Users extends Authenticated
         $user = new User($_POST);
 
         if ($user->save()) {
+
             $this->redirect('/users/create-user-success');
          } else {
             View::render('Users/create-user.php', [
