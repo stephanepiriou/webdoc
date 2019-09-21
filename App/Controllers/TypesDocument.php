@@ -104,4 +104,13 @@ class TypesDocument extends Authenticated
             View::render('TypesDocument/delete-type-document-faillure.php');
         }
     }
+
+	/**
+	 * Ajax valifation checking the existence of a matricule
+	 */
+	public function validateNameAction(){
+		$is_valid = ! TypeDocument::nameExists($_GET['name']);
+		header('Content-Type: application/json');
+		echo json_encode($is_valid);
+	}
 }

@@ -15,6 +15,7 @@ class Individus extends Authenticated
     public $jsonListTypesIndividu;
 
     public function newAction(){
+
         $jsonListTypesIndividu = TypeIndividu::getListAsJson();
         View::render('Individus/create-individu.php', [
             'jsonListTypesIndividu' => $jsonListTypesIndividu
@@ -130,5 +131,14 @@ class Individus extends Authenticated
         }else{
             View::render('Individus/delete-individu-faillure.php');
         }
+    }
+
+	/**
+	 * Ajax valifation checking the existence of a matricule
+	 */
+    public function validateMatriculeAction(){
+    	$is_valid = ! Individu::matriculeExists($_GET['matricule']);
+	    header('Content-Type: application/json');
+	    echo json_encode($is_valid);
     }
 }

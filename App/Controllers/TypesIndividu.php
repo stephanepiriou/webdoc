@@ -100,4 +100,13 @@ class TypesIndividu extends Authenticated
             View::render('TypesIndividu/delete-type-individu-faillure.php');
         }
     }
+
+	/**
+	 * Ajax valifation checking the existence of a matricule
+	 */
+	public function validateNameAction(){
+		$is_valid = ! TypeIndividu::nameExists($_GET['name']);
+		header('Content-Type: application/json');
+		echo json_encode($is_valid);
+	}
 }
