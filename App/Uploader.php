@@ -4,6 +4,7 @@
 namespace App;
 Use App\Config;
 Use App\Models\Document;
+use App\Models\TypeDocument;
 
 class Uploader
 {
@@ -12,9 +13,6 @@ class Uploader
      */
     public $errors = [];
 
-    /**
-     * @var Set if
-     */
     private $uploadOk;
     private $file;
     private $documentname;
@@ -25,17 +23,12 @@ class Uploader
     private $targetFilePath;
     private $imageFileType;
 
-    const UPLOAD_DIR_ACCESS_MODE = 0777;
-    const UPLOAD_MAX_FILE_SIZE = 10485760;
-    const UPLOAD_ALLOWED_MIME_TYPES = [
-        'image/jpeg',
-        'image/png',
-        'image/gif',
-    ];
-
     /**
      * Uploader constructor.
-     * @param $file The file the uploader class must upload
+     * @param $file string The file the uploader class must upload
+     * @param $documentname string The document name
+     * @param $typedocumentid int The typeducument id
+     * @param $individuid int The individu id
      */
     public function __construct($file, $documentname, $typedocumentid, $individuid){
         $this->file = $file;
@@ -77,29 +70,32 @@ class Uploader
      * in the corresponding view.
      */
     private function checkError(){
+	    if(TypeDocument::isThereFirstTypeDocument()) {
+		    //Check if file is .jpg, .png, .jpeg, .gif
+		    if ($this->imageFileType !== "jpg" && $this->imageFileType !== "png" && $this->imageFileType !== "jpeg" && $this->imageFileType !== "gif") {
+			    $this->errors[] = "Désolé. Seuls les fichiers .jpg, .jpeg, .png et .gif sont acceptés.";
+			    $this->uploadOk = false;
+		    }
 
-        //Check if file is .jpg, .png, .jpeg, .gif
-        if($this->imageFileType !== "jpg" && $this->imageFileType !== "png" && $this->imageFileType !== "jpeg" && $this->imageFileType !== "gif" ) {
-            $this->errors[]= "Désolé. Seuls les fichiers .jpg, .jpeg, .png et .gif sont acceptés.";
-            $this->uploadOk = false;
-        }
+		    //Check if document exist in DB
+		    if (Document::checkDocumentExist($this->documentname)) {
+			    $this->errors[] = "Désolé, ce document existe déjà dans la base de donnée.";
+			    $this->uploadOk = false;
+		    }
 
-        //Check if document exist in DB
-        if (Document::checkDocument($this->documentname)){
-            $this->errors[] = "Désolé, ce document existe déjà dans la base de donnée.";
-            $this->uploadOk = false;
-        }
+		    //Check if file already exist
+		    if (file_exists($this->targetFilePath)) {
+			    $this->errors[] = "Désolé. Ce fichier existe déjà.";
+			    $this->uploadOk = false;
+		    }
 
-        //Check if file already exist
-        if (file_exists($this->targetFilePath)) {
-            $this->errors[] = "Désolé. Ce fichier existe déjà.";
-            $this->uploadOk = false;
-        }
-
-        // Check file size
-        if ($this->file["size"] > 5000000) {
-            $this->errors[] = "Désolé. La taille du fichier est limité à 5Mo.";
-            $this->uploadOk = false;
-        }
+		    // Check file size
+		    if ($this->file["size"] > 5000000) {
+			    $this->errors[] = "Désolé. La taille du fichier est limité à 5Mo.";
+			    $this->uploadOk = false;
+		    }
+	    }else {
+		    $this->errors[] = "Il n'y a pas de type de document à associer à ce document. Veuillez d'abord créer un type de document avant de procéder.";
+	    }
     }
 }
