@@ -11,10 +11,10 @@ class Document extends Model
 {
     /**
      * Save the document reference in the DB
-     * @param $documentname The document name (calculated field from typedocument name and individu firstname and lastname)
-     * @param $typedocumentid The typedocument id
-     * @param $individuid The individu id the document refers to
-     * @param $path The path in the file system of the saved document
+     * @param $documentname string The document name (calculated field from typedocument name and individu firstname and lastname)
+     * @param $typedocumentid int The typedocument id
+     * @param $individuid int The individu id the document refers to
+     * @param $path int The path in the file system of the saved document
      */
     public static function save($documentname, $typedocumentid, $individuid, $filename){
         $sql = 'INSERT 
@@ -32,10 +32,10 @@ class Document extends Model
 
     /**
      * Check if document exist in the DB
-     * @param $documentname The document name
+     * @param $documentname string The document name
      * @return bool True if document exist false otherwise
      */
-    public static function checkDocument($documentname){
+    public static function checkDocumentExist($documentname){
         $sql = 'SELECT count(*)
                 FROM documents
                 WHERE name=:name';
@@ -49,7 +49,7 @@ class Document extends Model
     }
 
     /**
-     * @param $id The document id
+     * @param $id int The document id
      * @return bool True if delete ok, false otherwise.
      */
     public static function delete($id){
@@ -75,8 +75,8 @@ class Document extends Model
 
     /**
      * Fetch all documents by Individu and deliver it in an INNER JOIN
-     * @param $individuid The individu id the document list refers to.
-     * @return The document list as a Json string.
+     * @param $individuid int The individu id the document list refers to.
+     * @return string The document list as a Json string.
      */
     public static function listByIndividuId($individuid){
         $sql = 'SELECT documents.id AS document_id, documents.name AS document_name, typesdocument.name AS type_document_name
@@ -101,7 +101,7 @@ class Document extends Model
     }
 
     /**
-     * @param $documentid The id of the document
+     * @param $documentid int The id of the document
      * @return string The document Name
      */
     public static function getDocumentName($documentid){
@@ -117,7 +117,7 @@ class Document extends Model
     }
 
     /**
-     * @param $documentid The id of the document
+     * @param $documentid int The id of the document
      * @return mixed The file name in the file system
      */
     public static function getFileName($documentid){
