@@ -66,16 +66,8 @@
                     </li>
                     <li>Documents
                         <ul>
-                            <li><a href="/documents/search">Chercher un Document</a></li>
-                            <li style="color: rgb(148, 176,202);">---------------------</li>
                             <li><a href="/types-document/search">Chercher un Type de Document</a></li>
                             <li><a href="/types-document/new">Créer un Type de Document</a></li>
-                        </ul>
-                    </li>
-                    <li>Backup
-                        <ul>
-                            <li><a href="/backup/create">Créer un backup</a></li>
-                            <li><a href="/backup/restore">Restaurer un backup</a></li>
                         </ul>
                     </li>
                     <li>Utilisateurs
@@ -86,7 +78,6 @@
                     </li>
                     <li>?
                         <ul>
-                            <li><a href="/miscellaneous/help">Aide</a></li>
                             <li><a id="about" >Au sujet de...</a></li>
                         </ul>
                     </li>
