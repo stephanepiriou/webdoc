@@ -18,9 +18,7 @@ class TypeIndividu extends Model
 
     /**
      * Class constructor
-     *
      * @param array $data  Initial property values (optional)
-     *
      * @return void
      */
     public function __construct($data = []){
@@ -31,17 +29,19 @@ class TypeIndividu extends Model
 
     /**
      * Save the TypeIndividu model with the current property values
-     *
-     * @return boolean  True if the user was saved, false otherwise
+     * @return boolean True if the user was saved, false otherwise
      */
     public function save(){
-        $this->validate();
+	    $this->name = strtolower($this->name);
+	    if($this->checkTypeIndividuExist($this->name)){
+		    $this->errors[] = 'Un type d\'individu avec ce nom existe déjà.';
+	    }else {
+		    $this->validate();
+	    }
 
         if (empty($this->errors)) {
-
-            $this->name = strtolower($this->name);
-            $sql = 'INSERT 
-                    INTO typesIndividu (name) 
+        	$sql = 'INSERT 
+                    INTO typesindividu (name) 
                     VALUES (:name)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -51,8 +51,40 @@ class TypeIndividu extends Model
         return false;
     }
 
+	/**
+	 * Check if typeindividu exist in the DB
+	 * @param string $name The typeindividu name
+	 * @return bool True if document exist false otherwise
+	 */
+	private function checkTypeIndividuExist($name){
+		$sql = 'SELECT count(*)
+                FROM typesindividu
+                WHERE name=:name';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->execute();
+		$count = $stmt->fetchColumn();
+		return ($count > 0 ? true : false);
+	}
+
+	/**
+	 * Check if there is already a typeindividu in the database
+	 * @return boolean false if not user, true otherwise
+	 **/
+	public static function isThereFirstTypeIndividu(){
+		$sql = 'SELECT count(*)
+                FROM typesindividu';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->execute();
+		$count = $stmt->fetchColumn();
+		return ($count > 0 ? true : false);
+	}
+
     /**
      * validate the fields of form create and update and fill error[] viariable for user insight
+     * @return void
      */
     public function validate(){
 
@@ -65,9 +97,35 @@ class TypeIndividu extends Model
         }
     }
 
+	/**
+	 * See if a typesindividu record already exists with the specified name
+	 * @param string $name name to search for
+	 * @return boolean True if a record already exists with the specified email, false otherwise
+	 */
+	public static function nameExists($name){
+		return static::findByName($name) !== false;
+	}
+
+	/**
+	 * Find a typeindividu model by name
+	 * @param string $name to search for
+	 * @return mixed User object if found, false otherwise
+	 */
+	public static function findByName($name){
+		$sql = 'SELECT * 
+	                FROM typesindividu 
+	                WHERE name =:name';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+		$stmt->execute();
+		return $stmt->fetch();
+	}
+
     /**
      * Return a json list of all name of type of individu
-     * @return json object
+     * @return string json object
      */
     public static function getListAsJson(){
         $sql = 'SELECT name 
@@ -82,7 +140,7 @@ class TypeIndividu extends Model
 
     /**
      * Get the id of the index of
-     * @param $name $name The name of the TypeIndividu
+     * @param string $name The name of the TypeIndividu
      *
      */
     public static function getIndexFromName($name){
@@ -102,8 +160,8 @@ class TypeIndividu extends Model
 
     /**
      * Get TypeDocument list as Json object
-     * @param $subStringName The subtring of the name of document type entered in the search field
-     * @return $jsonList List of DocumentType as json list
+     * @param string $subStringName The subtring of the name of document type entered in the search field
+     * @return string $jsonList List of DocumentType as json list
      */
     public static function getListSubAsJson($subStringName){
         $subStringName = strtolower($subStringName);
@@ -120,8 +178,8 @@ class TypeIndividu extends Model
     }
 
     /**
-     * @param $id The id of the looked for typesIndividu
-     * @return return TypeIndividu object
+     * @param int $id The id of the looked for typesIndividu
+     * @return object TypeIndividu object
      */
     public static function getById($id){
         $sql = 'SELECT * 
@@ -137,8 +195,8 @@ class TypeIndividu extends Model
     }
 
     /**
-     * @param $id
-     * @return get TypeIndividu name from index
+     * @param int $id
+     * @return string TypeIndividu name from index
      */
     public static function getNameFromIndex($id){
         $sql = 'SELECT * 
@@ -155,7 +213,7 @@ class TypeIndividu extends Model
 
     /**
      * Update TypeIndividu object in the database
-     * @param $id The id of the object to update
+     * @param int $id The id of the object to update
      * @return boolean True if success, false otherwise.
      */
     public function update(){
@@ -178,7 +236,7 @@ class TypeIndividu extends Model
 
     /**
      * Delete TypeIndividu object in the database if not used
-     * @param $id The id of the object to delete
+     * @param int $id The id of the object to delete
      * @return mixed
      */
     public static function delete($id){

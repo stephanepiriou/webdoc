@@ -103,9 +103,15 @@
 				    name: {
 				    	required: true,
                         minlength: 3,
-					    validAlphaNum: true
-				    }
-			    }
+					    validAlphaNum: true,
+                        remote: '/types-individu/validate-name'
+                    }
+			    },
+                messages: {
+                    name:{
+                        remote: 'Nom déjà prit!'
+                    }
+                }
 		    });
 	    });
     </script>
