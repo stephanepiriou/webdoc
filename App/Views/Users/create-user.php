@@ -91,11 +91,11 @@
 	    //////////////
 	    // jqWidgets//
 	    //////////////
-	    $('#input-name').jqxInput({width: 200, height: 30, theme: "energyblue"});
+	    $('#input-name').jqxInput({width: '100%', height: 30, theme: "energyblue"});
 
-	    $('#input-email').jqxInput({width: 200, height: 30, theme: "energyblue"});
+	    $('#input-email').jqxInput({width: '100%', height: 30, theme: "energyblue"});
 
-	    $('#input-password').jqxPasswordInput({width: 200, height: 30, theme: "energyblue"});
+	    $('#input-password').jqxPasswordInput({width: '100%', height: 30, theme: "energyblue"});
 
 	    $('#button-submit').jqxButton({ width: "150", height: "25", theme: "energyblue"});
 	    $('#button-submit').click(function(){
@@ -129,7 +129,7 @@
 			    }
 			    return true;
 		    },
-		    'Must contain at least 1 letter and 1 number'
+		    'Doit contenir aumoins 1 lettre et 1 nombre!'
 	    );
 	    $(document).ready(function(){
 		    $("#form-create-user").validate({
@@ -152,7 +152,7 @@
 			    },
 			    messages: {
 				    email: {
-					    remote: "email already taken"
+					    remote: "Email est déjà prit!"
 				    }
 			    }
 		    });
