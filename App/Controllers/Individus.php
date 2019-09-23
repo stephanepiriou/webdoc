@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for Individus class
+ * @package App\Controllers
+ */
 namespace App\Controllers;
 
 use Core\View;

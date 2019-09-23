@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the show-type-individu.php view
+ * @package App\Views\TypesIndividu
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Editer un type d&apos;individu</title>
 <?php include("header.php")?>

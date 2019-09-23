@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the success.php view
+ * @package App\Views\Signup
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <html>
 <head></head>
 <body>

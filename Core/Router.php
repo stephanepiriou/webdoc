@@ -1,12 +1,16 @@
 <?php
+/**
+ * File for Router class
+ * @package Core
+ */
 
 namespace Core;
 
 use mysql_xdevapi\Exception;
 
 /**
- * Router
- *
+ * Class Router : Class responsible for the routing of url address toward relevant controller
+ * @package Core
  * PHP version 5.4
  */
 class Router

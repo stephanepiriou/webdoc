@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the delete-type-document-faillure.php view
+ * @package App\Views\TypesDocument
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Effacer un type de document</title>
 <?php include("header.php")?>

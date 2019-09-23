@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the upload-document-success.php view
+ * @package App\Views\Documents
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Upload réussi !</title>
 <?php include("header.php")?>

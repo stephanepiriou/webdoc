@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * File for Login class
+ * @package App\Controllers
+ */
 namespace App\Controllers;
 
 use App\Auth;
@@ -10,8 +13,7 @@ use function session_regenerate_id;
 
 /**
  * Login controller
- *
- * PHP version 7.0
+ * @package App\Controller
  */
 class Login extends \Core\Controller
 {

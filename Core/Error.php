@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * File for Error class
+ * @package Core
+ */
 
 namespace Core;
 
@@ -14,6 +17,7 @@ use App\Config;
 class Error
 {
     /**
+     * Error Handler of Error occuring in the app
      * @param int $level Error level
      * @param string $message Error message
      * @param string $file Filename the error was raised in

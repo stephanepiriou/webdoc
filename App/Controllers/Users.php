@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for Users class
+ * @package App\Controllers
+ */
 namespace App\Controllers;
 
 

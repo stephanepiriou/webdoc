@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for TypesDocument class
+ * @package App\Controllers
+ */
 namespace App\Controllers;
 
 use App\Models\TypeDocument;

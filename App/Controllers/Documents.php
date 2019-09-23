@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for Documents class
+ * @package App\Controllers
+ */
 namespace App\Controllers;
 
 use App\Config;

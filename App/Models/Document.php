@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for Document class
+ * @package App\Models
+ */
 namespace App\Models;
 
 use Core\Model;

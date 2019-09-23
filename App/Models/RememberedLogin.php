@@ -1,6 +1,7 @@
 <?php
 /**
- *
+ * File for RememberLogin class
+ * @package App\Models
  */
 
 namespace App\Models;

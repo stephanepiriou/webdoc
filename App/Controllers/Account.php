@@ -1,13 +1,15 @@
 <?php
-
+/**
+ * File for Account class
+ * @package App\Controllers
+ */
 namespace App\Controllers;
 
 use \App\Models\User;
 
 /**
  * Account controller
- *
- * PHP version 7.0
+ * @package App\Controllers
  */
 class Account extends \Core\Controller
 {

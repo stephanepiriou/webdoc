@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the upload-document.php view
+ * @package App\Views\Documents
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Nouveau document</title>
 <?php include("header.php")?>

@@ -1,4 +1,9 @@
 <?php
+/**
+ * File for TypeDocument class
+ * @package App\Models
+ */
+
 namespace App\Models;
 
 use Core\Model;
@@ -16,7 +21,10 @@ use function strtolower;
  */
 class TypeDocument extends Model
 {
-    //Errors from create and update operation (see validate() method)
+    /**
+     * Errors from create and update operation (see validate() method)
+     * @var array
+     */
     public $errors = [];
 
     /**

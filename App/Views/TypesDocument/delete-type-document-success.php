@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the delete-type-document-success.php view
+ * @package App\Views\TypesDocument
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Succès</title>
 <?php include("header.php")?>

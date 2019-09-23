@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * File for Uploader class
+ * @package App
+ */
 
 namespace App;
 Use App\Config;

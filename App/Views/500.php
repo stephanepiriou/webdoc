@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the 500.php view
+ * @package App\Views
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the new.php view
+ * @package App\Views\Login
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Login</title>
 <?php include("header.php")?>

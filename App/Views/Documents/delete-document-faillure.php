@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the delete-document-faillure.php view
+ * @package App\Views\Documents
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Effacer le document</title>
 <?php include("header.php")?>

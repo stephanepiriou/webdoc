@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the create-type-document.php view
+ * @package App\Views\TypesDocument
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Créer un type de document</title>
 <?php include("header.php")?>

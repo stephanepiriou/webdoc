@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * File for Flash class
+ * @package App
+ */
 
 namespace App;
 

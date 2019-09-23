@@ -1,9 +1,14 @@
 <?php
+/**
+ * File for base View class
+ * @package Core
+ */
 
 namespace Core;
 
 /**
- * Used to include view component included in ../App/Views/ folder
+ * Used to render view component included in ../App/Views/ package
+ * @package Core
  */
 class View
 {

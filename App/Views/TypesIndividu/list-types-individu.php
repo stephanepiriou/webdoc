@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the list-types-individu.php view
+ * @package App\Views\TypesIndividu
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Chercher un type d&aposindividu</title>
 <?php include("header.php")?>

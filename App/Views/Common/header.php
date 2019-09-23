@@ -1,3 +1,14 @@
+<?php
+/**
+ * Head of the php views
+ * @package App\View\Common
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
 <!-- Header of the page -->
 <?php header('Content-type: text/html; charset=utf-8'); ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>

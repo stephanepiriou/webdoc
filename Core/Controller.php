@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * File for base Controller class
+ * @package Core
+ */
 namespace Core;
 
 use App\Flash;
@@ -9,6 +13,8 @@ use App\Auth;
 /**
  * Base controller : Parent class of the controller component of the app
  * Handles the params from get request and url redirection to Controllers and controller methods
+ * Class Controller
+ * @package Core
  */
 abstract class Controller
 {

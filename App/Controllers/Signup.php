@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * File for Signup class
+ * @package App\Controllers
+ */
 namespace App\Controllers;
 
 use \Core\View;
@@ -7,8 +10,7 @@ use \App\Models\User;
 
 /**
  * Signup controller
- *
- * PHP version 7.0
+ * @package App\Controllers
  */
 class Signup extends \Core\Controller
 {

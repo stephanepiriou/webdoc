@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the show-individu.php view
+ * @package App\Views\Individus
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Editer un individu</title>
 <?php include("header.php")?>

@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the delete-user-faillure.php view
+ * @package App\Views\Users
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Effacer un utilisateur</title>
 <?php include("header.php")?>

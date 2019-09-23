@@ -1,0 +1,145 @@
+<?php
+/**
+ * File for Document class
+ * @package App\Models
+ */
+namespace App\Models;
+
+use Core\Model;
+use PDOException;
+use App\Config;
+use PDO;
+
+/**
+ * Class Document
+ * Control the Document domain of the application
+ * @package App\Models
+ */
+class Document extends Model
+{
+    /**
+     * Save the document reference in the DB
+     * @param $documentname string The document name (calculated field from typedocument name and individu firstname and lastname)
+     * @param $typedocumentid int The typedocument id
+     * @param $individuid int The individu id the document refers to
+     * @param $filename string The file name in the file system of the saved document
+     */
+    public static function save($documentname, $typedocumentid, $individuid, $filename){
+        $sql = 'INSERT 
+                INTO documents (name, typedocumentid, individuid, filename)
+                VALUES(:name, :typedocumentid, :individuid, :filename)';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':name', $documentname, PDO::PARAM_STR);
+        $stmt->bindValue(':typedocumentid', $typedocumentid, PDO::PARAM_INT);
+        $stmt->bindValue(':individuid', $individuid, PDO::PARAM_INT);
+        $stmt->bindValue(':filename', $filename, PDO::PARAM_STR);
+        return $stmt->execute();
+
+    }
+
+    /**
+     * Check if document exist in the DB
+     * @param $documentname string The document name
+     * @return bool True if document exist false otherwise
+     */
+    public static function checkDocumentExist($documentname){
+        $sql = 'SELECT count(*)
+                FROM documents
+                WHERE name=:name';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':name', $documentname, PDO::PARAM_STR);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        return ($count > 0 ? true : false);
+    }
+
+    /**
+     * Delete a document fron its id
+     * @param $id int The document id
+     * @return bool True if delete ok, false otherwise.
+     */
+    public static function delete($id){
+        $sql = 'SELECT filename
+                FROM documents
+                WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $filename = $stmt->fetchColumn();
+        $filepath = Config::ABSOLUTE_UPLOAD_FOLDER . $filename;
+        unlink($filepath);
+
+        $sql = 'DELETE 
+                FROM documents
+                WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    /**
+     * Fetch all documents by Individu and deliver it in an INNER JOIN
+     * @param $individuid int The individu id the document list refers to.
+     * @return string The document list as a Json string.
+     */
+    public static function listByIndividuId($individuid){
+        $sql = 'SELECT documents.id AS document_id, documents.name AS document_name, typesdocument.name AS type_document_name
+                FROM documents
+                INNER JOIN individus ON individus.id=documents.individuid
+                INNER JOIN typesdocument ON documents.typedocumentid=typesdocument.id
+                WHERE individuid=:individuid';
+
+        //$sql = 'SELECT documents.id AS document_id, documents.nom AS document_name, typesdocument.name AS type_document_name
+        //        FROM documents
+        //        INNER JOIN documents_individus ON documents.id=documents_individus.documentid
+        //        INNER JOIN individus ON individus.id=documents_individus.individuid
+        //        INNER JOIN typesdocument on documents.DocumentTypesid = typesdocument.id
+        //        WHERE individuid=:individuid';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':individuid', $individuid, PDO::PARAM_INT);
+        $stmt->execute();
+        $array = $stmt->fetchAll();
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
+    }
+
+    /**
+     * Get document name from its id
+     * @param $documentid int The id of the document
+     * @return string The document Name
+     */
+    public static function getDocumentName($documentid){
+        $sql = 'SELECT name
+                FROM documents
+                WHERE id=:documentid';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':documentid', $documentid, PDO::PARAM_INT);
+        $stmt->execute();
+        $documentname = $stmt->fetchColumn();
+        return $documentname;
+    }
+
+    /**
+     * Get the file name from its id
+     * @param $documentid int The id of the document
+     * @return mixed The file name in the file system
+     */
+    public static function getFileName($documentid){
+        $sql = 'SELECT filename
+                FROM documents
+                WHERE id=:documentid';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':documentid', $documentid, PDO::PARAM_INT);
+        $stmt->execute();
+        $filename = $stmt->fetchColumn();
+        return $filename;
+    }
+}

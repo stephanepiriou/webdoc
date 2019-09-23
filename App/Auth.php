@@ -1,4 +1,9 @@
 <?php
+/**
+ * File for Auth class
+ * @package App
+ */
+
 namespace App;
 
 use App\Models\RememberedLogin;

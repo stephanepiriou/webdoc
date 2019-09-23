@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the new.php view
+ * @package App\Views\Signup
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

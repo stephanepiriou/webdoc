@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * File for Authenticated class
+ * @package App\Controllers
+ */
 
 namespace App\Controllers;
 

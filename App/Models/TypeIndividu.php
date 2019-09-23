@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for TypeIndividu class
+ * @package App\Models
+ */
 namespace App\Models;
 
 use \Core\Model;

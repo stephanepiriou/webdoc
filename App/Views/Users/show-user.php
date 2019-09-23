@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the show-user.php view
+ * @package App\Views\Users
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Editer un utilisateur</title>
 <?php include("header.php")?>

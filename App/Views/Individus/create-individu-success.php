@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the create-individu-success.php view
+ * @package App\Views\Individus
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Succès</title>
 <?php include("header.php")?>

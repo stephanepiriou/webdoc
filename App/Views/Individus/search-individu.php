@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the search-individu.php view
+ * @package App\Views\Individus
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Chercher un individu</title>
 <?php include("header.php")?>

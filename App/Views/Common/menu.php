@@ -1,3 +1,14 @@
+<?php
+/**
+ * Menu of the php views
+ * @package App\View\Common
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
 <!-- Menu of the page -->
 <div class="container">
     <div class="row">

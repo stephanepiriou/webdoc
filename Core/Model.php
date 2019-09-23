@@ -1,4 +1,9 @@
 <?php
+/**
+ * File for base Model class
+ * @package Core
+ */
+
 namespace Core;
 
 use App\Config;

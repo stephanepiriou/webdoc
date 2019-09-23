@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the update-type-individu-success.php view
+ * @package App\Views\TypesIndividu
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
 <title>Succès Mise à jour</title>
 <?php include("header.php")?>

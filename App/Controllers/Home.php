@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * File for Home class
+ * @package App\Controllers
+ */
 namespace App\Controllers;
 
 use App\Auth;
@@ -9,8 +12,7 @@ use function unlink;
 
 /**
  * Home controller
- *
- * PHP version 7.0
+ * @package App\Controllers
  */
 class Home extends \Core\Controller
 {

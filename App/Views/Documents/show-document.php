@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the show-document.php view
+ * @package App\Views\Documents
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Document</title>
 <?php include("header.php")?>

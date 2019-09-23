@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the index.php view
+ * @package App\Views\Home
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Webdoc Home</title>
 <?php include("header.php")?>

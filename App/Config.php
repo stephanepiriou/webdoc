@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for Config class
+ * @package App
+ */
 namespace App;
 
 /**

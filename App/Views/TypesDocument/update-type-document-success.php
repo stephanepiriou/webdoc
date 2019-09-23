@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the update-type-document-success.php view
+ * @package App\Views\TypesDocument
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Succès Mise à jour</title>
 <?php include("header.php")?>

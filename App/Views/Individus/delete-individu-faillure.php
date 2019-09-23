@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the delete-individu-faillure.php view
+ * @package App\Views\Individus
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Effacer un individu</title>
 <?php include("header.php")?>

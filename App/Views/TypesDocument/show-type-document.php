@@ -1,3 +1,15 @@
+<?php
+/**
+ * File of the show-type-document.php view
+ * @package App\Views\TypesDocument
+ */
+/**
+ * Dummy function
+ * @return void
+ */
+function(){}
+?>
+
 <?php include("entete.php")?>
     <title>Editer un type de document</title>
 <?php include("header.php")?>

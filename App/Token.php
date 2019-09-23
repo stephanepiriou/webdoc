@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for Token class
+ * @package App
+ */
 namespace App;
 
 use \App\Config;

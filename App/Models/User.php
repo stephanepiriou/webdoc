@@ -1,4 +1,8 @@
 <?php
+/**
+ * File for User class
+ * @package App\Models
+ */
 
 namespace App\Models;
 
