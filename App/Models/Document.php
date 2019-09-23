@@ -6,7 +6,11 @@ use PDOException;
 use App\Config;
 use PDO;
 
-
+/**
+ * Class Document
+ * Control the Document domain of the application
+ * @package App\Models
+ */
 class Document extends Model
 {
     /**
@@ -14,7 +18,7 @@ class Document extends Model
      * @param $documentname string The document name (calculated field from typedocument name and individu firstname and lastname)
      * @param $typedocumentid int The typedocument id
      * @param $individuid int The individu id the document refers to
-     * @param $path int The path in the file system of the saved document
+     * @param $filename string The file name in the file system of the saved document
      */
     public static function save($documentname, $typedocumentid, $individuid, $filename){
         $sql = 'INSERT 
@@ -49,6 +53,7 @@ class Document extends Model
     }
 
     /**
+     * Delete a document fron its id
      * @param $id int The document id
      * @return bool True if delete ok, false otherwise.
      */
@@ -101,6 +106,7 @@ class Document extends Model
     }
 
     /**
+     * Get document name from its id
      * @param $documentid int The id of the document
      * @return string The document Name
      */
@@ -117,6 +123,7 @@ class Document extends Model
     }
 
     /**
+     * Get the file name from its id
      * @param $documentid int The id of the document
      * @return mixed The file name in the file system
      */

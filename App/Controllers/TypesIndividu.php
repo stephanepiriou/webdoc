@@ -5,10 +5,16 @@ use App\Models\TypeIndividu;
 use Core\View;
 use function var_dump;
 
+/**
+ * Class TypesIndividu
+ * Control the TypeIndividu domain of the application
+ * @package App\Controllers
+ */
 class TypesIndividu extends Authenticated
 {
     /**
      * Redirect to individu type creation view
+     * @return void
      * @throws \Exception
      */
     public function newAction(){
@@ -17,6 +23,7 @@ class TypesIndividu extends Authenticated
 
     /**
      * Handle creation of typeindividu
+     * @return void
      * @throws \Exception
      */
     public function createAction(){
@@ -33,6 +40,7 @@ class TypesIndividu extends Authenticated
 
     /**
      * Redirect to create-type-individu-success
+     * @return void
      */
     public function createTypeIndividuSuccessAction(){
         View::render('TypesIndividu/create-type-individu-success.php');
@@ -40,6 +48,7 @@ class TypesIndividu extends Authenticated
 
     /**
      * Call the search form
+     * @return void
      */
     public function searchAction(){
         View::render('TypesIndividu/search-type-individu.php');
@@ -47,6 +56,7 @@ class TypesIndividu extends Authenticated
 
     /**
      * Call and handles the list results of the search form
+     * @return void
      */
     public function listAction(){
         $subTypeIndividuName = substr($_POST['inputTypeIndividuName'], 0, 3);
@@ -58,6 +68,7 @@ class TypesIndividu extends Authenticated
 
     /**
      * Handle show-type-individu.php view
+     * @return void
      */
     public function showAction(){
         $typeIndividuId = $_POST['typesIndividuId'];
@@ -69,6 +80,7 @@ class TypesIndividu extends Authenticated
 
     /**
      * Handle database update operation view and redirect according to result of operation
+     * @return void
      */
     public function updateAction(){
         $typeIndividu = new TypeIndividu($_POST);
@@ -84,6 +96,7 @@ class TypesIndividu extends Authenticated
 
     /**
      * Redirect to update-type-individu-success after update Action
+     * @return void
      */
     public function updateTypeIndividuSuccessAction(){
         View::render('TypesIndividu/update-type-individu-success.php');
@@ -91,6 +104,7 @@ class TypesIndividu extends Authenticated
 
     /**
      * Call databate delete operation and redirect according to result of operation
+     * @return void
      */
     public function deleteAction(){
         $id = $_POST['id'];
@@ -103,6 +117,7 @@ class TypesIndividu extends Authenticated
 
 	/**
 	 * Ajax valifation checking the existence of a matricule
+     * @return void
 	 */
 	public function validateNameAction(){
 		$is_valid = ! TypeIndividu::nameExists($_GET['name']);

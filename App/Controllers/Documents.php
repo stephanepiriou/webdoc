@@ -7,10 +7,16 @@ use App\Models\Document;
 use App\Models\TypeDocument;
 use App\Uploader;
 
+/**
+ * Class Documents
+ * Control the Document domain of the application
+ * @package App\Controllers
+ */
 class Documents extends Authenticated
 {
     /**
      * Load the view proposing the creation of a document
+     * @return void
      * @throws \Exception
      */
     public function newAction(){
@@ -30,7 +36,7 @@ class Documents extends Authenticated
     /**
      * Upload and create a document from the view /documents/new.
      * Redirect to /documents/new in case of faillure with proper error handling
-     * Ord
+     * @return void
      * @throws \Exception
      */
     public function uploadAction(){
@@ -66,6 +72,7 @@ class Documents extends Authenticated
 
     /**
      * Show an existing document under /documents/show
+     * @return void
      * @throws \Exception
      */
     public function showAction(){
@@ -90,6 +97,7 @@ class Documents extends Authenticated
 
     /**
      * Call Document::delete and redirect according to result
+     * @return void
      * @throws \Exception
      */
     public function deleteAction(){

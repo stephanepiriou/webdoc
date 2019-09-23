@@ -15,11 +15,22 @@ use function strtolower;
 class User extends \Core\Model
 {
 
-    //Error messages from create and update operation (see validate() method)
+    /**
+     * Error messages from create and update operation (see validate() method)
+     * @var array $errors Array
+     * */
     public $errors = [];
 
+    /**
+     * Token used for the connection cookie
+     * @var string $remember_token
+     */
     public $remember_token;
 
+    /**
+     * The expirity date of the connection cookie, calculated to be 30 day in the futur
+     * @var datetime $expiry_timestamp
+     */
     public $expiry_timestamp;
     /**
      * Class constructor
@@ -140,7 +151,7 @@ class User extends \Core\Model
 
     /**
      * Find a user model by email address
-     * @param string $email email address to search for
+     * @param string $id email address to search for
      * @return mixed User object if found, false otherwise
      */
     public static function findByID($id){
@@ -210,8 +221,8 @@ class User extends \Core\Model
 
     /**
      * Get TypeDocument list as Json object
-     * @param $subStringName The subtring of the name of document type entered in the search field
-     * @return $jsonList List of DocumentType as json list
+     * @param string $subEmail The subtring of the name of Individu entered in the search field
+     * @return string $jsonList List of Individus as json list
      */
     public static function getEmailListSubAsJson($subEmail){
         $subStringEmail = strtolower($subEmail);

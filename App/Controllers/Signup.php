@@ -15,7 +15,6 @@ class Signup extends \Core\Controller
 
     /**
      * Show the signup page
-     *
      * @return void
      */
     public function newAction(){
@@ -24,7 +23,6 @@ class Signup extends \Core\Controller
 
     /**
      * Sign up a new user
-     *
      * @return void
      */
     public function createAction(){
@@ -41,7 +39,6 @@ class Signup extends \Core\Controller
 
     /**
      * Show the signup success page
-     *
      * @return void
      */
     public function successAction(){

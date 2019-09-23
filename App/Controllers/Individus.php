@@ -7,6 +7,11 @@ use App\Models\TypeIndividu;
 use App\Models\Document;
 use function var_dump;
 
+/**
+ * Class Individus
+ * Control the Individu domain of the application
+ * @package App\Controllers
+ */
 class Individus extends Authenticated
 {
     /**
@@ -14,6 +19,11 @@ class Individus extends Authenticated
      */
     public $jsonListTypesIndividu;
 
+    /**
+     * Redirect to create-individu.php view and transmit a list of TypesIndividu as json
+     * @return void
+     * @throws \Exception
+     */
     public function newAction(){
 
         $jsonListTypesIndividu = TypeIndividu::getListAsJson();
@@ -24,6 +34,7 @@ class Individus extends Authenticated
 
     /**
      * Handle creation of individu and redirect according to success or faillure
+     * @return void
      * @throws \Exception
      */
     public function createAction(){
@@ -44,6 +55,7 @@ class Individus extends Authenticated
 
     /**
      * Redirect to create-individu-success
+     * @return void
      */
     public function createIndividuSuccessAction(){
         View::render('Individus/create-individu-success.php');
@@ -51,6 +63,7 @@ class Individus extends Authenticated
 
     /**
      * Redirect to search-individu.php view
+     * @return void
      */
     public function searchAction(){
         View::render('Individus/search-individu.php');
@@ -58,6 +71,7 @@ class Individus extends Authenticated
 
     /**
      * List all Individus objects corresponding to search term from search form
+     * @return void
      */
     public function listAction(){
         $searchType = $_POST['dropdownSearchType'];
@@ -75,6 +89,7 @@ class Individus extends Authenticated
 
     /**
      * Handle show-individu.php view
+     * @return void
      */
     public function showAction(){
         $individuid = $_POST['individuid'];
@@ -92,6 +107,7 @@ class Individus extends Authenticated
 
     /**
      * Handle update of a user and redirect on specific view according to result of operation
+     * @return void
      */
     public function updateAction(){
         $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
@@ -116,6 +132,7 @@ class Individus extends Authenticated
 
     /**
      * Redirect to update-user-success after update Action
+     * @return void
      */
     public function updateIndividuSuccessAction(){
         View::render('Individus/update-individu-success.php');
@@ -123,6 +140,7 @@ class Individus extends Authenticated
 
     /**
      * Handle update of a user and redirect on specific view according to result of operation
+     * @return void
      */
     public function deleteAction(){
         $id = $_POST['id'];
@@ -135,6 +153,7 @@ class Individus extends Authenticated
 
 	/**
 	 * Ajax valifation checking the existence of a matricule
+     * @return void
 	 */
     public function validateMatriculeAction(){
     	$is_valid = ! Individu::matriculeExists($_GET['matricule']);

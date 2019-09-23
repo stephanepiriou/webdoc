@@ -8,12 +8,20 @@ use function strtolower;
 use function utf8_encode;
 use function var_dump;
 
+/**
+ * Class TypeIndividu
+ * Create object mapped on TypeIndividu table
+ * and allow retrieval and record of data in the table TypeIndividu
+ * @package App\Models
+ */
+
 class TypeIndividu extends Model
 {
 
-    public $typeindividuid;
-
-    //Errors from create and update operation (see validate() method)
+    /**
+     * Errors from validation of user input before create and update operation (see validate() method)
+     * @var array
+     */
     public $errors = [];
 
     /**
@@ -178,6 +186,7 @@ class TypeIndividu extends Model
     }
 
     /**
+     * Get TypeIndividu object from an id
      * @param int $id The id of the looked for typesIndividu
      * @return object TypeIndividu object
      */
@@ -195,8 +204,9 @@ class TypeIndividu extends Model
     }
 
     /**
-     * @param int $id
-     * @return string TypeIndividu name from index
+     * Get Name of TypeIndividu from its id
+     * @param int $id The id of the TypeIndividu
+     * @return string TypeIndividu name
      */
     public static function getNameFromIndex($id){
         $sql = 'SELECT * 

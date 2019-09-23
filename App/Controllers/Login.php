@@ -18,7 +18,6 @@ class Login extends \Core\Controller
 
     /**
      * Show the login page
-     *
      * @return void
      */
     public function newAction(){
@@ -27,7 +26,6 @@ class Login extends \Core\Controller
 
     /**
      * Log in a user
-     *
      * @return void
      */
     public function createAction(){
@@ -50,7 +48,6 @@ class Login extends \Core\Controller
 
     /**
      * Logout a user
-     *
      * @return void
      */
     public function destroyAction(){

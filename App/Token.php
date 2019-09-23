@@ -3,6 +3,11 @@ namespace App;
 
 use \App\Config;
 
+/**
+ * Class Token
+ * Save and get the authentication cookie under hashed form, for security purpose.
+ * @package App
+ */
 class Token
 {
 
@@ -14,6 +19,8 @@ class Token
 
     /**
      * Token constructor. Create a new random token
+     * @param $token_value the hashed valus which store the cookie value
+     * @return void
      */
     public function __construct($token_value = null){
         if ($token_value){
@@ -34,7 +41,6 @@ class Token
 
     /**
      * Get hash of the token
-     *
      * @return string The hashed value
      */
     public function getHash(){

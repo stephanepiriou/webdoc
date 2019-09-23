@@ -8,6 +8,12 @@ use PDOException;
 use PDO;
 use function strtolower;
 
+/**
+ * Class TypeDocument
+ * Represent an element of the database table TypesDocument
+ * and allow to retrieve and create data from that entity
+ * @package App\Models
+ */
 class TypeDocument extends Model
 {
     //Errors from create and update operation (see validate() method)
@@ -50,7 +56,7 @@ class TypeDocument extends Model
 
 	/**
 	 * Check if typedocument exist in the DB
-	 * @param string $documentname The document name
+	 * @param string $name The document name
 	 * @return bool True if document exist false otherwise
 	 */
 	private function checkTypeDocumentExist($name){
@@ -156,6 +162,7 @@ class TypeDocument extends Model
     }
 
     /**
+     * Get name of document type from its index
      * @param $id int Ined of searched TypeIndividu
      * @return string TypeIndividu name from index
      */
@@ -192,6 +199,7 @@ class TypeDocument extends Model
     }
 
     /**
+     * Get a TypeDocument object from its id in database
      * @param int $id The id of the looked for typesDocument
      * @return object TypeDocument object
      */

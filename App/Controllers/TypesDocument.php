@@ -7,10 +7,16 @@ use Core\View;
 use function substr;
 use function var_dump;
 
+/**
+ * Class TypesDocument
+ * Controller Controlling the logic of document types domain
+ * @package App\Controllers
+ */
 class TypesDocument extends Authenticated
 {
     /**
      * Control /types-document/new
+     * @return void
      * @throws \Exception
      */
     public function newAction(){
@@ -19,6 +25,7 @@ class TypesDocument extends Authenticated
 
     /**
      * Handle creation of a document type
+     * @return void
      * @throws \Exception
      */
     public function createAction(){
@@ -35,6 +42,7 @@ class TypesDocument extends Authenticated
 
     /**
      * Redirection after Type document creation
+     * @return void
      */
     public function createTypeDocumentSuccessAction(){
         View::render('TypesDocument/create-type-document-success.php');
@@ -42,6 +50,7 @@ class TypesDocument extends Authenticated
 
     /**
      * Handle search view
+     * @return void
      */
     public function searchAction(){
         View::render('TypesDocument/search-type-document.php');
@@ -49,6 +58,7 @@ class TypesDocument extends Authenticated
 
     /**
      * Call and handles the list results of the search form
+     * @return void
      */
     public function listAction(){
         $subTypeDocumentName = substr($_POST['inputTypeDocumentName'], 0, 3);
@@ -60,6 +70,7 @@ class TypesDocument extends Authenticated
 
     /**
      * Handle show-type-individu.php view
+     * @return void
      */
     public function showAction(){
         $typeDocumentId = $_POST['typesDocumentId'];
@@ -72,6 +83,7 @@ class TypesDocument extends Authenticated
 
     /**
      * Handle database update operation view and redirect according to result of operation
+     * @return void
      */
     public function updateAction(){
         $typeDocument = new TypeDocument($_POST);
@@ -87,6 +99,7 @@ class TypesDocument extends Authenticated
 
     /**
      * Redirect to update-type-document-success after update Action
+     * @return void
      */
     public function updateTypeDocumentSuccessAction(){
         View::render('TypesDocument/update-type-document-success.php');
@@ -94,6 +107,7 @@ class TypesDocument extends Authenticated
 
     /**
      * Call databate delete operation and redirect according to result of operation
+     * @return void
      * @throws \Exception
      */
     public function deleteAction(){
@@ -107,6 +121,7 @@ class TypesDocument extends Authenticated
 
 	/**
 	 * Ajax valifation checking the existence of a matricule
+     * @return void
 	 */
 	public function validateNameAction(){
 		$is_valid = ! TypeDocument::nameExists($_GET['name']);

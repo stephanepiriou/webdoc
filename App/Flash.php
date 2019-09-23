@@ -30,9 +30,10 @@ class Flash
     const WARNING = 'warning';
 
     /**
-     * Add a message
+     * Set a message for Flash through $_SESSION variable
      *
      * @param $message The message content
+     * @param $type The level warning of the message. Can be "success", "info" or "warning"
      *
      * @return void
      */
@@ -47,6 +48,10 @@ class Flash
         ];
     }
 
+    /**
+     * Get the Flash message in view
+     * @return mixed String if message has been set, null otherwise
+     */
     public static function getMessage(){
         if(isset($_SESSION['flash_notification'])){
             $messages = $_SESSION['flash_notification'];

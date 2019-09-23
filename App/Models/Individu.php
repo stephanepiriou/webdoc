@@ -6,9 +6,18 @@ use App\Models\TypeIndividu;
 use PDOException;
 use PDO;
 
+/**
+ * Class Individu
+ * Represent and Individu object from the table Individus in the database
+ * and allow retrieval and record of data in the table
+ * @package App\Models
+ */
 class Individu extends Model
 {
-    //Error messages from create and update operation (see validate() method)
+    /**
+     * Error messages from create and update operation (see validate() method)
+     * @var array
+     */
     public $errors = [];
 
     /**
@@ -65,7 +74,7 @@ class Individu extends Model
 
 	/**
 	 * Check if individu exist in the DB
-	 * @param string $documentname The document name
+	 * @param string $matricule The matricule of the individu
 	 * @return boolean True if document exist false otherwise
 	 */
 	private function checkIndividuExist($matricule){

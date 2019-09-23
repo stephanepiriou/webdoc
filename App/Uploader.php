@@ -6,6 +6,11 @@ Use App\Config;
 Use App\Models\Document;
 use App\Models\TypeDocument;
 
+/**
+ * Class Uploader
+ * Upload a file and check condition are met to allow it.
+ * @package App
+ */
 class Uploader
 {
     /**
@@ -13,14 +18,49 @@ class Uploader
      */
     public $errors = [];
 
+    /**
+     * @var bool True if upload can process, false if errors present
+     */
     private $uploadOk;
+
+    /**
+     * @var string Name of the file to be uploaded
+     */
     private $file;
+
+    /**
+     * @var string Final document name
+     */
     private $documentname;
+
+    /**
+     * @var int Id referencing the TypeDocument of the file to be uploaded
+     */
     private $typedocumentid;
+
+    /**
+     * @var int Id of the individu
+     */
     private $individuid;
+
+    /**
+     * @var string Original file name
+     */
     private $targetFile;
+
+    /**
+     * @var string Final file name
+     */
     private $targetFileName;
+
+    /**
+     * @var string Final file path
+     */
     private $targetFilePath;
+
+    /**
+     * @var string File extension
+     */
     private $imageFileType;
 
     /**
@@ -68,6 +108,7 @@ class Uploader
      * Check for condition preventing the upload of the document
      * and reference an $errors string array for later indication
      * in the corresponding view.
+     * @return void
      */
     private function checkError(){
 	    if(TypeDocument::isThereFirstTypeDocument()) {
