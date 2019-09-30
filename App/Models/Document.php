@@ -2,6 +2,7 @@
 /**
  * File for Document class
  * @package App\Models
+ * @filesource
  */
 namespace App\Models;
 
@@ -124,6 +125,23 @@ class Document extends Model
         $stmt->execute();
         $documentname = $stmt->fetchColumn();
         return $documentname;
+    }
+
+    /**
+     * Check if a TypeDocument is used by Document object before delete
+     * @param $typedocumentid The id of the TypeDocument object
+     * @return boolean true if there is still an Document object using a TypeDocument
+     */
+    public static function checkDocumentBeforeTypeDocumentDelete($typedocumentid){
+        $sql = 'SELECT count(*) 
+                FROM documents
+                WHERE typedocumentid=:typedocumentid';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':typedocumentid', $typedocumentid, PDO::PARAM_INT);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+        return ($count > 0 ? true : false);
     }
 
     /**

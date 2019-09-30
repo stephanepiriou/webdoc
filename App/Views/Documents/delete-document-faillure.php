@@ -2,12 +2,16 @@
 /**
  * File of the delete-document-faillure.php view
  * @package App\Views\Documents
+ * @filesource
  */
+
+namespace App\Views\Documents;
+
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+Class DeleteDocumentFaillure{}
 ?>
 
 <?php include("entete.php")?>

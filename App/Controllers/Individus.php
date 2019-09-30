@@ -2,12 +2,14 @@
 /**
  * File for Individus class
  * @package App\Controllers
+ * @filesource
  */
 namespace App\Controllers;
 
 use Core\View;
 use App\Models\Individu;
 use App\Models\TypeIndividu;
+use App\Models\TypeDocument;
 use App\Models\Document;
 use function var_dump;
 
@@ -101,11 +103,13 @@ class Individus extends Authenticated
         $jsonListTypesIndividu = TypeIndividu::getListAsJson();
         $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
         $jsonListDocument = Document::listByIndividuId($individuid);
+        $typedocumentexist = TypeDocument::isThereFirstTypeDocument();
         View::render('Individus/show-individu.php', [
             'individu' => $individu,
             'jsonListTypesIndividu' => $jsonListTypesIndividu,
             'chosenTypeIndividu' => $chosenTypeIndividu,
-            'jsonListDocument' => $jsonListDocument
+            'jsonListDocument' => $jsonListDocument,
+            'typedocumentexist' => $typedocumentexist
         ]);
     }
 

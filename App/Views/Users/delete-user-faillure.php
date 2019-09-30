@@ -2,12 +2,14 @@
 /**
  * File of the delete-user-faillure.php view
  * @package App\Views\Users
+ * @filesource
  */
+namespace App\Views\Users;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class DeleteUserFaillure{}
 ?>
 
 <?php include("entete.php")?>
@@ -43,6 +45,7 @@ function(){}
             <div class="alert alert-danger alert-dismissible fade show">
                 Un problème est survenu. <br/>
                 L&apos;utilisateur n&apos;a pas pu être effacé.<br/>
+                Etes-vous sûr que vous n&apos;etes pas le dernier utilisateur ?
                 Veuillez recommencer !
             </div>
         </div>

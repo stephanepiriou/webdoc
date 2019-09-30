@@ -2,6 +2,7 @@
 /**
  * File for Auth class
  * @package App
+ * @filesource
  */
 
 namespace App;

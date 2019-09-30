@@ -2,12 +2,15 @@
 /**
  * File of the new.php view
  * @package App\Views\Login
+ * @filesource
  */
+
+namespace App\Views\Login;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class News{}
 ?>
 
 <?php include("entete.php")?>
@@ -39,9 +42,11 @@ function(){}
         </div>
         <div class="row">
             <div id="main-panel"  class="offset-lg-3 col-lg-6">
-                <div class="alert alert-success alert-dismissible fade show">
-		            <?php if(isset($message_home)){echo $message_home;} ?>
-                </div>
+                <?php
+                    if(isset($message_home)){
+                        echo '<div class="alert alert-success alert-dismissible fade show">'.$message_home.'</div>';
+                    }
+                ?>
                 <form id="form-login" action="/login/create" method="post">
                     <div class="container">
                         <div class="row">

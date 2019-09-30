@@ -2,12 +2,14 @@
 /**
  * File of the delete-user-success.php view
  * @package App\Views\Users
+ * @filesource
  */
+namespace App\Views\Users;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class DeleteUserSuccess{}
 ?>
 
 <?php include("entete.php")?>
@@ -41,7 +43,7 @@ function(){}
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
             <div class="alert alert-success alert-dismissible fade show">
-                L&apos;utilisateur n'a bien été effacé ! <br/>
+                L&apos;utilisateur a bien été effacé ! <br/>
             </div>
         </div>
     </div>

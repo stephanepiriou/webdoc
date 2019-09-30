@@ -2,12 +2,14 @@
 /**
  * File of the show-individu.php view
  * @package App\Views\Individus
+ * @filesource
  */
+namespace App\Views\Individus;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class ShowIndividu{}
 ?>
 
 <?php include("entete.php")?>

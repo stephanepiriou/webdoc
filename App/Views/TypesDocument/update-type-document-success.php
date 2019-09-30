@@ -2,12 +2,14 @@
 /**
  * File of the update-type-document-success.php view
  * @package App\Views\TypesDocument
+ * @filesource
  */
+namespace App\Views\TypesDocument;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class UpdateTypeDocumentSuccess{}
 ?>
 
 <?php include("entete.php")?>

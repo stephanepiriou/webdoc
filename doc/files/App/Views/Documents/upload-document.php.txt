@@ -2,12 +2,16 @@
 /**
  * File of the upload-document.php view
  * @package App\Views\Documents
+ * @filesource
  */
+
+namespace App\Views\Documents;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+Class UploadDocument{}
+
 ?>
 
 <?php include("entete.php")?>

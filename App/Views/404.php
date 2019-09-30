@@ -2,12 +2,14 @@
 /**
  * File of the 404.php view
  * @package App\Views
+ * @filesource
  */
+namespace App\Views;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class Error404{}
 ?>
 
 <!DOCTYPE html>

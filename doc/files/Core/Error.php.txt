@@ -2,6 +2,7 @@
 /**
  * File for Error class
  * @package Core
+ * @filesource
  */
 
 namespace Core;

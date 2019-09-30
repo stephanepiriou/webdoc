@@ -2,12 +2,14 @@
 /**
  * Head of the php views
  * @package App\View\Common
+ * @filesource
  */
+
+namespace App\Views\Common;
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class Header{}
 ?>
 <!-- Header of the page -->
 <?php header('Content-type: text/html; charset=utf-8'); ?>

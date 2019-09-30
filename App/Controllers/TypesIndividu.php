@@ -2,10 +2,12 @@
 /**
  * File for TypesIndividu class
  * @package App\Controllers
+ * @filesource
  */
 namespace App\Controllers;
 
 use App\Models\TypeIndividu;
+use App\Models\Individu;
 use Core\View;
 use function var_dump;
 
@@ -112,8 +114,12 @@ class TypesIndividu extends Authenticated
      */
     public function deleteAction(){
         $id = $_POST['id'];
-        if(TypeIndividu::delete($id) === true){
-            View::render('TypesIndividu/delete-type-individu-success.php');
+        if(!Individu::checkIndividuBeforeTypeIndividuDelete($id)){
+            if(TypeIndividu::delete($id) === true){
+                View::render('TypesIndividu/delete-type-individu-success.php');
+            }else{
+                View::render('TypesIndividu/delete-type-individu-faillure.php');
+            }
         }else{
             View::render('TypesIndividu/delete-type-individu-faillure.php');
         }

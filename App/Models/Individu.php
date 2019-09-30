@@ -2,6 +2,7 @@
 /**
  * File for Individu class
  * @package App\Models
+ * @filesource
  */
 namespace App\Models;
 
@@ -265,6 +266,23 @@ class Individu extends Model
         }else{
             return false;
         }
+    }
+
+    /**
+     * Check if a TypeIndividu is used by Individu object before delete
+     * @param $typeindividuid The id of the TypeIndividu object
+     * @return boolean true if there is still an Individu object using a TypeIndividu
+     */
+    public static function checkIndividuBeforeTypeIndividuDelete($typeindividuid){
+        $sql = 'SELECT count(*) 
+                FROM individus
+                WHERE typeindividuid=:typeindividuid';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':typeindividuid', $typeindividuid, PDO::PARAM_INT);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+        return ($count > 0 ? true : false);
     }
 
     /**

@@ -2,12 +2,15 @@
 /**
  * File of the search-document.php view
  * @package App\Views\Documents
+ * @filesource
  */
+
+namespace App\Views\Documents;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+Class SearchDocument{}
 ?>
 
 <?php include("entete.php")?>

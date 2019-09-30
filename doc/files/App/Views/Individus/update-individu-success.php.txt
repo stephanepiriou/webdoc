@@ -2,12 +2,14 @@
 /**
  * File of the update-individu-success.php view
  * @package App\Views\Individus
+ * @filesource
  */
+namespace App\Views\Individus;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class UpdateIndividuSuccess{}
 ?>
 
 <?php include("entete.php")?>

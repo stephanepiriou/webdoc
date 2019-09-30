@@ -4,6 +4,7 @@
  * Front controller
  *
  * PHP version 5.4
+ * @filesource
  */
 
 /**
@@ -39,7 +40,7 @@ $router = new Core\Router();
 /*
  * Include Path
  */
-$path = "/home/stephane/PhpstormProjects/webdoc/App/Views/Common/";
+$path = "/var/www/App/Views/Common/";
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 // Add the routes

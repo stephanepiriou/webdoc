@@ -2,12 +2,15 @@
 /**
  * Footer of the php views
  * @package App\View\Common
+ * @filesource
  */
+
+namespace App\Views\Common;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class Footer{}
 ?>
 <!-- Footer of the page -->
 </body>

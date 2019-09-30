@@ -2,6 +2,7 @@
 /**
  * File for Uploader class
  * @package App
+ * @filesource
  */
 
 namespace App;

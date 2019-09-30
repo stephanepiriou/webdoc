@@ -2,12 +2,14 @@
 /**
  * File of the list-users.php view
  * @package App\Views\Users
+ * @filesource
  */
+namespace App\Views\Users;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class ListUsers{}
 ?>
 
 <?php include("entete.php")?>

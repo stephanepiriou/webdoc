@@ -2,11 +2,12 @@
 /**
  * File for TypesDocument class
  * @package App\Controllers
+ * @filesource
  */
 namespace App\Controllers;
 
 use App\Models\TypeDocument;
-
+use App\Models\Document;
 use Core\View;
 use function substr;
 use function var_dump;
@@ -116,8 +117,12 @@ class TypesDocument extends Authenticated
      */
     public function deleteAction(){
         $id = $_POST['id'];
-        if(TypeDocument::delete($id) === true){
-            View::render('TypesDocument/delete-type-document-success.php');
+        if(!Document::checkDocumentBeforeTypeDocumentDelete($id)){
+            if(TypeDocument::delete($id) === true){
+                View::render('TypesDocument/delete-type-document-success.php');
+            }else{
+                View::render('TypesDocument/delete-type-document-faillure.php');
+            }
         }else{
             View::render('TypesDocument/delete-type-document-faillure.php');
         }

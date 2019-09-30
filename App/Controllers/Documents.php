@@ -2,6 +2,7 @@
 /**
  * File for Documents class
  * @package App\Controllers
+ * @filesource
  */
 namespace App\Controllers;
 
@@ -26,6 +27,7 @@ class Documents extends Authenticated
     public function newAction(){
         //echo APPROOT;
         $individuid = $_POST['individuid'];
+        $individumatricule = $_POST['individumatricule'];
         $individufirstname = $_POST['individufirstname'];
         $individulastname = $_POST['individulastname'];
         $jsonListTypesDocument = TypeDocument::getListAsJson();
@@ -33,7 +35,8 @@ class Documents extends Authenticated
             'individuid' => $individuid,
             'individufirstname' => $individufirstname,
             'individulastname' => $individulastname,
-            'jsonListTypesDocument' => $jsonListTypesDocument
+            'jsonListTypesDocument' => $jsonListTypesDocument,
+            'individumatricule' => $individumatricule
         ]);
     }
 
@@ -45,12 +48,13 @@ class Documents extends Authenticated
      */
     public function uploadAction(){
         $individuid = $_POST['individuid'];
+        $individumatricule = $_POST['individumatricule'];
         $individulastname = $_POST['individulastname'];
         $individufirstname = $_POST['individufirstname'];
         $typedocument = $_POST['typedocument'];
         $file = $_FILES["fileToUpload"];
         $typedocumentid = TypeDocument::getIndexFromName($typedocument);
-        $documentname = $typedocument.' de '.$individufirstname.' '.$individulastname;
+        $documentname = $typedocument.' de '.$individufirstname.' '.$individulastname.'('.$individumatricule.')';
         $upload = new Uploader($file, $documentname, $typedocumentid, $individuid);
 
         if($upload->uploadFile()){
@@ -87,7 +91,6 @@ class Documents extends Authenticated
         $filepath = Config::RELATIVE_UPLOAD_FOLDER . $filename;
         $serverfilepath = Config::SERVER_URL . $filepath;
         $absolutefilepath = Config::ABSOLUTE_UPLOAD_FOLDER . $filename;
-        echo $serverfilepath;
 
         View::render('Documents/show-document.php',[
             'individuid' => $individuid,

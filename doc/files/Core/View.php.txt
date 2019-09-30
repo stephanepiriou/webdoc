@@ -2,6 +2,7 @@
 /**
  * File for base View class
  * @package Core
+ * @filesource
  */
 
 namespace Core;

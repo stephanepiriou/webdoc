@@ -2,6 +2,7 @@
 /**
  * File for Token class
  * @package App
+ * @filesource
  */
 namespace App;
 

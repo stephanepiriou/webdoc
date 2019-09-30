@@ -2,12 +2,14 @@
 /**
  * File of the delete-type-individu-faillure.php view
  * @package App\Views\TypesIndividu
+ * @filesource
  */
+namespace App\Views\TypesIndividu;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class DeleteTypeIndividuFaillure{}
 ?>
 
 <?php include("entete.php")?>
@@ -41,7 +43,7 @@ function(){}
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
             <div class="container">
-                <div class="alert alert-alert alert-dismissible fade show">
+                <div class="alert alert-danger alert-dismissible fade show">
                     Le type d&apos;individu n'a bien été effacé ! <br/>
                     Etes-vous certain certain que ce type d&apos;individu n'est pas actuellement utilisé ? <br/>
                     Un type d&apos;individu ne peut pas être effacé tant qu'il est utilisé pour décrire un individu.<br/>

@@ -2,12 +2,16 @@
 /**
  * File of the create-individu.php view
  * @package App\Views\Individus
+ * @filesource
  */
+
+namespace App\Views\Individus;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+Class CreateIndividu{}
+
 ?>
 
 <?php include("entete.php")?>

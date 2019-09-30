@@ -2,12 +2,14 @@
 /**
  * File of the delete-type-individu-success.php view
  * @package App\Views\TypesIndividu
+ * @filesource
  */
+namespace App\Views\TypesIndividu;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class DeleteTypeIndividuSuccess{}
 ?>
 
 <?php include("entete.php")?>

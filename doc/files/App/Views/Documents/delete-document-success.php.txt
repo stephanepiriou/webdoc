@@ -2,12 +2,16 @@
 /**
  * File of the delete-document-success.php view
  * @package App\Views\Documents
+ * @filesource
  */
+
+namespace App\Views\Documents;
+
 /**
- * Dummy function
+ * Dummy Class
  * @return void
  */
-function(){}
+Class DeleteDocumentSuccess{}
 ?>
 
 <?php include("entete.php")?>

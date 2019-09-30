@@ -2,12 +2,14 @@
 /**
  * File of the delete-type-document-faillure.php view
  * @package App\Views\TypesDocument
+ * @filesource
  */
+namespace App\Views\TypesDocument;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class DeleteTypeDocumentFaillure{}
 ?>
 
 <?php include("entete.php")?>

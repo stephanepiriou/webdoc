@@ -2,12 +2,14 @@
 /**
  * File of the list-individus.php view
  * @package App\Views\Individus
+ * @filesource
  */
+namespace App\Views\Individus;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class ListIndicvidu{}
 ?>
 
 <?php include("entete.php")?>

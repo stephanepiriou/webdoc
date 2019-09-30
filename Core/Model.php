@@ -2,6 +2,7 @@
 /**
  * File for base Model class
  * @package Core
+ * @filesource
  */
 
 namespace Core;

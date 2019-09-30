@@ -2,12 +2,14 @@
 /**
  * File of the search-individu.php view
  * @package App\Views\Individus
+ * @filesource
  */
+namespace App\Views\Individus;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class SearchIndividu{}
 ?>
 
 <?php include("entete.php")?>

@@ -2,12 +2,16 @@
 /**
  * File of the index.php view
  * @package App\Views\Home
+ * @filesource
  */
+
+namespace App\Views\Home;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+Class Index{}
+
 ?>
 
 <?php include("entete.php")?>
@@ -42,9 +46,11 @@ function(){}
     <div class="row">
         <div id="main-panel"  class="offset-lg-3 col-lg-6">
             <!--MAIN PANEL -->
-            <div class="alert alert-success alert-dismissible fade show">
-                <?php if(isset($message_home)){echo $message_home;} ?>
-            </div>
+            <?php
+                if(isset($message_home)){
+                    echo '<div class="alert alert-success alert-dismissible fade show">'.$message_home.'</div>';
+                }
+            ?>
         </div>
     </div>
     </div>

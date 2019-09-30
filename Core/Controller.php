@@ -3,6 +3,7 @@
 /**
  * File for base Controller class
  * @package Core
+ * @filesource
  */
 namespace Core;
 

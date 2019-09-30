@@ -1,3 +1,3 @@
 #!/bin/bash
 
-phpdoc -d "*" -t "doc"
+phpdoc.phar -d "*" -t "doc2"

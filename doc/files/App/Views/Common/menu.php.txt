@@ -2,12 +2,15 @@
 /**
  * Menu of the php views
  * @package App\View\Common
+ * @filesource
  */
+
+namespace App\Views\Common;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class Menu{}
 ?>
 <!-- Menu of the page -->
 <div class="container">

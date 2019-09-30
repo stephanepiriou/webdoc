@@ -2,12 +2,14 @@
 /**
  * File of the 500.php view
  * @package App\Views
+ * @filesource
  */
+namespace App\Views;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class Error500{}
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +73,6 @@ function(){}
 
 </script>
 </body>
-</html>
-
+</html>swx
 <?php
 

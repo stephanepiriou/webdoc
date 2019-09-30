@@ -2,12 +2,16 @@
 /**
  * File of the upload-document.php view
  * @package App\Views\Documents
+ * @filesource
  */
+
+namespace App\Views\Documents;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+Class UploadDocument{}
+
 ?>
 
 <?php include("entete.php")?>
@@ -45,6 +49,7 @@ function(){}
             <!--MAIN PANEL -->
             <form id="form-upload-document" method="post" action="/documents/upload" enctype="multipart/form-data">
                 <input type="hidden" id="individu-id" name="individuid" value="<?php if(isset($individuid)){echo $individuid;}else{echo "";}?>">
+                <input type="hidden" id="individu-matricule" name="individumatricule" value="<?php if(isset($individumatricule)){echo $individumatricule;}else{echo "";}?>"
                 <div class="container">
                     <!--Error messages-->
                     <?php if (isset($errors)){

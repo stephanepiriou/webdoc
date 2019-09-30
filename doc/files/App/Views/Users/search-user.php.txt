@@ -2,12 +2,14 @@
 /**
  * File of the search-user.php view
  * @package App\Views\Users
+ * @filesource
  */
+namespace App\Views\Users;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class SearchUser{}
 ?>
 
 <?php include("entete.php")?>

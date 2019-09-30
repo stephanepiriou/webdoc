@@ -2,6 +2,7 @@
 /**
  * File for Signup class
  * @package App\Controllers
+ * @filesource
  */
 namespace App\Controllers;
 

@@ -2,6 +2,7 @@
 /**
  * File for Flash class
  * @package App
+ * @filesource
  */
 
 namespace App;

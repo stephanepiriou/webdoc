@@ -2,12 +2,14 @@
 /**
  * File for Config class
  * @package App
+ * @filesource
  */
 namespace App;
 
 /**
  * Configuration settings of the application
  * @package App
+ *
  */
 class Config
 {
@@ -27,13 +29,13 @@ class Config
      * Database user
      * @var string
      */
-    const DB_USER = 'root';
+    const DB_USER = 'stephane';
 
     /**
      * Database password
      * @var string
      */
-    const DB_PASSWORD= 'azertyuiop';
+    const DB_PASSWORD= 'justafuckingpassword';
 
     /**
      * Show or hide error message on screen
@@ -51,7 +53,7 @@ class Config
      * Absolute Uplaod folder
      * @var string
      */
-    const ABSOLUTE_UPLOAD_FOLDER = '/home/stephane/PhpstormProjects/webdoc/public/uploads/';
+    const ABSOLUTE_UPLOAD_FOLDER = '/var/www/public/uploads/';
 
     /**
      * Relative Upload folder
@@ -63,5 +65,5 @@ class Config
      * Server URL
      * @var string
      */
-    const SERVER_URL = 'http://webdoc.local';
+    const SERVER_URL = 'https://webdoc.ovh/';
 }

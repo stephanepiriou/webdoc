@@ -2,12 +2,14 @@
 /**
  * File of the create-type-document.php view
  * @package App\Views\TypesDocument
+ * @filesource
  */
+namespace App\Views\TypesDocument;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class CreateTypeDocument{}
 ?>
 
 <?php include("entete.php")?>

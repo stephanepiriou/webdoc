@@ -2,12 +2,15 @@
 /**
  * File of the show-document.php view
  * @package App\Views\Documents
+ * @filesource
  */
+
+namespace App\Views\Documents;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+Class ShowDocument{}
 ?>
 
 <?php include("entete.php")?>

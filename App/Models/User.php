@@ -2,6 +2,7 @@
 /**
  * File for User class
  * @package App\Models
+ * @filesource
  */
 
 namespace App\Models;
@@ -203,6 +204,22 @@ class User extends \Core\Model
     }
 
     /**
+     * Check if there is only 1 user in the database
+     * @return boolean false if more than 1 user, true otherwise
+     **/
+    private static function isThereOnlyOneUser(){
+        $sql = 'SELECT count(*)
+                FROM users';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        return ($count == 1 ? true : false);
+    }
+
+
+    /**
      * Remember the login by inserting a unique token into the remember_logins table
      * for this user record
      * @return boolean True ifthe login was remembered successfully false otherwise
@@ -273,12 +290,16 @@ class User extends \Core\Model
      * @return mixed
      */
     public static function delete($id){
-        $sql = 'DELETE 
-                FROM users 
-                WHERE id=:id';
-        $db = static::getDB();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        if(!static::isThereOnlyOneUser()){
+            $sql = 'DELETE 
+                    FROM users 
+                    WHERE id=:id';
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            return $stmt->execute();
+        }else {
+            return false;
+        }
     }
 }

@@ -2,12 +2,14 @@
 /**
  * File of the show-individu.php view
  * @package App\Views\Individus
+ * @filesource
  */
+namespace App\Views\Individus;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class ShowIndividu{}
 ?>
 
 <?php include("entete.php")?>
@@ -162,6 +164,15 @@ function(){}
                         <div class="col">&nbsp;</div>
                     </div>
                     <div class="row" style = "align-content: center" >
+                        <?php
+                        if(isset($typedocumentexist)){
+                            if(!$typedocumentexist){
+                                echo "<div class=\"alert alert-warning alert-dismissible fade show\"> 
+                                          Il n'existe pas de type de document dans la base de données. Veuillez d'abord créer un type de document.
+                                      </div>";
+                            }
+                        }
+                        ?>
                         <div class="col">
                             <div>
                                 <input type="button" value="Ajouter Document" id="button-ajouter-document" />
@@ -171,12 +182,13 @@ function(){}
                 </div>
             </form>
             <form id="form-show-document" method="post" action="/documents/show">
-                <input id='individu-id' name='individuid' type='hidden' value="<?php if(isset($id)){echo "$id";}else{echo "";}?>">s
+                <input id='individu-id' name='individuid' type='hidden' value="<?php if(isset($id)){echo "$id";}else{echo "";}?>">
                 <input id='input-document-id' name='documentid' type='hidden'>
                 <!--<input id='user-id' name='userid' type='hidden' value="<?php //if(isset($id)){echo "$id";}else{echo "";}?>">-->
             </form>
             <form id="form-new-document" method="post" action="/documents/new">
                 <input id='individu-id' name='individuid' type='hidden' value="<?php if(isset($id)){echo "$id";}else{echo "";}?>">
+                <input id="individu-matricule" name="individumatricule" type="hidden" value="<?php if(isset($matricule)){echo "$matricule";}else{echo "";}?>">
                 <input id='individu-first-name' name='individufirstname' type="hidden" value="<?php if(isset($firstname)){echo "$firstname";}else{ "";}?>">
                 <input id='individu-last-name' name='individulastname' type="hidden" value="<?php if(isset($lastname)){echo "$lastname";}else{ "";}?>">
 
@@ -272,7 +284,7 @@ function(){}
 	        $('#form-show-document').submit();
         });
 
-        $("#button-ajouter-document").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
+        $("#button-ajouter-document").jqxButton({ width: "100%", height: "25", theme: "energyblue", disabled: <?php if(isset($typedocumentexist)){echo $typedocumentexist ? "false" : "true" ;}?>});
         $("#button-ajouter-document").on("click", function (event) {
 	        $('#form-new-document').submit();
         });

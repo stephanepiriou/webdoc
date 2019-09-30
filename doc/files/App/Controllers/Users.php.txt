@@ -2,6 +2,7 @@
 /**
  * File for Users class
  * @package App\Controllers
+ * @filesource
  */
 namespace App\Controllers;
 

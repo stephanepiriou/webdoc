@@ -2,6 +2,7 @@
 /**
  * File for Home class
  * @package App\Controllers
+ * @filesource
  */
 namespace App\Controllers;
 

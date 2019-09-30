@@ -2,12 +2,16 @@
 /**
  * Header of the php views
  * @package App\View\Common
+ * @filesource
  */
+
+namespace App\Views\Common;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class Entete{}
+
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">

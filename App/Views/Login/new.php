@@ -2,12 +2,15 @@
 /**
  * File of the new.php view
  * @package App\Views\Login
+ * @filesource
  */
+
+namespace App\Views\Login;
+
 /**
- * Dummy function
- * @return void
+ * Dummy class
  */
-function(){}
+class News{}
 ?>
 
 <?php include("entete.php")?>
@@ -26,7 +29,7 @@ function(){}
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h5 style="text-align: center">Log In</h5>
+                            <h5 style="text-align: center">Connection</h5>
                         </div>
                     </div>
                 </div>
@@ -39,30 +42,32 @@ function(){}
         </div>
         <div class="row">
             <div id="main-panel"  class="offset-lg-3 col-lg-6">
-                <div class="alert alert-success alert-dismissible fade show">
-		            <?php if(isset($message_home)){echo $message_home;} ?>
-                </div>
+                <?php
+                    if(isset($message_home)){
+                        echo '<div class="alert alert-success alert-dismissible fade show">'.$message_home.'</div>';
+                    }
+                ?>
                 <form id="form-login" action="/login/create" method="post">
                     <div class="container">
                         <div class="row">
                             <div class="col-6">
-                                <label class="float-right">Email :</label>
+                                <label class="float-right">Adresse email :</label>
                             </div>
                             <div class="col-6">
-                                <input id="inputEmail" name="email" placeholder="Email adresse" required type="email" value="<?php if(isset($email)){echo $email;} ?>"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="float-right">Password :</label>
-                            </div>
-                            <div class="col-6">
-                                <input type="password" id="inputPassword" name="password" placeholder="Password" value="<?php if(isset($password)){echo $password;}?>"/>
+                                <input id="inputEmail" name="email" placeholder="votre adresse email" required type="email" value="<?php if(isset($email)){echo $email;} ?>"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label class="float-right">Remember me :</label>
+                                <label class="float-right">Mot de passe :</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="password" id="inputPassword" name="password" placeholder="votre mot de passe" value="<?php if(isset($password)){echo $password;}?>"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="float-right">Se souvenir de moi :</label>
                             </div>
                             <div class="col-6">
                                 <div id="remember_me" name="remember_me"></div>
@@ -76,7 +81,7 @@ function(){}
                         <div class="row" style="align-content: center">
                             <div class="col">
                                 <div style="display: table; margin: auto">
-                                    <input type="button" value="Log in" id="button-submit" />
+                                    <input type="button" value="Se connecter" id="button-submit" />
                                 </div>
                             </div>
                         </div>
