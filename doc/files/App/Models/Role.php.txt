@@ -1,0 +1,140 @@
+<?php
+/**
+ * File for User class
+ * @package App\Role
+ * @filesource
+ */
+namespace App\Models;
+
+use PDO;
+
+/**
+ * Class Role
+ * @package App\Models
+ */
+class Role extends \Core\Model
+{
+    /**
+     * @var array The array contening the various permissions associated with the Role object
+     */
+    protected $permissions;
+
+    /**
+     * @var string The name of the Role object
+     */
+    protected $name;
+
+    public function __construct() {
+        $this->permissions = array();
+    }
+
+    /**
+     * Return a json list of all name of Roles table
+     * @return string json object
+     */
+    public static function getNameListAsJson(){
+        $sql = 'SELECT name 
+                FROM roles';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
+    }
+
+    /**
+     * Return a json list of all descriptin of Roles table
+     * @return string json object
+     * @deprecated
+     */
+    public static function getDescriptionListAsJson(){
+        $sql = 'SELECT description 
+                FROM roles';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $array = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $jsonList = json_encode($array,JSON_UNESCAPED_UNICODE);
+        return $jsonList;
+    }
+
+    /**
+     * Get Name of Selected Role from its id
+     * @param int $id The id of the Role
+     * @return string Role name
+     */
+    public static function getNameFromIndex($id){
+        $sql = 'SELECT name 
+                FROM roles 
+                WHERE id=:id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+        $role = $stmt->fetch();
+        return $role->name;
+    }
+
+    /**
+     * Get a role object with associated permissions
+     * @param $roleid int The id of the Roles database row
+     * @return object Role object
+     */
+    public static function getRole($roleid) {
+        $role = new Role();
+        $role->name = static::getNameFromIndex($roleid);
+
+        $sql = 'SELECT permissions.description 
+                FROM permissions
+                INNER JOIN permissions_roles ON permissions.id = permissions_roles.permissionid
+                WHERE permissions_roles.roleid = :roleid';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':roleid', $roleid, PDO::PARAM_INT);
+        $stmt->execute();
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $role->permissions[$row["description"]] = true;
+        }
+        return $role;
+    }
+
+    /**
+     * check if a permission is set in the $permission array variable
+     * @param $permission string The permission name
+     * @return boolean true if set false otherwise
+     */
+    public function hasPermission($permission) {
+        return isset($this->permissions[$permission]);
+    }
+
+    /**
+     * Get Role Object from its name
+     * @param $name string The name of the Role
+     * @return object Role object
+     * @deprecated
+     */
+    public static function getRoleFromName($name){
+        $sql = 'SELECT * 
+                FROM roles 
+                WHERE name=:name';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+        $role = $stmt->fetch();
+        return $role;
+    }
+
+    /**
+     * Check if the Role name of the permission is exact to the one of the object
+     * @param $rolename string the role name we want to check
+     * @return bool true if exact, false otherwise
+     */
+    public function hasRoleName($rolename){
+        return $this->name == $rolename;
+    }
+}

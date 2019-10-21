@@ -332,7 +332,7 @@ class User extends \Core\Model
         if(!static::isThereOnlyOneUser()){
             $sql = 'DELETE 
                     FROM users 
-                    WHERE id=:id'; 
+                    WHERE id=:id';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
