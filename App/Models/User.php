@@ -108,6 +108,10 @@ class User extends \Core\Model
         if (preg_match('/.*\d+.*/i', $this->password) == 0) {
             $this->errors[] = 'Password needs at least one number';
         }
+
+        if (preg_match('/^[0-9A-Za-zéèëêïîôöûüäâ\-,?._°;=+ &!ç$ù]*$/', $this->password) == 0) {
+            $this->errors[] = 'Only "0-9A-Za-zéèëêïîôöûüäâ\-,?._°;=+ &!ç$ù" are accepted';
+        }
     }
 
     /**
@@ -131,6 +135,10 @@ class User extends \Core\Model
 
         if (preg_match('/.*\d+.*/i', $this->password) == 0) {
             $this->errors[] = 'Password needs at least one number';
+        }
+
+        if (preg_match('/^[0-9A-Za-zéèëêïîôöûüäâ\-,?._°;=+ &!ç$ù]*$/', $this->password) == 0) {
+            $this->errors[] = 'Only "0-9A-Za-zéèëêïîôöûüäâ\-,?._°;=+ &!ç$ù" are accepted';
         }
     }
 

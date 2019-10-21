@@ -108,6 +108,14 @@ class TypeIndividu extends Model
         if (preg_match('/.*[A-Za-z]+.*/i', $this->name) === 0) {
             $this->errors[] = 'Nom de type d&apos;individu requière au moins une lettre !';
         }
+
+        if (preg_match('/.*[A-Za-z]+.*/i', $this->name) === 0) {
+            $this->errors[] = 'Nom de type d&apos;individu requière au moins une lettre !';
+        }
+
+        if (preg_match('/^[0-9A-Za-zéèëêïîôöûüùäâà\-_ ]*$/', $this->name) === 0) {
+            $this->errors[] = 'Seul les caractères "/^[0-9A-Za-zéèëêïîôöûüäâ\-_ ]*$/" sont autorisés !';
+        }
     }
 
 	/**

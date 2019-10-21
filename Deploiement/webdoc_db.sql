@@ -94,7 +94,7 @@ INSERT INTO roles (id, name, description) VALUES (3, 'administrateur', 'Un admin
 INSERT INTO permissions_roles (permissionid, roleid) VALUES (1,1);
 
 -- Permissions for encoder
-INSERT INTO permissions_roles (permissionid, roleid) VALUES (1,2); 
+INSERT INTO permissions_roles (permissionid, roleid) VALUES (1,2);
 INSERT INTO permissions_roles (permissionid, roleid) VALUES (2,2);
 INSERT INTO permissions_roles (permissionid, roleid) VALUES (3,2);
 

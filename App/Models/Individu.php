@@ -112,32 +112,32 @@ class Individu extends Model
             $this->errors[] = 'Prénom requit !';
         }
 
-        if (preg_match('/.*[A-Za-z]+.*/i', $this->firstname) === 0) {
-            $this->errors[] = 'Prénom n&apos;accepte que des lettres !';
+        if (preg_match('/.*[A-Za-z\- ]+.*/i', $this->firstname) === 0) {
+            $this->errors[] = 'Prénom n&apos;accepte que des lettres, des espaces et des tirets !';
         }
 
         if ($this->lastname === '') {
             $this->errors[] = 'Nom requit !';
         }
 
-        if (preg_match('/.*[A-Za-z]+.*/i', $this->lastname) === 0) {
-            $this->errors[] = 'Nom de famille n&apos;accepte que des lettres !';
+        if (preg_match('/.*[A-Za-z\- ]+.*/i', $this->lastname) === 0) {
+            $this->errors[] = 'Nom de famille n&apos;accepte que des lettres, des espaces et des tirets  !';
         }
 
         if ($this->adress === '') {
             $this->errors[] = 'Addresse requise !';
         }
 
-        if (preg_match('/.*[A-Za-z0-9]+.*/i', $this->adress) === 0) {
-            $this->errors[] = 'Addresse n&apos;accepte que des chiffres et des lettres !';
+        if (preg_match('/.*[A-Za-z0-9,\- ]+.*/i', $this->adress) === 0) {
+            $this->errors[] = 'Addresse n&apos;accepte que des chiffres et des lettres  !';
         }
 
         if ($this->city === '') {
             $this->errors[] = 'Ville requise !';
         }
 
-        if (preg_match('/.*[A-Za-z]+.*/i', $this->city) === 0) {
-            $this->errors[] = 'Ville n&apos;accepte que des lettres !';
+        if (preg_match('/.*[A-Za-z\- ]+.*/i', $this->city) === 0) {
+            $this->errors[] = 'Ville n&apos;accepte que des lettres, des tirets et des espaces !';
         }
 
         if ($this->postalcode === '') {
