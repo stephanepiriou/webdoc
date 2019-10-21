@@ -65,5 +65,5 @@ class Config
      * Server URL
      * @var string
      */
-    const SERVER_URL = 'http://51.83.44.181/';
+    const SERVER_URL = 'https://webdoc.ovh/';
 }

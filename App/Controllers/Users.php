@@ -8,6 +8,7 @@ namespace App\Controllers;
 
 
 use App\Models\User;
+use App\Models\Role;
 use Core\View;
 
 /**
@@ -22,7 +23,16 @@ class Users extends Authenticated
      * @return void
      */
     public function newAction(){
-        View::render('Users/create-user.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('user_administration')){
+
+            $roleNameListAsJson = Role::getNameListAsJson();
+            View::render('Users/create-user.php',[
+                'roleNameListAsJson' => $roleNameListAsJson
+            ]);
+        }else {
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -31,15 +41,21 @@ class Users extends Authenticated
      * @throws \Exception
      */
     public function createAction(){
-        $user = new User($_POST);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
 
-        if ($user->save()) {
-
-            $this->redirect('/users/create-user-success');
-         } else {
-            View::render('Users/create-user.php', [
-                'user' => $user
-            ]);
+        if($current_user->hasPermission('user_administration')) {
+            $user = new User($_POST);
+            if ($user->save()) {
+                $this->redirect('/users/create-user-success');
+            } else {
+                $roleNameListAsJson = Role::getNameListAsJson();
+                View::render('Users/create-user.php', [
+                    'roleNameListAsJson' => $roleNameListAsJson,
+                    'user' => $user
+                ]);
+            }
+        }else {
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -48,7 +64,17 @@ class Users extends Authenticated
      * @return void
      */
     public function createUserSuccessAction(){
-        View::render('Users/create-user-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('user_administration')) {
+            if (isset($_SESSION['current_user'])) {
+                $current_user = $_SESSION['current_user'];
+            } else {
+                $current_user = '';
+            }
+            View::render('Users/create-user-success.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -56,7 +82,12 @@ class Users extends Authenticated
      * @return void
      */
     public function searchAction(){
-        View::render('Users/search-user.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('user_administration')) {
+            View::render('Users/search-user.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -64,11 +95,16 @@ class Users extends Authenticated
      * @return void
      */
     public function listAction(){
-        $subEmails = substr($_POST['inputEmail'], 0, 3);
-        $emailsAsJson = User::getEmailListSubAsJson($subEmails);
-        View::render('Users/list-users.php', [
-            'emailsAsJson' => $emailsAsJson
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('user_administration')) {
+            $subEmails = substr($_POST['inputEmail'], 0, 3);
+            $emailsAsJson = User::getEmailListSubAsJson($subEmails);
+            View::render('Users/list-users.php', [
+                'emailsAsJson' => $emailsAsJson
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -76,11 +112,22 @@ class Users extends Authenticated
      * @return void
      */
     public function showAction(){
-        $userId = $_POST['userId'];
-        $user = User::findByID($userId);
-        View::render('Users/show-user.php', [
-            'user' => $user
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('user_administration')) {
+            $userId = $_POST['userId'];
+            $roleId = User::getRoleId($userId);
+            $roleNameListAsJson = Role::getNameListAsJson();
+            $chosenRoleName = Role::getNameFromIndex($roleId);
+            $user = User::findByID($userId);
+            View::render('Users/show-user.php', [
+                'user' => $user,
+                'roleNameListAsJson' => $roleNameListAsJson,
+                'chosenRoleName' => $chosenRoleName,
+                "chosenRoleId" => $roleId
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -88,13 +135,18 @@ class Users extends Authenticated
      * @return void
      */
     public function updateAction(){
-        $user = new User($_POST);
-        if($user->update() === true){
-            $this->redirect('/users/update-user-success');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('user_administration')) {
+            $user = new User($_POST);
+            if($user->update() === true){
+                $this->redirect('/users/update-user-success');
+            }else{
+                View::render('Users/show-user.php', [
+                    'user' => $user,
+                ]);
+            }
         }else{
-            View::render('Users/show-user.php', [
-                'user' => $user,
-            ]);
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -103,7 +155,12 @@ class Users extends Authenticated
      * @return void
      */
     public function updateUserSuccessAction(){
-        View::render('Users/update-user-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('user_administration')) {
+            View::render('Users/update-user-success.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -111,11 +168,16 @@ class Users extends Authenticated
      * @return void
      */
     public function deleteAction(){
-        $id = $_POST['id'];
-        if(User::delete($id) === true){
-            View::render('Users/delete-user-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('user_administration')) {
+            $id = $_POST['id'];
+            if(User::delete($id) === true){
+                View::render('Users/delete-user-success.php');
+            }else{
+                View::render('Users/delete-user-faillure.php');
+            }
         }else{
-            View::render('Users/delete-user-faillure.php');
+            View::render('Default/no-permission.php');
         }
     }
 }

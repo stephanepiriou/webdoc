@@ -15,7 +15,20 @@ class ShowIndividu{}
 <?php include("entete.php")?>
     <title>Editer un individu</title>
 <?php include("header.php")?>
-<?php include("menu.php")?>
+    <?php
+if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+if($current_user != '') {
+    if ($current_user->hasRole('utilisateur')) {
+        include("menu_utilisateur.php");
+    } else if ($current_user->hasRole('encodeur')) {
+        include("menu_encodeur.php");
+    } else if ($current_user->hasRole('administrateur')) {
+        include("menu_administrateur.php");
+    }
+} else {
+    include("menu_anonyme.php");
+}
+?>
 <?php if (isset($individu)){
     $id = $individu->id;
     $matricule = $individu->matricule;
@@ -26,7 +39,23 @@ class ShowIndividu{}
     $postalcode = $individu->postalcode;
     $errors = $individu->errors;
     $typeindividuid = $individu->typeindividuid;
-};?>
+}?>
+<?php
+$isUploadDisabled = 'true';
+if($current_user->hasPermission('modification')){
+    if(isset($typedocumentexist)){
+        if($typedocumentexist){
+            $isUploadDisabled = 'false';
+        }else{
+            $isUploadDisabled = 'true';
+        }
+    } else {
+        $isUploadDisabled = 'true';
+    }
+}else{
+    $isUploadDisabled = "true";
+}
+?>
 
     <div class="row">
         <div class="col">
@@ -164,6 +193,15 @@ class ShowIndividu{}
                         <div class="col">&nbsp;</div>
                     </div>
                     <div class="row" style = "align-content: center" >
+                        <?php
+                        if(isset($typedocumentexist)){
+                            if(!$typedocumentexist){
+                                echo "<div class=\"alert alert-warning alert-dismissible fade show\"> 
+                                          Il n'existe pas de type de document dans la base de données. Veuillez d'abord créer un type de document.
+                                      </div>";
+                            }
+                        }
+                        ?>
                         <div class="col">
                             <div>
                                 <input type="button" value="Ajouter Document" id="button-ajouter-document" />
@@ -173,12 +211,13 @@ class ShowIndividu{}
                 </div>
             </form>
             <form id="form-show-document" method="post" action="/documents/show">
-                <input id='individu-id' name='individuid' type='hidden' value="<?php if(isset($id)){echo "$id";}else{echo "";}?>">s
+                <input id='individu-id' name='individuid' type='hidden' value="<?php if(isset($id)){echo "$id";}else{echo "";}?>">
                 <input id='input-document-id' name='documentid' type='hidden'>
                 <!--<input id='user-id' name='userid' type='hidden' value="<?php //if(isset($id)){echo "$id";}else{echo "";}?>">-->
             </form>
             <form id="form-new-document" method="post" action="/documents/new">
                 <input id='individu-id' name='individuid' type='hidden' value="<?php if(isset($id)){echo "$id";}else{echo "";}?>">
+                <input id="individu-matricule" name="individumatricule" type="hidden" value="<?php if(isset($matricule)){echo "$matricule";}else{echo "";}?>">
                 <input id='individu-first-name' name='individufirstname' type="hidden" value="<?php if(isset($firstname)){echo "$firstname";}else{ "";}?>">
                 <input id='individu-last-name' name='individulastname' type="hidden" value="<?php if(isset($lastname)){echo "$lastname";}else{ "";}?>">
 
@@ -198,14 +237,14 @@ class ShowIndividu{}
 	    //////////////
         <?php if (isset($jsonListDocument)) {
                 echo 'var documentsDataSource =' . $jsonListDocument.';';
-            };?>
+        };?>
 
 
         <?php if(isset($jsonListTypesIndividu)){
                 echo 'var typeIndividuDataSource ='.$jsonListTypesIndividu .';';
             };?>
 
-	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuDataSource, disabled: true, width: 198, height: 30, theme: "energyblue"});
+	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuDataSource, disabled: true, width: '100%', height: 30, theme: "energyblue"});
         $("#dropdown-type-individu").jqxDropDownList('selectItem', "<?php if(isset($chosenTypeIndividu)){echo $chosenTypeIndividu;}?>" );
         $('#input-id').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 	    $('#input-matricule').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
@@ -215,7 +254,7 @@ class ShowIndividu{}
 	    $('#input-city').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 	    $('#input-postal-code').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
-	    $("#button-update-save").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
+	    $("#button-update-save").jqxButton({ width: "100%", height: "25", disabled: <?php if($current_user->hasPermission('modification')){echo "false";}else{echo "true";} ?>, theme: "energyblue"});
 	    $("#button-update-save").on("click", function (event) {
 		    var value = $("#button-update-save").val();
 		    if(value === "Mettre à jour"){
@@ -235,7 +274,7 @@ class ShowIndividu{}
 		    }
 	    });
 
-	    $("#button-delete").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
+	    $("#button-delete").jqxButton({ width: "100%", height: "25", disabled: <?php if($current_user->hasPermission('modification')){echo "false";}else{echo "true";} ?>, theme: "energyblue"});
 	    $("#button-delete").on("click", function (event) {
 		    $("#input-id").jqxInput({disabled: false});
 		    $("#form-show-individu").attr("action", "/individus/delete");
@@ -274,7 +313,7 @@ class ShowIndividu{}
 	        $('#form-show-document').submit();
         });
 
-        $("#button-ajouter-document").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
+        $("#button-ajouter-document").jqxButton({ width: "100%", height: "25", theme: "energyblue", disabled: <?php echo $isUploadDisabled ?>});
         $("#button-ajouter-document").on("click", function (event) {
 	        $('#form-new-document').submit();
         });

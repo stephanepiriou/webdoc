@@ -51,6 +51,6 @@ $router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
 $router->add('login', ['controller' => 'Login', 'action' => 'new']);
 $router->add('logout', ['controller' => 'Login', 'action' => 'destroy']);
 $router->add('template', ['controller' => 'Template', 'action' => 'new']);
-
+$router->add('uploads', ['controller' => 'Home', 'action' => 'index']);
 $router->dispatch($_SERVER['QUERY_STRING']);
 

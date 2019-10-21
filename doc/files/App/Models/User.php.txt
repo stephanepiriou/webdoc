@@ -10,6 +10,7 @@ namespace App\Models;
 use App\Token;
 use function get_called_class;
 use PDO;
+use App\Models\Role;
 use function strtolower;
 
 /**
@@ -20,6 +21,10 @@ use function strtolower;
 class User extends \Core\Model
 {
 
+    /**
+     * @var object Role object for the current User object
+     */
+    public $role;
     /**
      * Error messages from create and update operation (see validate() method)
      * @var array $errors Array
@@ -59,13 +64,14 @@ class User extends \Core\Model
             $this->name = strtolower($this->name);
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
             $sql = 'INSERT 
-                    INTO users (name, email, password_hash) 
-                    VALUES (:name, :email, :password_hash)';
+                    INTO users (name, email, password_hash, roleid) 
+                    VALUES (:name, :email, :password_hash, :roleid)';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
+            $stmt->bindValue('roleid', $this->roleid, PDO::PARAM_INT);
 
             return $stmt->execute();
         }
@@ -134,7 +140,24 @@ class User extends \Core\Model
      * @return boolean True if a record already exists with the specified email, false otherwise
      */
     public static function emailExists($email){
-        return static::findByEmail($email) !== false;
+        return static::findByEmailExist($email) !== false;
+    }
+
+    /**
+     * Find a user model by email address
+     * @param string $email email address to search for
+     * @return mixed User object if found, false otherwise
+     */
+    public static function findByEmailExist($email){
+        $sql = 'SELECT * 
+                FROM users 
+                WHERE email = :email';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+        return  $stmt->fetch();
     }
 
     /**
@@ -151,7 +174,9 @@ class User extends \Core\Model
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
         $stmt->execute();
-        return $stmt->fetch();
+        $user = $stmt->fetch();
+        $user->role = Role::getRole($user->roleid);
+        return $user;
     }
 
     /**
@@ -168,7 +193,19 @@ class User extends \Core\Model
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
         $stmt->execute();
-        return $stmt->fetch();
+        $user = $stmt->fetch();
+        $user->role = Role::getRole($user->roleid);
+        return $user;
+    }
+
+    /**
+     * Get the roleid property of a User object
+     * @param string $id email address to search for
+     * @return mixed User object if found, false otherwise
+     */
+    public static function getRoleId($id){
+        $user = static::findByID($id);
+        return $user->roleid;
     }
 
     /**
@@ -178,11 +215,11 @@ class User extends \Core\Model
      * @return mixed  The user object or false if authentication fails
      */
     public static function authenticate($email, $password){
-        $user = static::findByEmail($email);
+        $current_user = static::findByEmail($email);
 
-        if ($user) {
-            if (password_verify($password, $user->password_hash)) {
-                return $user;
+        if ($current_user) {
+            if (password_verify($password, $current_user->password_hash)) {
+                return $current_user;
             }
         }
         return false;
@@ -202,6 +239,22 @@ class User extends \Core\Model
 
         return ($count > 0 ? true : false);
     }
+
+    /**
+     * Check if there is only 1 user in the database
+     * @return boolean false if more than 1 user, true otherwise
+     **/
+    private static function isThereOnlyOneUser(){
+        $sql = 'SELECT count(*)
+                FROM users';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        return ($count == 1 ? true : false);
+    }
+
 
     /**
      * Remember the login by inserting a unique token into the remember_logins table
@@ -255,13 +308,15 @@ class User extends \Core\Model
             $this->name = strtolower($this->name);
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
             $sql = 'UPDATE users 
-                    SET name=:name, password_hash=:password_hash 
+                    SET name=:name, password_hash=:password_hash, roleid=:roleid 
                     WHERE id=:id';
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindParam(':password_hash', $password_hash, PDO::PARAM_STR);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':roleid', $this->roleid, PDO::PARAM_INT);
+
             return $stmt->execute();
         }else{
             return false;
@@ -274,13 +329,36 @@ class User extends \Core\Model
      * @return mixed
      */
     public static function delete($id){
-        $sql = 'DELETE 
-                FROM users 
-                WHERE id=:id';
-        $db = static::getDB();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        if(!static::isThereOnlyOneUser()){
+            $sql = 'DELETE 
+                    FROM users 
+                    WHERE id=:id'; 
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            return $stmt->execute();
+        }else {
+            return false;
+        }
     }
+
+    /**
+     * Get if User has permission through his role object variable
+     * @param $permission string The permission name we want to check
+     * @return boolean return true if user has permission, false otherwise
+     */
+    public function hasPermission($permission){
+       return $this->role->hasPermission($permission);
+    }
+
+    /**
+     * Check if current User object has specified role
+     * @param $rolename string The rolename we want to check
+     * @return boolean Trus if user has specified role, false otherwise
+     */
+    public function hasRole($rolename){
+        return $this->role->hasRoleName($rolename);
+    }
+
 }
 

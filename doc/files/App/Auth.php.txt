@@ -20,19 +20,20 @@ class Auth
     /**
      * Login the user
      *
-     * @param $user
+     * @param $current_user
      * @param $remember_me remember the login if true
      * @return void
      */
-    public static function login($user, $remember_me){
+    public static function login($current_user, $remember_me){
         session_regenerate_id(true);
-        $_SESSION['user_id'] = $user->id;
+        $_SESSION['user_id'] = $current_user->id;
+        $_SESSION['current_user'] = $current_user;
 
         // remember_me functionality
         if ($remember_me){
             // If rememberLogin function return true
-            if($user->rememberLogin()){
-                setcookie('remember_me', $user->remember_token, $user->expiry_timestamp, '/');
+            if($current_user->rememberLogin()){
+                setcookie('remember_me', $current_user->remember_token, $current_user->expiry_timestamp, '/');
             }
         }
     }
@@ -108,9 +109,10 @@ class Auth
             $remembered_login = RememberedLogin::findByToken($cookie);
 
             if($remembered_login && !$remembered_login->hasExpired()){
-                $user = $remembered_login->getUser();
-                static::login($user, false);
-                return $user;
+                $current_user = $remembered_login->getUser();
+                //$_SESSION['current_user'] = $current_user;
+                static::login($current_user, false);
+                return $current_user;
             }
         }
     }

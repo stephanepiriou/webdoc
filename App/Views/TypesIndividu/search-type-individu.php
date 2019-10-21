@@ -15,7 +15,20 @@ class SearchTypeIndividu{}
 <?php include("entete.php")?>
     <title>Chercher un type d&apos;individu</title>
 <?php include("header.php")?>
-<?php include("menu.php")?>
+    <?php
+if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+if($current_user != '') {
+    if ($current_user->hasRole('utilisateur')) {
+        include("menu_utilisateur.php");
+    } else if ($current_user->hasRole('encodeur')) {
+        include("menu_encodeur.php");
+    } else if ($current_user->hasRole('administrateur')) {
+        include("menu_administrateur.php");
+    }
+} else {
+    include("menu_anonyme.php");
+}
+?>
 
     <div class="row">
         <div class="col">
@@ -80,7 +93,7 @@ class SearchTypeIndividu{}
 	    //////////////
 	    // jqWidgets//
 	    //////////////
-	    $("#input-type-individu").jqxInput({width: 250, height: 30, placeHolder: "Entrez le nom du type d'individu", theme: "energyblue"});
+	    $("#input-type-individu").jqxInput({width: '100%', height: 30, placeHolder: "Entrez le nom du type d'individu", theme: "energyblue"});
 
 	    $("#button-search").jqxButton({ width: "150", height: "25", theme: "energyblue"});
 	    $("#button-search").on("click", function (event) {

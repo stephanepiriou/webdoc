@@ -16,7 +16,20 @@ class News{}
 <?php include("entete.php")?>
     <title>Login</title>
 <?php include("header.php")?>
-<?php include("menu.php")?>
+    <?php
+if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+if($current_user != '') {
+    if ($current_user->hasRole('ustilisateur')) {
+        include("menu_utilisateur.php");
+    } else if ($current_user->hasRole('encodeur')) {
+        include("menu_encodeur.php");
+    } else if ($current_user->hasRole('administrateur')) {
+        include("menu_administrateur.php");
+    }
+} else {
+    include("menu_anonyme.php");
+}
+?>
 
         <div class=""row>
             <div class="col">
@@ -29,7 +42,7 @@ class News{}
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h5 style="text-align: center">Log In</h5>
+                            <h5 style="text-align: center">Connection</h5>
                         </div>
                     </div>
                 </div>
@@ -51,23 +64,23 @@ class News{}
                     <div class="container">
                         <div class="row">
                             <div class="col-6">
-                                <label class="float-right">Email :</label>
+                                <label class="float-right">Adresse email :</label>
                             </div>
                             <div class="col-6">
-                                <input id="inputEmail" name="email" placeholder="Email adresse" required type="email" value="<?php if(isset($email)){echo $email;} ?>"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="float-right">Password :</label>
-                            </div>
-                            <div class="col-6">
-                                <input type="password" id="inputPassword" name="password" placeholder="Password" value="<?php if(isset($password)){echo $password;}?>"/>
+                                <input id="inputEmail" name="email" placeholder="votre adresse email" required type="email" value="<?php if(isset($email)){echo $email;} ?>"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label class="float-right">Remember me :</label>
+                                <label class="float-right">Mot de passe :</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="password" id="inputPassword" name="password" placeholder="votre mot de passe" value="<?php if(isset($password)){echo $password;}?>"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="float-right">Se souvenir de moi :</label>
                             </div>
                             <div class="col-6">
                                 <div id="remember_me" name="remember_me"></div>
@@ -81,7 +94,7 @@ class News{}
                         <div class="row" style="align-content: center">
                             <div class="col">
                                 <div style="display: table; margin: auto">
-                                    <input type="button" value="Log in" id="button-submit" />
+                                    <input type="button" value="Se connecter" id="button-submit" />
                                 </div>
                             </div>
                         </div>

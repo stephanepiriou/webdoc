@@ -12,10 +12,25 @@ namespace App\Views\Users;
 class CreateUser{}
 ?>
 
+
 <?php include("entete.php")?>
     <title>Créer un utilisateur</title>
 <?php include("header.php")?>
-<?php include("menu.php")?>
+
+<?php
+    if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+    if($current_user != '') {
+        if ($current_user->hasRole('utilisateur')) {
+            include("menu_utilisateur.php");
+        } else if ($current_user->hasRole('encodeur')) {
+            include("menu_encodeur.php");
+        } else if ($current_user->hasRole('administrateur')) {
+            include("menu_administrateur.php");
+        }
+    } else {
+        include("menu_anonyme.php");
+    }
+?>
 
     <div class="row">
         <div class="col">
@@ -72,6 +87,23 @@ class CreateUser{}
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-6">
+                            <label class="float-right">Role :</label>
+                        </div>
+                        <div class="col-6">
+                            <div id="dropdown-role-name" name="rolename"></div>
+                            <input type="hidden"  id="input-role-id" name="roleid" value="1" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right"> Role description </label>
+                        </div>
+                        <div class="col-6">
+                            <textarea id="textarea-role-description" nom="roledescriprion"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
                             <label class="float-right">Password :</label>
                         </div>
@@ -105,6 +137,25 @@ class CreateUser{}
 	    //////////////
 	    // jqWidgets//
 	    //////////////
+        <?php if (isset($roleNameListAsJson)) {
+            echo 'var roleNameDataSource =' . $roleNameListAsJson.';';
+        };?>
+
+        var descriptionData = [];
+        descriptionData.push('Un utilisateur peut consulter les données ainsi qu\'afficher, imprimer et téléchargér les documents');
+        descriptionData.push('Un encodeur peut consulter les données, les modifier, les effacer, afficher les documents, les effacer. Il ne peut pas télécharger ces documents, ni les imprimer.');
+        descriptionData.push('Un administrateur s\'occupe uniquement de la gestion des utilisateur. Il ne peut mi consulter les données, ni les effacer.');
+
+        $('#dropdown-role-name').jqxDropDownList({source: roleNameDataSource, width: '100%', height: 30, theme: "energyblue"});
+        $('#dropdown-role-name').jqxDropDownList('selectItem', "utilisateur" );
+        $('#dropdown-role-name').on('change', function(event) {
+            $('#textarea-role-description').val(descriptionData[$('#dropdown-role-name').jqxDropDownList('selectedIndex')]);
+            $("#input-role-id").val($('#dropdown-role-name').jqxDropDownList('selectedIndex')+1);
+        });
+
+        $('#textarea-role-description').jqxTextArea({height: 100, width: '100%', minLength: 1, disabled: true, theme: "energyblue" });
+        $('#textarea-role-description').val(descriptionData[0]);
+
 	    $('#input-name').jqxInput({width: '100%', height: 30, theme: "energyblue"});
 
 	    $('#input-email').jqxInput({width: '100%', height: 30, theme: "energyblue"});

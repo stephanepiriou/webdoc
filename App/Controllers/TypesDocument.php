@@ -25,7 +25,12 @@ class TypesDocument extends Authenticated
      * @throws \Exception
      */
     public function newAction(){
-        View::render('TypesDocument/create-type-document.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            View::render('TypesDocument/create-type-document.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -34,14 +39,19 @@ class TypesDocument extends Authenticated
      * @throws \Exception
      */
     public function createAction(){
-        $typeDocument = new TypeDocument($_POST);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            $typeDocument = new TypeDocument($_POST);
 
-        if ($typeDocument->save()) {
-            $this->redirect('/types-document/create-type-document-success');
-        } else {
-            View::render('TypesDocument/create-type-document.php', [
-                'typeDocument' => $typeDocument
-            ]);
+            if ($typeDocument->save()) {
+                $this->redirect('/types-document/create-type-document-success');
+            } else {
+                View::render('TypesDocument/create-type-document.php', [
+                    'typeDocument' => $typeDocument
+                ]);
+            }
+        }else{
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -50,7 +60,12 @@ class TypesDocument extends Authenticated
      * @return void
      */
     public function createTypeDocumentSuccessAction(){
-        View::render('TypesDocument/create-type-document-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            View::render('TypesDocument/create-type-document-success.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -58,7 +73,12 @@ class TypesDocument extends Authenticated
      * @return void
      */
     public function searchAction(){
-        View::render('TypesDocument/search-type-document.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            View::render('TypesDocument/search-type-document.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -66,11 +86,16 @@ class TypesDocument extends Authenticated
      * @return void
      */
     public function listAction(){
-        $subTypeDocumentName = substr($_POST['inputTypeDocumentName'], 0, 3);
-        $typesDocumentAsJson = TypeDocument::getListSubAsJson($subTypeDocumentName);
-        View::render('TypesDocument/list-types-document.php', [
-            'typesDocumentAsJson' => $typesDocumentAsJson
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            $subTypeDocumentName = substr($_POST['inputTypeDocumentName'], 0, 3);
+            $typesDocumentAsJson = TypeDocument::getListSubAsJson($subTypeDocumentName);
+            View::render('TypesDocument/list-types-document.php', [
+                'typesDocumentAsJson' => $typesDocumentAsJson
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -78,12 +103,17 @@ class TypesDocument extends Authenticated
      * @return void
      */
     public function showAction(){
-        $typeDocumentId = $_POST['typesDocumentId'];
-        $typeDocument = TypeDocument::getById($typeDocumentId);
-        //var_dump($typeDocument);
-        View::render('TypesDocument/show-type-document.php', [
-            'typeDocument' => $typeDocument
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            $typeDocumentId = $_POST['typesDocumentId'];
+            $typeDocument = TypeDocument::getById($typeDocumentId);
+            //var_dump($typeDocument);
+            View::render('TypesDocument/show-type-document.php', [
+                'typeDocument' => $typeDocument
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -91,14 +121,18 @@ class TypesDocument extends Authenticated
      * @return void
      */
     public function updateAction(){
-        $typeDocument = new TypeDocument($_POST);
-
-        if($typeDocument->update() === true){
-            $this->redirect('/types-document/update-type-document-success');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            $typeDocument = new TypeDocument($_POST);
+            if($typeDocument->update() === true){
+                $this->redirect('/types-document/update-type-document-success');
+            }else{
+                View::render('TypesDocument/show-type-document.php', [
+                    'typeDocument' => $typeDocument,
+                ]);
+            }
         }else{
-            View::render('TypesDocument/show-type-document.php', [
-                'typeDocument' => $typeDocument,
-            ]);
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -107,7 +141,12 @@ class TypesDocument extends Authenticated
      * @return void
      */
     public function updateTypeDocumentSuccessAction(){
-        View::render('TypesDocument/update-type-document-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            View::render('TypesDocument/update-type-document-success.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -116,15 +155,20 @@ class TypesDocument extends Authenticated
      * @throws \Exception
      */
     public function deleteAction(){
-        $id = $_POST['id'];
-        if(!Document::checkDocumentBeforeTypeDocumentDelete($id)){
-            if(TypeDocument::delete($id) === true){
-                View::render('TypesDocument/delete-type-document-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            $id = $_POST['id'];
+            if(!Document::checkDocumentBeforeTypeDocumentDelete($id)){
+                if(TypeDocument::delete($id) === true){
+                    View::render('TypesDocument/delete-type-document-success.php');
+                }else{
+                    View::render('TypesDocument/delete-type-document-faillure.php');
+                }
             }else{
                 View::render('TypesDocument/delete-type-document-faillure.php');
             }
         }else{
-            View::render('TypesDocument/delete-type-document-faillure.php');
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -133,7 +177,7 @@ class TypesDocument extends Authenticated
      * @return void
 	 */
 	public function validateNameAction(){
-		$is_valid = ! TypeDocument::nameExists($_GET['name']);
+        $is_valid = ! TypeDocument::nameExists($_GET['name']);
 		header('Content-Type: application/json');
 		echo json_encode($is_valid);
 	}

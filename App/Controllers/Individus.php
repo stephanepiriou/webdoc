@@ -31,11 +31,20 @@ class Individus extends Authenticated
      * @throws \Exception
      */
     public function newAction(){
-
-        $jsonListTypesIndividu = TypeIndividu::getListAsJson();
-        View::render('Individus/create-individu.php', [
-            'jsonListTypesIndividu' => $jsonListTypesIndividu
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            $isThereFirstTypeIndividu = TypeIndividu::isThereFirstTypeIndividu();
+            if($isThereFirstTypeIndividu) {
+                $jsonListTypesIndividu = TypeIndividu::getListAsJson();
+                View::render('Individus/create-individu.php', [
+                    'jsonListTypesIndividu' => $jsonListTypesIndividu
+                ]);
+            }else{
+                View::render('Individus/no-type-individu.php');
+            }
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -44,18 +53,23 @@ class Individus extends Authenticated
      * @throws \Exception
      */
     public function createAction(){
-        $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
-        $_POST['typeindividuid']= $typeindividuid;
-        $individu = new Individu($_POST);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
+            $_POST['typeindividuid']= $typeindividuid;
+            $individu = new Individu($_POST);
 
-        if ($individu->save()) {
-            $this->redirect('/individus/create-individu-success');
-        } else {
-            $jsonListTypesIndividu = TypeIndividu::getListAsJson();
-            View::render('Individus/create-individu.php', [
-                'individu' => $individu,
-                'jsonListTypesIndividu' => $jsonListTypesIndividu
-            ]);
+            if ($individu->save()) {
+                $this->redirect('/individus/create-individu-success');
+            } else {
+                $jsonListTypesIndividu = TypeIndividu::getListAsJson();
+                View::render('Individus/create-individu.php', [
+                    'individu' => $individu,
+                    'jsonListTypesIndividu' => $jsonListTypesIndividu
+                ]);
+            }
+        }else{
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -64,7 +78,12 @@ class Individus extends Authenticated
      * @return void
      */
     public function createIndividuSuccessAction(){
-        View::render('Individus/create-individu-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            View::render('Individus/create-individu-success.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -72,7 +91,12 @@ class Individus extends Authenticated
      * @return void
      */
     public function searchAction(){
-        View::render('Individus/search-individu.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            View::render('Individus/search-individu.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -80,17 +104,22 @@ class Individus extends Authenticated
      * @return void
      */
     public function listAction(){
-        $searchType = $_POST['dropdownSearchType'];
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            $searchType = $_POST['dropdownSearchType'];
 
-        if($searchType === 'matricule'){
-            $individusAsJson = Individu::listByMatricule($_POST['inputSearchTerm']);
-        }elseif ($searchType === 'nom'){
-            $individusAsJson = Individu::listByName($_POST['inputSearchTerm']);
+            if($searchType === 'matricule'){
+                $individusAsJson = Individu::listByMatricule($_POST['inputSearchTerm']);
+            }elseif ($searchType === 'nom'){
+                $individusAsJson = Individu::listByName($_POST['inputSearchTerm']);
+            }
+
+            View::render('Individus/list-individus.php', [
+                'individusAsJson' => $individusAsJson
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
         }
-
-        View::render('Individus/list-individus.php', [
-            'individusAsJson' => $individusAsJson
-        ]);
     }
 
     /**
@@ -98,19 +127,24 @@ class Individus extends Authenticated
      * @return void
      */
     public function showAction(){
-        $individuid = $_POST['individuid'];
-        $individu = Individu::getById($individuid);
-        $jsonListTypesIndividu = TypeIndividu::getListAsJson();
-        $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
-        $jsonListDocument = Document::listByIndividuId($individuid);
-        $typedocumentexist = TypeDocument::isThereFirstTypeDocument();
-        View::render('Individus/show-individu.php', [
-            'individu' => $individu,
-            'jsonListTypesIndividu' => $jsonListTypesIndividu,
-            'chosenTypeIndividu' => $chosenTypeIndividu,
-            'jsonListDocument' => $jsonListDocument,
-            'typedocumentexist' => $typedocumentexist
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            $individuid = $_POST['individuid'];
+            $individu = Individu::getById($individuid);
+            $jsonListTypesIndividu = TypeIndividu::getListAsJson();
+            $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
+            $jsonListDocument = Document::listByIndividuId($individuid);
+            $typedocumentexist = TypeDocument::isThereFirstTypeDocument();
+            View::render('Individus/show-individu.php', [
+                'individu' => $individu,
+                'jsonListTypesIndividu' => $jsonListTypesIndividu,
+                'chosenTypeIndividu' => $chosenTypeIndividu,
+                'jsonListDocument' => $jsonListDocument,
+                'typedocumentexist' => $typedocumentexist
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -118,23 +152,28 @@ class Individus extends Authenticated
      * @return void
      */
     public function updateAction(){
-        $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
-        $_POST['typeindividuid'] = $typeindividuid;
-        $individu = new Individu($_POST);
-        $jsonListDocument = Document::listByIndividuId($individu->id);
-
-        if($individu->update() === true){
-            $this->redirect('/individus/update-individu-success');
-        }else{
-            $jsonListTypesIndividu = TypeIndividu::getListAsJson();
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
             $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
-            $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
-            View::render('Individus/show-individu.php', [
-                'individu' => $individu,
-                'jsonListTypesIndividu' => $jsonListTypesIndividu,
-                'chosenTypeIndividu' => $chosenTypeIndividu,
-                'jsonListDocument' => $jsonListDocument
-            ]);
+            $_POST['typeindividuid'] = $typeindividuid;
+            $individu = new Individu($_POST);
+            $jsonListDocument = Document::listByIndividuId($individu->id);
+
+            if($individu->update() === true){
+                $this->redirect('/individus/update-individu-success');
+            }else{
+                $jsonListTypesIndividu = TypeIndividu::getListAsJson();
+                $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
+                $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
+                View::render('Individus/show-individu.php', [
+                    'individu' => $individu,
+                    'jsonListTypesIndividu' => $jsonListTypesIndividu,
+                    'chosenTypeIndividu' => $chosenTypeIndividu,
+                    'jsonListDocument' => $jsonListDocument
+                ]);
+            }
+        }else{
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -143,7 +182,12 @@ class Individus extends Authenticated
      * @return void
      */
     public function updateIndividuSuccessAction(){
-        View::render('Individus/update-individu-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            View::render('Individus/update-individu-success.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -151,11 +195,16 @@ class Individus extends Authenticated
      * @return void
      */
     public function deleteAction(){
-        $id = $_POST['id'];
-        if(Individu::delete($id) === true){
-            View::render('Individus/delete-individu-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            $id = $_POST['id'];
+            if(Individu::delete($id) === true){
+                View::render('Individus/delete-individu-success.php');
+            }else{
+                View::render('Individus/delete-individu-faillure.php');
+            }
         }else{
-            View::render('Individus/delete-individu-faillure.php');
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -164,7 +213,7 @@ class Individus extends Authenticated
      * @return void
 	 */
     public function validateMatriculeAction(){
-    	$is_valid = ! Individu::matriculeExists($_GET['matricule']);
+        $is_valid = ! Individu::matriculeExists($_GET['matricule']);
 	    header('Content-Type: application/json');
 	    echo json_encode($is_valid);
     }

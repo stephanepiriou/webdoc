@@ -15,7 +15,20 @@ class ShowIndividu{}
 <?php include("entete.php")?>
     <title>Editer un individu</title>
 <?php include("header.php")?>
-<?php include("menu.php")?>
+    <?php
+if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+if($current_user != '') {
+    if ($current_user->hasRole('utilisateur')) {
+        include("menu_utilisateur.php");
+    } else if ($current_user->hasRole('encodeur')) {
+        include("menu_encodeur.php");
+    } else if ($current_user->hasRole('administrateur')) {
+        include("menu_administrateur.php");
+    }
+} else {
+    include("menu_anonyme.php");
+}
+?>
 <?php if (isset($individu)){
     $id = $individu->id;
     $matricule = $individu->matricule;
@@ -26,7 +39,23 @@ class ShowIndividu{}
     $postalcode = $individu->postalcode;
     $errors = $individu->errors;
     $typeindividuid = $individu->typeindividuid;
-};?>
+}?>
+<?php
+$isUploadDisabled = 'true';
+if($current_user->hasPermission('modification')){
+    if(isset($typedocumentexist)){
+        if($typedocumentexist){
+            $isUploadDisabled = 'false';
+        }else{
+            $isUploadDisabled = 'true';
+        }
+    } else {
+        $isUploadDisabled = 'true';
+    }
+}else{
+    $isUploadDisabled = "true";
+}
+?>
 
     <div class="row">
         <div class="col">
@@ -208,14 +237,14 @@ class ShowIndividu{}
 	    //////////////
         <?php if (isset($jsonListDocument)) {
                 echo 'var documentsDataSource =' . $jsonListDocument.';';
-            };?>
+        };?>
 
 
         <?php if(isset($jsonListTypesIndividu)){
                 echo 'var typeIndividuDataSource ='.$jsonListTypesIndividu .';';
             };?>
 
-	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuDataSource, disabled: true, width: 198, height: 30, theme: "energyblue"});
+	    $("#dropdown-type-individu").jqxDropDownList({source: typeIndividuDataSource, disabled: true, width: '100%', height: 30, theme: "energyblue"});
         $("#dropdown-type-individu").jqxDropDownList('selectItem', "<?php if(isset($chosenTypeIndividu)){echo $chosenTypeIndividu;}?>" );
         $('#input-id').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 	    $('#input-matricule').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
@@ -225,7 +254,7 @@ class ShowIndividu{}
 	    $('#input-city').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 	    $('#input-postal-code').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
-	    $("#button-update-save").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
+	    $("#button-update-save").jqxButton({ width: "100%", height: "25", disabled: <?php if($current_user->hasPermission('modification')){echo "false";}else{echo "true";} ?>, theme: "energyblue"});
 	    $("#button-update-save").on("click", function (event) {
 		    var value = $("#button-update-save").val();
 		    if(value === "Mettre à jour"){
@@ -245,7 +274,7 @@ class ShowIndividu{}
 		    }
 	    });
 
-	    $("#button-delete").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
+	    $("#button-delete").jqxButton({ width: "100%", height: "25", disabled: <?php if($current_user->hasPermission('modification')){echo "false";}else{echo "true";} ?>, theme: "energyblue"});
 	    $("#button-delete").on("click", function (event) {
 		    $("#input-id").jqxInput({disabled: false});
 		    $("#form-show-individu").attr("action", "/individus/delete");
@@ -284,7 +313,7 @@ class ShowIndividu{}
 	        $('#form-show-document').submit();
         });
 
-        $("#button-ajouter-document").jqxButton({ width: "100%", height: "25", theme: "energyblue", disabled: <?php if(isset($typedocumentexist)){echo $typedocumentexist ? "false" : "true" ;}?>});
+        $("#button-ajouter-document").jqxButton({ width: "100%", height: "25", theme: "energyblue", disabled: <?php echo $isUploadDisabled ?>});
         $("#button-ajouter-document").on("click", function (event) {
 	        $('#form-new-document').submit();
         });

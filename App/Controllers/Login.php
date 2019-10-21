@@ -32,11 +32,11 @@ class Login extends \Core\Controller
      * @return void
      */
     public function createAction(){
-        $user = User::authenticate($_POST['email'], $_POST['password']);
+        $current_user = User::authenticate($_POST['email'], $_POST['password']);
         $remember_me = isset($_POST['remember_me']);
 
-        if ($user) {
-            Auth::login($user, $remember_me);
+        if ($current_user) {
+            Auth::login($current_user, $remember_me);
 
             Flash::addMessage('Login successful');
             $this->redirect(Auth::getReturnToPage());

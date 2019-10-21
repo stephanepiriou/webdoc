@@ -7,6 +7,7 @@
 namespace App\Controllers;
 
 use App\Config;
+use App\Downloader;
 use Core\View;
 use App\Models\Document;
 use App\Models\TypeDocument;
@@ -25,17 +26,23 @@ class Documents extends Authenticated
      * @throws \Exception
      */
     public function newAction(){
-        //echo APPROOT;
-        $individuid = $_POST['individuid'];
-        $individufirstname = $_POST['individufirstname'];
-        $individulastname = $_POST['individulastname'];
-        $jsonListTypesDocument = TypeDocument::getListAsJson();
-        View::render('Documents/upload-document.php',[
-            'individuid' => $individuid,
-            'individufirstname' => $individufirstname,
-            'individulastname' => $individulastname,
-            'jsonListTypesDocument' => $jsonListTypesDocument
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')){
+            $individuid = $_POST['individuid'];
+            $individumatricule = $_POST['individumatricule'];
+            $individufirstname = $_POST['individufirstname'];
+            $individulastname = $_POST['individulastname'];
+            $jsonListTypesDocument = TypeDocument::getListAsJson();
+            View::render('Documents/upload-document.php',[
+                'individuid' => $individuid,
+                'individufirstname' => $individufirstname,
+                'individulastname' => $individulastname,
+                'jsonListTypesDocument' => $jsonListTypesDocument,
+                'individumatricule' => $individumatricule
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -45,32 +52,38 @@ class Documents extends Authenticated
      * @throws \Exception
      */
     public function uploadAction(){
-        $individuid = $_POST['individuid'];
-        $individulastname = $_POST['individulastname'];
-        $individufirstname = $_POST['individufirstname'];
-        $typedocument = $_POST['typedocument'];
-        $file = $_FILES["fileToUpload"];
-        $typedocumentid = TypeDocument::getIndexFromName($typedocument);
-        $documentname = $typedocument.' de '.$individufirstname.' '.$individulastname;
-        $upload = new Uploader($file, $documentname, $typedocumentid, $individuid);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')){
+            $individuid = $_POST['individuid'];
+            $individumatricule = $_POST['individumatricule'];
+            $individulastname = $_POST['individulastname'];
+            $individufirstname = $_POST['individufirstname'];
+            $typedocument = $_POST['typedocument'];
+            $file = $_FILES["fileToUpload"];
+            $typedocumentid = TypeDocument::getIndexFromName($typedocument);
+            $documentname = $typedocument.' de '.$individufirstname.' '.$individulastname.'('.$individumatricule.')';
+            $upload = new Uploader($file, $documentname, $typedocumentid, $individuid);
 
-        if($upload->uploadFile()){
-            View::render('Documents/upload-document-success.php', [
-                'individuid' => $individuid,
-                'individulastname' => $individulastname,
-                'individufirstname' => $individufirstname,
-                'documentname' => $documentname
-            ]);
+            if($upload->uploadFile()){
+                View::render('Documents/upload-document-success.php', [
+                    'individuid' => $individuid,
+                    'individulastname' => $individulastname,
+                    'individufirstname' => $individufirstname,
+                    'documentname' => $documentname
+                ]);
+            }else{
+                $jsonListTypesDocument = TypeDocument::getListAsJson();
+                View::render('Documents/upload-document.php',[
+                    'individuid' => $individuid,
+                    'individufirstname' => $individufirstname,
+                    'individulastname' => $individulastname,
+                    'chosentypedocument' => $typedocument,
+                    'jsonListTypesDocument' => $jsonListTypesDocument,
+                    'upload' => $upload
+                ]);
+            }
         }else{
-            $jsonListTypesDocument = TypeDocument::getListAsJson();
-            View::render('Documents/upload-document.php',[
-                'individuid' => $individuid,
-                'individufirstname' => $individufirstname,
-                'individulastname' => $individulastname,
-                'chosentypedocument' => $typedocument,
-                'jsonListTypesDocument' => $jsonListTypesDocument,
-                'upload' => $upload
-            ]);
+            View::render('Default/no-permission.php');
         }
 
     }
@@ -81,24 +94,46 @@ class Documents extends Authenticated
      * @throws \Exception
      */
     public function showAction(){
-        $individuid = $_POST['individuid'];
-        $documentid = $_POST['documentid'];
-        $documentname = Document::getDocumentName($documentid);
-        $filename = Document::getFileName($documentid);
-        $filepath = Config::RELATIVE_UPLOAD_FOLDER . $filename;
-        $serverfilepath = Config::SERVER_URL . $filepath;
-        $absolutefilepath = Config::ABSOLUTE_UPLOAD_FOLDER . $filename;
-        echo $serverfilepath;
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            $individuid = $_POST['individuid'];
+            $documentid = $_POST['documentid'];
+            $documentname = Document::getDocumentName($documentid);
+            $filename = Document::getFileName($documentid);
+            $filepath = Config::RELATIVE_UPLOAD_FOLDER . $filename;
+            $serverfilepath = Config::SERVER_URL . $filepath;
+            $absolutefilepath = Config::ABSOLUTE_UPLOAD_FOLDER . $filename;
 
-        View::render('Documents/show-document.php',[
-            'individuid' => $individuid,
-            'documentname' => $documentname,
-            'filepath' => $filepath,
-            'serverfilepath' => $serverfilepath,
-            //'filename' => $filename,
-            'documentid' => $documentid,
-        ]);
+            View::render('Documents/show-document.php',[
+                'individuid' => $individuid,
+                'documentname' => $documentname,
+                'filepath' => $filepath,
+                'serverfilepath' => $serverfilepath,
+                //'filename' => $filename,
+                'documentid' => $documentid,
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
+
+
+    /**
+     * Hangle le download des document par les utilisateurs
+     */
+    public function downloadAction(){
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            $documentid = $_POST['documentid'];
+            $filename = Document::getFileName($documentid);
+            $documentname = Document::getDocumentName($documentid);
+            $downloader = new Downloader($filename, $documentname);
+            $downloader->send();
+        }else{
+            View::render('Default/no-permission.php');
+        }
+    }
+
 
     /**
      * Call Document::delete and redirect according to result
@@ -106,17 +141,21 @@ class Documents extends Authenticated
      * @throws \Exception
      */
     public function deleteAction(){
-        $documentid = $_POST['documentid'];
-        $individuid = $_POST['individuid'];
-        if(Document::delete($documentid) === true){
-            View::render('Documents/delete-document-success.php', [
-                'individuid' => $individuid
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            $documentid = $_POST['documentid'];
+            $individuid = $_POST['individuid'];
+            if(Document::delete($documentid) === true){
+                View::render('Documents/delete-document-success.php', [
+                    'individuid' => $individuid
+                    ]);
+            }else{
+                View::render('Documents/delete-document-faillure.php', [
+                    'individuid' => $individuid
                 ]);
+            }
         }else{
-            View::render('Documents/delete-document-faillure.php', [
-                'individuid' => $individuid
-            ]);
+            View::render('Default/no-permission.php');
         }
-
     }
 }

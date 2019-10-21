@@ -15,7 +15,20 @@ class ListTypesDocument{}
 <?php include("entete.php")?>
     <title>Chercher un type de document</title>
 <?php include("header.php")?>
-<?php include("menu.php")?>
+    <?php
+if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+if($current_user != '') {
+    if ($current_user->hasRole('utilisateur')) {
+        include("menu_utilisateur.php");
+    } else if ($current_user->hasRole('encodeur')) {
+        include("menu_encodeur.php");
+    } else if ($current_user->hasRole('administrateur')) {
+        include("menu_administrateur.php");
+    }
+} else {
+    include("menu_anonyme.php");
+}
+?>
     <div class="row">
         <div class="col">
             &nbsp;

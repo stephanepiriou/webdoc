@@ -68,6 +68,11 @@ class Uploader
     private $imageFileType;
 
     /**
+     * @var String hash calculated from document name and destinated to be the name of the file
+     */
+    private $filename_hash;
+
+    /**
      * Uploader constructor.
      * @param $file string The file the uploader class must upload
      * @param $documentname string The document name
@@ -83,7 +88,8 @@ class Uploader
         $this->targetFile = basename($this->file['name']);
         $this->imageFileType = strtolower(pathinfo($this->targetFile, PATHINFO_EXTENSION));
 
-        $this->targetFileName = $documentname . '.' . $this->imageFileType;
+        $this->filename_hash = $this->getHashFileName();
+        $this->targetFileName = $this->filename_hash . '.' . $this->imageFileType;
         $this->targetFilePath = Config::ABSOLUTE_UPLOAD_FOLDER . $this->targetFileName;
 
         $this->uploadOk = true;
@@ -106,6 +112,14 @@ class Uploader
         }else{
             return false;
         }
+    }
+
+    /**
+     * Get the hash under which the file will be saved
+     * @return string hash of the document name
+     */
+    public function getHashFileName(){
+        return hash_hmac('sha256', $this->documentname, Config::SECRET_KEY);
     }
 
     /**

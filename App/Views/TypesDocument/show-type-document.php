@@ -15,7 +15,20 @@ class ShowTypeDocument{}
 <?php include("entete.php")?>
     <title>Editer un type de document</title>
 <?php include("header.php")?>
-<?php include("menu.php")?>
+    <?php
+if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+if($current_user != '') {
+    if ($current_user->hasRole('utilisateur')) {
+        include("menu_utilisateur.php");
+    } else if ($current_user->hasRole('encodeur')) {
+        include("menu_encodeur.php");
+    } else if ($current_user->hasRole('administrateur')) {
+        include("menu_administrateur.php");
+    }
+} else {
+    include("menu_anonyme.php");
+}
+?>
 
 <?php if (isset($typeDocument)){
     $id = $typeDocument->id;
@@ -107,11 +120,11 @@ class ShowTypeDocument{}
 	    //////////////
 	    // jqWidgets//
 	    //////////////
-		$("#input-id").jqxInput({width: 250, height: 30, disabled: true, theme: "energyblue"});
+		$("#input-id").jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
-		$("#input-name").jqxInput({width: 250, height: 30, disabled: true, theme: "energyblue"});
+		$("#input-name").jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
-		$("#button-update-save").jqxButton({ width: "150", height: "25", theme: "energyblue"});
+		$("#button-update-save").jqxButton({ width: "100%", height: "25", disabled: <?php if($current_user->hasPermission('modification')){echo "false";}else{echo "true";} ?>, theme: "energyblue"});
 		$("#button-update-save").on("click", function (event) {
 			var value = $("#button-update-save").val();
 			if(value === "Mettre à jour"){
@@ -125,7 +138,7 @@ class ShowTypeDocument{}
 			}
 		});
 
-		$("#button-delete").jqxButton({ width: "150", height: "25", theme: "energyblue"});
+		$("#button-delete").jqxButton({ width: "100%", height: "25", disabled: <?php if($current_user->hasPermission('modification')){echo "false";}else{echo "true";} ?>, theme: "energyblue"});
 		$("#button-delete").on("click", function (event) {
 			$("#input-id").jqxInput({disabled: false});
 			$("#form-show-type-document").attr("action", "/types-document/delete");

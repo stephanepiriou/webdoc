@@ -24,7 +24,12 @@ class TypesIndividu extends Authenticated
      * @throws \Exception
      */
     public function newAction(){
-        View::render('TypesIndividu/create-type-individu.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            View::render('TypesIndividu/create-type-individu.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -33,14 +38,18 @@ class TypesIndividu extends Authenticated
      * @throws \Exception
      */
     public function createAction(){
-        $typeIndividu = new TypeIndividu($_POST);
-
-        if ($typeIndividu->save()) {
-            $this->redirect('/types-individu/create-type-individu-success');
-        } else {
-            View::render('TypesIndividu/create-type-individu.php', [
-                'typeIndividu' => $typeIndividu
-            ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            $typeIndividu = new TypeIndividu($_POST);
+            if ($typeIndividu->save()) {
+                $this->redirect('/types-individu/create-type-individu-success');
+            } else {
+                View::render('TypesIndividu/create-type-individu.php', [
+                    'typeIndividu' => $typeIndividu
+                ]);
+            }
+        }else{
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -49,7 +58,12 @@ class TypesIndividu extends Authenticated
      * @return void
      */
     public function createTypeIndividuSuccessAction(){
-        View::render('TypesIndividu/create-type-individu-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('creation')) {
+            View::render('TypesIndividu/create-type-individu-success.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -57,7 +71,12 @@ class TypesIndividu extends Authenticated
      * @return void
      */
     public function searchAction(){
-        View::render('TypesIndividu/search-type-individu.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            View::render('TypesIndividu/search-type-individu.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -65,11 +84,16 @@ class TypesIndividu extends Authenticated
      * @return void
      */
     public function listAction(){
-        $subTypeIndividuName = substr($_POST['inputTypeIndividuName'], 0, 3);
-        $typesIndividuAsJson = TypeIndividu::getListSubAsJson($subTypeIndividuName);
-        View::render('TypesIndividu/list-types-individu.php', [
-            'typesIndividuAsJson' => $typesIndividuAsJson
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            $subTypeIndividuName = substr($_POST['inputTypeIndividuName'], 0, 3);
+            $typesIndividuAsJson = TypeIndividu::getListSubAsJson($subTypeIndividuName);
+            View::render('TypesIndividu/list-types-individu.php', [
+                'typesIndividuAsJson' => $typesIndividuAsJson
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -77,11 +101,16 @@ class TypesIndividu extends Authenticated
      * @return void
      */
     public function showAction(){
-        $typeIndividuId = $_POST['typesIndividuId'];
-        $typeIndividu = TypeIndividu::getById($typeIndividuId);
-        View::render('TypesIndividu/show-type-individu.php', [
-            'typeIndividu' => $typeIndividu
-        ]);
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('consultation')) {
+            $typeIndividuId = $_POST['typesIndividuId'];
+            $typeIndividu = TypeIndividu::getById($typeIndividuId);
+            View::render('TypesIndividu/show-type-individu.php', [
+                'typeIndividu' => $typeIndividu
+            ]);
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -89,14 +118,18 @@ class TypesIndividu extends Authenticated
      * @return void
      */
     public function updateAction(){
-        $typeIndividu = new TypeIndividu($_POST);
-
-        if($typeIndividu->update() === true){
-            $this->redirect('/types-individu/update-type-individu-success');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            $typeIndividu = new TypeIndividu($_POST);
+            if($typeIndividu->update() === true){
+                $this->redirect('/types-individu/update-type-individu-success');
+            }else{
+                View::render('TypesIndividu/show-type-individu.php', [
+                    'typeIndividu' => $typeIndividu,
+                ]);
+            }
         }else{
-            View::render('TypesIndividu/show-type-individu.php', [
-                'typeIndividu' => $typeIndividu,
-            ]);
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -105,7 +138,12 @@ class TypesIndividu extends Authenticated
      * @return void
      */
     public function updateTypeIndividuSuccessAction(){
-        View::render('TypesIndividu/update-type-individu-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            View::render('TypesIndividu/update-type-individu-success.php');
+        }else{
+            View::render('Default/no-permission.php');
+        }
     }
 
     /**
@@ -113,15 +151,20 @@ class TypesIndividu extends Authenticated
      * @return void
      */
     public function deleteAction(){
-        $id = $_POST['id'];
-        if(!Individu::checkIndividuBeforeTypeIndividuDelete($id)){
-            if(TypeIndividu::delete($id) === true){
-                View::render('TypesIndividu/delete-type-individu-success.php');
+        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+        if($current_user->hasPermission('modification')) {
+            $id = $_POST['id'];
+            if(!Individu::checkIndividuBeforeTypeIndividuDelete($id)){
+                if(TypeIndividu::delete($id) === true){
+                    View::render('TypesIndividu/delete-type-individu-success.php');
+                }else{
+                    View::render('TypesIndividu/delete-type-individu-faillure.php');
+                }
             }else{
                 View::render('TypesIndividu/delete-type-individu-faillure.php');
             }
         }else{
-            View::render('TypesIndividu/delete-type-individu-faillure.php');
+            View::render('Default/no-permission.php');
         }
     }
 
@@ -130,7 +173,7 @@ class TypesIndividu extends Authenticated
      * @return void
 	 */
 	public function validateNameAction(){
-		$is_valid = ! TypeIndividu::nameExists($_GET['name']);
+        $is_valid = ! TypeIndividu::nameExists($_GET['name']);
 		header('Content-Type: application/json');
 		echo json_encode($is_valid);
 	}

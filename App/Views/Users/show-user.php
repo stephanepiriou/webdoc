@@ -15,7 +15,20 @@ class ShowUser{}
 <?php include("entete.php")?>
     <title>Editer un utilisateur</title>
 <?php include("header.php")?>
-<?php include("menu.php")?>
+    <?php
+if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
+if($current_user != '') {
+    if ($current_user->hasRole('utilisateur')) {
+        include("menu_utilisateur.php");
+    } else if ($current_user->hasRole('encodeur')) {
+        include("menu_encodeur.php");
+    } else if ($current_user->hasRole('administrateur')) {
+        include("menu_administrateur.php");
+    }
+} else {
+    include("menu_anonyme.php");
+}
+?>
 
 <?php
     if (isset($user)){
@@ -25,6 +38,7 @@ class ShowUser{}
         $errors = $user->errors;
     }
 ?>
+
     <div class="row">
         <div class="col">
             &nbsp;
@@ -89,6 +103,23 @@ class ShowUser{}
                     </div>
                     <div class="row">
                         <div class="col-6">
+                            <label class="float-right">Role :</label>
+                        </div>
+                        <div class="col-6">
+                            <div id="dropdown-role-name" name="rolename"></div>
+                            <input type="hidden"  id="input-role-id" name="roleid" value="<?php if(isset($chosenRoleId)){echo $chosenRoleId;}?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="float-right"> Role description </label>
+                        </div>
+                        <div class="col-6">
+                            <textarea id="textarea-role-description" nom="roledescriprion"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
                             <label class="float-right">Password :</label>
                         </div>
                         <div class="col-6">
@@ -126,6 +157,27 @@ class ShowUser{}
 	    //////////////
 	    // jqWidgets//
 	    //////////////
+        <?php if (isset($roleNameListAsJson)) {
+            echo 'var roleNameDataSource =' . $roleNameListAsJson.';';
+        };?>
+
+        var descriptionData = [];
+        descriptionData.push('Un utilisateur peut consulter les données ainsi qu\'afficher, imprimer et téléchargér les documents');
+        descriptionData.push('Un encodeur peut consulter les données, les modifier, les effacer, afficher les documents, les effacer. Il ne peut pas télécharger ces documents, ni les imprimer.');
+        descriptionData.push('Un administrateur s\'occupe uniquement de la gestion des utilisateur. Il ne peut mi consulter les données, ni les effacer.');
+
+        var listRoleNameDataSource = ['name', 'encodeur', 'administrateur'];
+
+        $('#dropdown-role-name').jqxDropDownList({source: roleNameDataSource, disabled: true, width: '100%', height: 30, theme: "energyblue"});
+        $('#dropdown-role-name').jqxDropDownList('selectItem', "<?php if(isset($chosenRoleName)){echo $chosenRoleName;}?>" );
+        $('#dropdown-role-name').on('change', function(event) {
+            $('#textarea-role-description').val(descriptionData[$('#dropdown-role-name').jqxDropDownList('selectedIndex')]);
+            $("#input-role-id").val($('#dropdown-role-name').jqxDropDownList('selectedIndex')+1);
+        });
+
+        $('#textarea-role-description').jqxTextArea({height: 100, width: '100%', minLength: 1, disabled: true, theme: "energyblue" });
+        $('#textarea-role-description').val(descriptionData[<?php if(isset($chosenRoleId)){echo $chosenRoleId-1;} ?>]);
+
 	    $('#input-id').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
 	    $('#input-name').jqxInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
@@ -134,13 +186,14 @@ class ShowUser{}
 
 	    $('#input-password').jqxPasswordInput({width: '100%', height: 30, disabled: true, theme: "energyblue"});
 
-	    $("#button-update-save").jqxButton({ width: "150", height: "25", theme: "energyblue"});
+	    $("#button-update-save").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
 	    $("#button-update-save").on("click", function (event) {
 		    var value = $("#button-update-save").val();
 		    if(value === "Mettre à jour"){
 			    $("#button-update-save").jqxButton({value: "Sauver"});
 			    $("#input-name").jqxInput({disabled: false});
-			    $("#input-password").jqxInput({disabled: false})
+			    $("#input-password").jqxInput({disabled: false});
+			    $("#dropdown-role-name").jqxDropDownList({disabled: false});
 		    }else if (value === "Sauver") {
 			    //$("#button-update-save").jqxButton({value: "Mettre à jour"});
 			    $("#input-id").jqxInput({disabled: false});
@@ -149,7 +202,7 @@ class ShowUser{}
 		    }
 	    });
 
-	    $("#button-delete").jqxButton({ width: "150", height: "25", theme: "energyblue"});
+	    $("#button-delete").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
 	    $("#button-delete").on("click", function (event) {
 		    $("#input-id").jqxInput({disabled: false});
 		    $("#form-show-user").attr("action", "/users/delete");

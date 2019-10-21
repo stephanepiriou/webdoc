@@ -80,3 +80,12 @@ code {
 .alert-warning{
 	background-color: #fcf8e3;
 }
+
+.no-permission-li{
+	cursor: not-allowed;
+}
+
+.no-permission {
+	cursor: not-allowed;
+	color: #cc0000;
+}
