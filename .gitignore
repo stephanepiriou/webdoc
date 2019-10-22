@@ -103,19 +103,3 @@ gen
 # logs folder
 logs/
 
-# External Styles Assets
-public/styles/images/
-public/styles/bootstrap.css
-public/styles/jqx.base.css
-public/styles/jqx.energyblue.css
-public/styles/print.min.css
-
-
-# External Script Assets
-public/scripts/bootstrap.min.js
-public/scripts/hideShowPassword.min.js
-public/scripts/jquery.js
-public/scripts/jquery.validate.min.js
-public/scripts/jqx-all.js
-public/scripts/pdfjs.zip
-public/scripts/print.min.js

@@ -86,7 +86,7 @@ class Menu{}
                     <li>Connexion
                         <ul>
                             <li><a href="/login/new" style="cursor: alias;color: blue;">Se Connecter</a></li>
-                            <li><a href="/login/destroy" style="cursor: alias;color: blue;">Déconnecter</a></li>
+                            <!--<li><a href="/login/destroy" style="cursor: alias;color: blue;">Déconnecter</a></li>-->
                         </ul>
                     <li>Individu
                         <ul>
