@@ -103,3 +103,9 @@ gen
 # logs folder
 logs/
 
+#uploads folder
+!public/uploads/.htaccess
+public/uploads/*.png
+public/uploads/*.jpg
+public/uploads/*.jpeg
+public/uploads/*.gif
