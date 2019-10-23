@@ -101,7 +101,7 @@ gen
 .git/
 
 # logs folder
-logs/
+logs/*
 
 #uploads folder
 !public/uploads/.htaccess
