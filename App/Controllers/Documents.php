@@ -79,6 +79,7 @@ class Documents extends Authenticated
                     'individulastname' => $individulastname,
                     'chosentypedocument' => $typedocument,
                     'jsonListTypesDocument' => $jsonListTypesDocument,
+                    'individumatricule' => $individumatricule,
                     'upload' => $upload
                 ]);
             }
