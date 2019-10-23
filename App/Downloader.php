@@ -62,7 +62,7 @@ class Downloader
      */
     private function getReguleFileName($filename, $documentName){
         $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-        $this->regularFileName = $documentName . $fileExtension;
+        $this->regularFileName = $documentName . '.' .$fileExtension;
     }
 
     /**
