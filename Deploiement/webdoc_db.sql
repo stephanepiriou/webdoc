@@ -67,6 +67,13 @@ CREATE TABLE permissions_roles (
   PRIMARY KEY (permissionsid,
   rolesid));
 
+CREATE TABLE backups (
+  id      int(11) NOT NULL AUTO_INCREMENT,
+  filename varchar(255) NOT NULL,
+  date datetime NOT NULL,
+  PRIMARY KEY (id)
+);
+
 -- Constrains
 ALTER TABLE individus ADD CONSTRAINT `estdecetypeindividu` FOREIGN KEY (typeindividuid) REFERENCES typesindividu (id);
 ALTER TABLE documents ADD CONSTRAINT `estdecetypededocument` FOREIGN KEY (typedocumentid) REFERENCES typesdocument (id);

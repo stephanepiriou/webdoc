@@ -12,7 +12,7 @@ namespace App\Views\Common;
  */
 class Menu{}
 ?>
-<!-- Menu administrateur of the page -->
+<!-- Menu authentified administrateur user of the page -->
 <div class="container">
     <div class="row">
         <div id="app-menu" class="offset-lg-3 col-lg-6">
@@ -107,6 +107,11 @@ class Menu{}
                         <ul>
                             <li><a href="/users/search" style="cursor: alias;color: blue;">Chercher un utilisateur</a></li>
                             <li><a href="/users/new" style="cursor: alias;color: blue;">Créer un utilisateur</a></li>
+                        </ul>
+                    </li>
+                    <li>Backup
+                        <ul>
+                            <li><a href="/backups/new" style="cursor: alias;color: blue;">Gérer</a></li>
                         </ul>
                     </li>
                     <li>?

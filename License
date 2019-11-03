@@ -1,13 +1,46 @@
-DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
-                    Version 2, December 2004 
+The WTFPL License
 
- Copyright (C) 2019 Stephane Piriou <stephane.piriou@zaclys.net> 
+Copyright (c) 2019 Stephane Piriou.
 
- Everyone is permitted to copy and distribute verbatim or modified 
- copies of this license document, and changing it is allowed as long 
- as the name is changed. 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
-   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-  0. You just DO WHAT THE FUCK YOU WANT TO.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+The MIT License (MIT)
+
+Copyright (c) 2014 Nicolas Tallefourtane dev@nicolab.net
+
+Copyright (c) 2014 Michael Härtl
+
+Copyright (c) 2016 jQuery Foundation
+
+Copyright (c) 2019 Jörn Zaefferer
+
+Copyright (c) 2017 Kevin Morris
+
+Copyright (c) 2006 M. Alsup
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+The Creative Commons Attribution-NonCommercial 3.0 License
+
+Copyright (c) 2011-2019 jQWidgets.
+
+Do you want to use jQWidgets for a non-profit project? Then you can use jQWidgets for free under the Creative Commons Attribution-NonCommercial 3.0 License, when you are:
+
+A public school, university or a non-profit organization.
+Testing applications using jQWidgets.
+You are allowed to distribute jQWidgets with non-commercial packages given that you fulfill the following conditions:
+
+Do not alter any of the copyright headers in the javascript files.
+Emphasize to your users that jQWidgets is not free for commercial use. You can do this on your download page or somewhere visible to the users of your application.
+We’ll appreciate if you provide a reference to our website.

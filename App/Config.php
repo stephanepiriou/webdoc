@@ -66,4 +66,27 @@ class Config
      * @var string
      */
     const SERVER_URL = 'https://webdoc.ovh/';
+
+    /**
+     * Absolute path for backup folder
+     * @var string
+     */
+    const ABSOLUTE_BACKUP_FOLDER = '/var/www/backup/';
+
+    /**
+     * @var string Remote host for backup
+     */
+    const REMOTE_FTP_HOST = 'www.webdoc.ovh';
+
+    /**
+     * Remote ftp user for backup
+     * @var string
+     */
+    const REMOTE_FTP_USER = 'ftpuser';
+
+    /**
+     * Remote ftp password for backup
+     * @var string
+     */
+    const REMOTE_FTP_PASSWORD = 'justafuckingpassword';
 }

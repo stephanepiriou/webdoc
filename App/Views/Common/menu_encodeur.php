@@ -12,7 +12,7 @@ namespace App\Views\Common;
  */
 class Menu{}
 ?>
-<!-- Menu encodeur of the page -->
+<!-- Menu authentified encodeur user of the page -->
 <div class="container">
     <div class="row">
         <div id="app-menu" class="offset-lg-3 col-lg-6">
@@ -108,6 +108,11 @@ class Menu{}
                         <ul>
                             <li><a class="no-permission">Chercher un utilisateur</a></li>
                             <li><a class="no-permission">Créer un utilisateur</a></li>
+                        </ul>
+                    </li>
+                    <li>Backup
+                        <ul>
+                            <li><a class="no-permission">Gérer</a></li>
                         </ul>
                     </li>
                     <li>?
