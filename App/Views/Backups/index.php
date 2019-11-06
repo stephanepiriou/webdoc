@@ -140,16 +140,6 @@ if($current_user != '') {
 
         });
 
-//        $("#form-create-backup").ajaxForm({url: '/backups/create', type: 'post'});
-/*
-        $('#form-create-backup').on('submit', function(e) {
-            e.preventDefault(); // prevent native submit
-            $('#form-create-backup').ajaxSubmit({
-                target: '#myResultsDiv'
-            })
-        });
-*/
-
         <?php if(isset($jsonbackuplist)){
             echo 'var jsonbackuplist ='.$jsonbackuplist;
         }?>

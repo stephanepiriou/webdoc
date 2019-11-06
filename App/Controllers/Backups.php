@@ -26,7 +26,8 @@ class Backups extends Authenticated
     }
 
     /**
-     * Instanciate the Backup helper class,  and refresh
+     * @deprecated
+     * Instanciate the Backup helper class, and refresh the Backups/index.php view
      */
     public function createAction(){
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
@@ -49,7 +50,9 @@ class Backups extends Authenticated
     }
 
     /**
-     * Same As createAction, but
+     * Called by Ajax request.
+     * Instanciate the Backup helper class, and send relevant data back to view to update
+     * with relevant information regarding operation and backup info
      */
     public function createAjaxAction(){
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
@@ -64,6 +67,7 @@ class Backups extends Authenticated
                 $message = 'Une erreur a empêché le backup d\'être créé !';
             }
 
+            // Incredibly, it's enough to create a well formed json object. :)
             $data = '['.$jsonbackuplist.',"'.$message.'"]';
             header('Content-Type: application/json');
             echo $data;

@@ -16,10 +16,6 @@ use App\Config;
 
 class Downloader
 {
-    /**
-     * @var string hashed zip file name
-     */
-    private $hashedZipName;
 
     /**
      * @var string The complete path with the hashed file name
@@ -47,12 +43,10 @@ class Downloader
      */
     public function __construct($filename, $documentName){
 
-        $this->getReguleFileName($filename, $documentName);
+        $this->getRegularFileName($filename, $documentName);
         $this->regularFilePath = Config::ABSOLUTE_UPLOAD_FOLDER.'/'.$this->regularFileName;
         $this->originalFilePath = Config::ABSOLUTE_UPLOAD_FOLDER.'/'.$filename;
         copy($this->originalFilePath, $this->regularFilePath);
-        $this->createZip($filename);
-        unlink($this->regularFilePath);
     }
 
     /**
@@ -60,25 +54,9 @@ class Downloader
      * @param $filename the File name of the document
      * @return string hash of the document name
      */
-    private function getReguleFileName($filename, $documentName){
+    private function getRegularFileName($filename, $documentName){
         $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         $this->regularFileName = $documentName . '.' .$fileExtension;
-    }
-
-    /**
-     * Create Zip from original file after renaming it.
-     * @param $filename The original file name
-     */
-    private function createZip($filename){
-        $filenameWithoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $filename);
-        $this->hashedZipName =  hash_hmac('sha256', $filenameWithoutExt, Config::SECRET_KEY);
-        $this->hashedZipPath = Config::ABSOLUTE_UPLOAD_FOLDER .'/' . $this->hashedZipName . '.zip';
-
-        $zip = new ZipArchive();
-        if ($zip->open($this->hashedZipPath, ZipArchive::CREATE) === TRUE){
-            $zip->addFile($this->regularFilePath, $this->regularFileName);
-            $zip->close();
-        }
     }
 
     /**
@@ -86,17 +64,17 @@ class Downloader
      */
     public function send(){
         //echo "send doc";
-        if (file_exists($this->hashedZipPath)) {
+        if (file_exists($this->regularFilePath)) {
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($this->hashedZipPath).'"');
+            header('Content-Disposition: attachment; filename="'.basename($this->regularFilePath).'"');
             header('Expires: 0');
             header('Cache-Control: must-revalidate');
             header('Pragma: public');
-            header('Content-Length: ' . filesize($this->hashedZipPath));
+            header('Content-Length: ' . filesize($this->regularFilePath));
             readfile($this->hashedZipPath);
             //exit;
         }
-        unlink($this->hashedZipPath);
+        unlink($this->regularFilePath);
     }
 }
