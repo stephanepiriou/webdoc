@@ -7,7 +7,6 @@
 
 namespace Core;
 
-
 use Exception;
 use App\Config;
 
@@ -52,9 +51,10 @@ class Error
             echo "<p>Stack: <pre>'". $exception->getTraceAsString()."'</pre></p>";
             echo "<p>Thrown in '". $exception->getFile() ."' on line ". $exception->getLine(). "</p>";
         }else {
-            $log = dirname(__DIR__).'/logs/'.date('Y-m-d').'.log';
+            //$log = dirname(__DIR__).'/logs/'.date('Y-m-d').'.log';
+            $log = Config::ABSOLUTE_LOG_FOLDER.date('Y-m-d').'.error.log';
             ini_set('error_log', $log);
-            $message = "Uncaught Exception: '". get_class($exception) ."' with \n";
+            $message = "Uncaught Exception at ".date('Y-m-d G:i:s')." :'" . get_class($exception) ."' with \n";
             $message .= "Message: '". $exception->getMessage() ."'. \n";
             $message .= "\nStack: '". $exception->getTraceAsString()."'. \n";
             $message .= "\nThrown in '". $exception->getFile() ."' on line ". $exception->getLine(). ".\n\n";

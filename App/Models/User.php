@@ -368,4 +368,12 @@ class User extends \Core\Model
         return $this->role->hasRoleName($rolename);
     }
 
+    /**
+     * Magical function __toString
+     * Show the object as a json object.
+     */
+    public function __toString(){
+        return json_encode($this);
+    }
+
 }

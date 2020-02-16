@@ -7,6 +7,7 @@ use App\Backup;
 use App\Config;
 use Core\View;
 use App\Models\Backup as ModelBackup;
+use Core\Logger;
 
 class Backups extends Authenticated
 {
@@ -19,6 +20,8 @@ class Backups extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('user_administration')) {
             $jsonbackuplist = ModelBackup::getBackupListAsJson();
+            $logger = new Logger(Logger::DOWNLOAD, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER BACKUPS/NEW FROM BACKUP :: $jsonbackuplist: '.$jsonbackuplist);
             View::render('Backups/index.php', [
                 'jsonbackuplist' => $jsonbackuplist
             ]);
@@ -35,13 +38,11 @@ class Backups extends Authenticated
             $backup = new Backup();
             $success = $backup->createBackup();
             $jsonbackuplist = ModelBackup::getBackupListAsJson();
-
             if($success){
                 $message = 'Le backup a été créé !';
             }else {
                 $message = 'Une erreur a empêché le backup d\'être créé !';
             }
-
             View::render('Backups/index.php', [
                 'jsonbackuplist' => $jsonbackuplist,
                 'message' => $message
@@ -61,39 +62,20 @@ class Backups extends Authenticated
             $success = $backup->createBackup();
             $jsonbackuplist = ModelBackup::getBackupListAsJson();
 
+            $logger = new Logger(Logger::DOWNLOAD, Config::LOG_ENABLED);
+
             if($success){
                 $message = 'Le backup a été créé !';
+                $logger->writeLog('IN CONTROLLER BACKUPS/CREATE FROM BACKUP :: $backup->createBackup(): '.$success.'; $jsonbackuplist: '.$jsonbackuplist);
             }else {
                 $message = 'Une erreur a empêché le backup d\'être créé !';
+                $logger->writeLog('IN CONTROLLER BACKUPS/CREATE FROM BACKUP :: $backup->createBackup(): false');
             }
 
             // Incredibly, it's enough to create a well formed json object. :)
             $data = '['.$jsonbackuplist.',"'.$message.'"]';
             header('Content-Type: application/json');
             echo $data;
-        }
-    }
-
-    /**
-     *
-     */
-    public function restoreAction(){
-        if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
-        if($current_user->hasPermission('user_administration')) {
-            $backup = new Backup();
-            $success = $backup->restoreBackup();
-            $jsonbackuplist = ModelBackup::getBackupListAsJson();
-
-            if($success){
-                $message = 'Le backup a été restauré !';
-            }else {
-                $message = 'Une erreur a empêché le backup d\'être restauré !';
-            }
-
-            View::render('Backups/index.php', [
-                'jsonbackuplist' => $jsonbackuplist,
-                'message' => $message
-            ]);
         }
     }
 

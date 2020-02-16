@@ -9,6 +9,8 @@ namespace App\Controllers;
 use App\Models\TypeDocument;
 use App\Models\Document;
 use Core\View;
+use Core\Logger;
+use App\Config;
 use function substr;
 use function var_dump;
 
@@ -19,6 +21,12 @@ use function var_dump;
  */
 class TypesDocument extends Authenticated
 {
+
+    /**
+     * LOG_MODE
+     */
+    const LOG_MODE=Logger::DEBUG;
+
     /**
      * Control /types-document/new
      * @return void
@@ -42,7 +50,8 @@ class TypesDocument extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('creation')) {
             $typeDocument = new TypeDocument($_POST);
-
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER TYPESDOCUMENT/CREATE :: $typeDocument: '.(string) $typeDocument);
             if ($typeDocument->save()) {
                 $this->redirect('/types-document/create-type-document-success');
             } else {
@@ -90,6 +99,8 @@ class TypesDocument extends Authenticated
         if($current_user->hasPermission('consultation')) {
             $subTypeDocumentName = substr($_POST['inputTypeDocumentName'], 0, 3);
             $typesDocumentAsJson = TypeDocument::getListSubAsJson($subTypeDocumentName);
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER TYPESDOCUMENT/LIST :: $subTypeDocumentName: '.json_encode($subTypeDocumentName).' ; $typesDocumentAsJson: '.$typesDocumentAsJson);
             View::render('TypesDocument/list-types-document.php', [
                 'typesDocumentAsJson' => $typesDocumentAsJson
             ]);
@@ -107,7 +118,8 @@ class TypesDocument extends Authenticated
         if($current_user->hasPermission('consultation')) {
             $typeDocumentId = $_POST['typesDocumentId'];
             $typeDocument = TypeDocument::getById($typeDocumentId);
-            //var_dump($typeDocument);
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER TYPESDOCUMENT/SHOW :: $typeDocumentId: '.$typeDocumentId.' ; $typeDocument: '.(string) $typeDocument);
             View::render('TypesDocument/show-type-document.php', [
                 'typeDocument' => $typeDocument
             ]);
@@ -124,6 +136,8 @@ class TypesDocument extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('modification')) {
             $typeDocument = new TypeDocument($_POST);
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER TYPESDOCUMENT/UPDATE :: $typeDocument: '.(string) $typeDocument);
             if($typeDocument->update() === true){
                 $this->redirect('/types-document/update-type-document-success');
             }else{
@@ -158,6 +172,8 @@ class TypesDocument extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('modification')) {
             $id = $_POST['id'];
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER TYPESDOCUMENT/DELETE :: $id: '.$id);
             if(!Document::checkDocumentBeforeTypeDocumentDelete($id)){
                 if(TypeDocument::delete($id) === true){
                     View::render('TypesDocument/delete-type-document-success.php');
@@ -181,4 +197,6 @@ class TypesDocument extends Authenticated
 		header('Content-Type: application/json');
 		echo json_encode($is_valid);
 	}
+
+
 }

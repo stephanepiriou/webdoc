@@ -299,4 +299,21 @@ class Individu extends Model
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+//, CONCAT('(',typesindividu.name,' ' ,individus.firstname, ' ', individus.lastname, ' (MAT:', individus.matricule,')') AS foldername
+    /**
+     * Collect list of individus, all field included
+     */
+    public static function listIndividus(){
+        $sql = 'SELECT individus.id AS id, individus.matricule AS matricule, individus.firstname AS firstname, individus.lastname AS lastname, typesindividu.name AS typeindividu , CONCAT("(",typesindividu.name," " ,individus.firstname, " ", individus.lastname, " (MAT:", individus.matricule,")") AS foldername
+                FROM individus
+                INNER JOIN typesindividu ON typesindividu.id = individus.typeindividuid;';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        //$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+        $individus = $stmt->fetchAll();
+        //print_r($individus);
+        return $individus;
+    }
+
 }

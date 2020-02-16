@@ -74,6 +74,24 @@ class Config
     const ABSOLUTE_BACKUP_FOLDER = '/var/www/backup/';
 
     /**
+     * absolute log folder path
+     * @var string
+     */
+    const ABSOLUTE_LOG_FOLDER = "/var/www/logs/";
+
+    /**
+     * Logging system is on
+     * @var bool
+     */
+    const LOG_ENABLED = true;
+
+    /**
+     * The number of log files to keep
+     * @var int
+     */
+    const LOG_FILES_TO_KEEP = 30;
+
+    /**
      * @var string Remote host for backup
      */
     const REMOTE_FTP_HOST = 'www.webdoc.ovh';
@@ -89,4 +107,16 @@ class Config
      * @var string
      */
     const REMOTE_FTP_PASSWORD = 'justafuckingpassword';
+
+    /**
+     * Absolute Collect Folder
+     * @var string
+     */
+    const ABSOLUTE_COLLECT_FOLDER = '/var/www/collect/';
+
+    /**
+     * Relative Collect Folder
+     * @var string
+     */
+    const RELATIVE_COLLECT_FOLDER = '/collect/';
 }

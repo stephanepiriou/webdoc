@@ -10,6 +10,8 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use Core\View;
+use Core\Logger;
+use App\Config;
 
 /**
  * Class Users
@@ -19,14 +21,20 @@ use Core\View;
 class Users extends Authenticated
 {
     /**
+     * LOG_MODE
+     */
+    const LOG_MODE = Logger::DEBUG;
+
+    /**
      * Show the create user page
      * @return void
      */
     public function newAction(){
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('user_administration')){
-
             $roleNameListAsJson = Role::getNameListAsJson();
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER USERS/NEW :: $roleNameListAsJson:'.$roleNameListAsJson);
             View::render('Users/create-user.php',[
                 'roleNameListAsJson' => $roleNameListAsJson
             ]);
@@ -45,7 +53,10 @@ class Users extends Authenticated
 
         if($current_user->hasPermission('user_administration')) {
             $user = new User($_POST);
-            if ($user->save()) {
+            $saved = $user->save();
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER USERS/CREATE :: $user: '.(string) $user.' ; $saved: '.$saved);
+            if ($saved) {
                 $this->redirect('/users/create-user-success');
             } else {
                 $roleNameListAsJson = Role::getNameListAsJson();
@@ -99,6 +110,10 @@ class Users extends Authenticated
         if($current_user->hasPermission('user_administration')) {
             $subEmails = substr($_POST['inputEmail'], 0, 3);
             $emailsAsJson = User::getEmailListSubAsJson($subEmails);
+
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER USERS/LIST :: $subEmails: '.$subEmails.' ; $emailsAsJson: '.$emailsAsJson);
+
             View::render('Users/list-users.php', [
                 'emailsAsJson' => $emailsAsJson
             ]);
@@ -119,6 +134,9 @@ class Users extends Authenticated
             $roleNameListAsJson = Role::getNameListAsJson();
             $chosenRoleName = Role::getNameFromIndex($roleId);
             $user = User::findByID($userId);
+
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER USERS/SHOW :: $userId: '.$userId.' ; $roleId: '.$roleId.' ; $roleNameListAsJson: '.$roleNameListAsJson.' ; $chosenRoleName: '.$chosenRoleName.' ; $user: '.(string) $user);
             View::render('Users/show-user.php', [
                 'user' => $user,
                 'roleNameListAsJson' => $roleNameListAsJson,
@@ -138,7 +156,10 @@ class Users extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('user_administration')) {
             $user = new User($_POST);
-            if($user->update() === true){
+            $updated = $user->update();
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER USERS/UPDATE :: $user: '.(string) $user.' ; $updated: '.$updated);
+            if($updated === true){
                 $this->redirect('/users/update-user-success');
             }else{
                 View::render('Users/show-user.php', [
@@ -171,7 +192,10 @@ class Users extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('user_administration')) {
             $id = $_POST['id'];
-            if(User::delete($id) === true){
+            $deleted = User::delete($id);
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER USERS/UPDATE :: $id: '.$id.' ; $deleted: '.$deleted);
+            if($deleted === true){
                 View::render('Users/delete-user-success.php');
             }else{
                 View::render('Users/delete-user-faillure.php');

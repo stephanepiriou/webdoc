@@ -5,7 +5,7 @@
  * @filesource
  */
 namespace App\Controllers;
-
+use Core\Logger;
 use App\Config;
 use App\Downloader;
 use Core\View;
@@ -21,6 +21,12 @@ use App\Uploader;
 class Documents extends Authenticated
 {
     /**
+     * LOG_MODE
+     * @var int
+     */
+    const LOG_MODE = Logger::DEBUG;
+
+    /**
      * Load the view proposing the creation of a document
      * @return void
      * @throws \Exception
@@ -33,6 +39,8 @@ class Documents extends Authenticated
             $individufirstname = $_POST['individufirstname'];
             $individulastname = $_POST['individulastname'];
             $jsonListTypesDocument = TypeDocument::getListAsJson();
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER DOCUMENTS/NEW :: $individuid: '.$individuid.'; $individumatricule: '.$individumatricule.'; $individufirstname: '.$individufirstname.'; $individulastname: '.$individulastname.'; $jsonlisttypedocument: '.$jsonListTypesDocument);
             View::render('Documents/upload-document.php',[
                 'individuid' => $individuid,
                 'individufirstname' => $individufirstname,
@@ -62,9 +70,15 @@ class Documents extends Authenticated
             $file = $_FILES["fileToUpload"];
             $typedocumentid = TypeDocument::getIndexFromName($typedocument);
             $documentname = $typedocument.' de '.$individufirstname.' '.$individulastname.'('.$individumatricule.')';
-            $upload = new Uploader($file, $documentname, $typedocumentid, $individuid);
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER DOCUMENTS/UPLOAD :: $individuid: '.$individuid.'; $individumatricule: '.$individumatricule.'; $individufirstname: '.$individufirstname.'; $individulastname: '.$individulastname.'; $typedocument: '.$typedocument.'; $file:'.$file.'; $typedocumentid:'.$typedocumentid.'; $documentname:'.$documentname);
 
-            if($upload->uploadFile()){
+            $upload = new Uploader($file, $documentname, $typedocumentid, $individuid);
+            $success = $upload->uploadFile();
+
+            if($success){
+                $logger = new Logger(Logger::UPLOAD, Config::LOG_ENABLED);
+                $logger->writeLog('IN CONTROLLER DOCUMENTS/UPLOAD FROM UPLOADER :: $upload->uploadFile(): true.');
                 View::render('Documents/upload-document-success.php', [
                     'individuid' => $individuid,
                     'individulastname' => $individulastname,
@@ -72,6 +86,8 @@ class Documents extends Authenticated
                     'documentname' => $documentname
                 ]);
             }else{
+                $logger = new Logger(Logger::UPLOAD, Config::LOG_ENABLED);
+                $logger->writeLog('IN CONTROLLER DOCUMENTS/UPLOAD FROM UPLOADER :: $upload->uploadFile(): false.');
                 $jsonListTypesDocument = TypeDocument::getListAsJson();
                 View::render('Documents/upload-document.php',[
                     'individuid' => $individuid,
@@ -104,7 +120,8 @@ class Documents extends Authenticated
             $filepath = Config::RELATIVE_UPLOAD_FOLDER . $filename;
             $serverfilepath = Config::SERVER_URL . $filepath;
             $absolutefilepath = Config::ABSOLUTE_UPLOAD_FOLDER . $filename;
-
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER DOCUMENTS/SHOW :: $individuid: '.$individuid.'; $documentid:'.$documentid.'; $documentname:'.$documentname.'; $filename:'.$filename.'; $filepath:'.$filepath.'; $serverfilepath:'.$serverfilepath.'; $absolutefilepath:'.$absolutefilepath);
             View::render('Documents/show-document.php',[
                 'individuid' => $individuid,
                 'documentname' => $documentname,
@@ -128,8 +145,22 @@ class Documents extends Authenticated
             $documentid = $_POST['documentid'];
             $filename = Document::getFileName($documentid);
             $documentname = Document::getDocumentName($documentid);
+
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER DOCUMENTS/DOWNLOAD :: $documentid:'.$documentid.'; $filename;'.$filename.'; $documentname:'.$documentname);
+
             $downloader = new Downloader($filename, $documentname);
             $downloader->send();
+            $success = $downloader->isDownloadSuccess();
+            $logger2 = new Logger(Logger::DOWNLOAD, Config::LOG_ENABLED);
+            $logger2->writeLog('IN CONTROLLER DOCUMENTS/DOWNLOAD FROM DOWNLOADER :: downloader->isDownloadSuccess(): '.$this->success.' bytes downloaded.');
+            if ($success){
+                $logger = new Logger(Logger::DOWNLOAD, Config::LOG_ENABLED);
+                $logger->writeLog('IN CONTROLLER DOCUMENTS/DOWNLOAD FROM DOWNLOADER :: downloader->isDownloadSuccess(): '.$this->success.' bytes downloaded.');
+            }else{
+                $logger = new Logger(Logger::DOWNLOAD, Config::LOG_ENABLED);
+                $logger->writeLog('IN CONTROLLER DOCUMENTS/DOWNLOAD FROM DOWNLOADER :: downloader->isDownloadSuccess(): false');
+            }
         }else{
             View::render('Default/no-permission.php');
         }
@@ -146,6 +177,8 @@ class Documents extends Authenticated
         if($current_user->hasPermission('modification')) {
             $documentid = $_POST['documentid'];
             $individuid = $_POST['individuid'];
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER DOCUMENTS/DELETE :: $documentid:'.$documentid.'; $individuid;'.$individuid);
             if(Document::delete($documentid) === true){
                 View::render('Documents/delete-document-success.php', [
                     'individuid' => $individuid

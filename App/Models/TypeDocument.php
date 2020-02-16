@@ -267,4 +267,12 @@ class TypeDocument extends Model
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    /**
+     * Magical function __toString
+     * Show the object as a json object.
+     */
+    public function __toString(){
+        return json_encode($this);
+    }
 }

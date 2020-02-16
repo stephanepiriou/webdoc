@@ -7,6 +7,8 @@
 namespace App\Controllers;
 
 use Core\View;
+use Core\Logger;
+use App\Config;
 use App\Models\Individu;
 use App\Models\TypeIndividu;
 use App\Models\TypeDocument;
@@ -21,6 +23,11 @@ use function var_dump;
 class Individus extends Authenticated
 {
     /**
+     * LOG_MODE
+     * @var int
+     */
+    const LOG_MODE = Logger::DEBUG;
+    /**
      * @var $jsonListTypesIndividu TypeIndividu dropdown values in json format to be injected in the view
      */
     public $jsonListTypesIndividu;
@@ -34,6 +41,8 @@ class Individus extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('creation')) {
             $isThereFirstTypeIndividu = TypeIndividu::isThereFirstTypeIndividu();
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER INDIVIDUS/NEW :: $isThereFirstTypeIndividu:'.$isThereFirstTypeIndividu);
             if($isThereFirstTypeIndividu) {
                 $jsonListTypesIndividu = TypeIndividu::getListAsJson();
                 View::render('Individus/create-individu.php', [
@@ -58,7 +67,8 @@ class Individus extends Authenticated
             $typeindividuid = TypeIndividu::getIndexFromName($_POST['typeindividu']);
             $_POST['typeindividuid']= $typeindividuid;
             $individu = new Individu($_POST);
-
+            $logger = new Logger(self::LOG_MODE,Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER INDIVIDUS/CREATE :: $individu:'.json_encode($individu));
             if ($individu->save()) {
                 $this->redirect('/individus/create-individu-success');
             } else {
@@ -107,7 +117,8 @@ class Individus extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('consultation')) {
             $searchType = $_POST['dropdownSearchType'];
-
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER INDIVIDUS/LIST :: $_POST:'.json_encode($_POST));
             if($searchType === 'matricule'){
                 $individusAsJson = Individu::listByMatricule($_POST['inputSearchTerm']);
             }elseif ($searchType === 'nom'){
@@ -135,6 +146,8 @@ class Individus extends Authenticated
             $chosenTypeIndividu = TypeIndividu::getNameFromIndex($individu->typeindividuid);
             $jsonListDocument = Document::listByIndividuId($individuid);
             $typedocumentexist = TypeDocument::isThereFirstTypeDocument();
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER INDIVIDUS/SHOW :: $individuid:'.$individuid.'; $individu:'.json_encode($individu).'; $jsonListTypesIndividu:'.$jsonListTypesIndividu.'; $chosenTypeIndividu:'.$chosenTypeIndividu.'; $jsonListDocument:'.$jsonListDocument.'; $typedocumentexist:'.$typedocumentexist);
             View::render('Individus/show-individu.php', [
                 'individu' => $individu,
                 'jsonListTypesIndividu' => $jsonListTypesIndividu,
@@ -158,7 +171,8 @@ class Individus extends Authenticated
             $_POST['typeindividuid'] = $typeindividuid;
             $individu = new Individu($_POST);
             $jsonListDocument = Document::listByIndividuId($individu->id);
-
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER INDIVIDUS/UPDATE :: $individu:'.json_encode($individu).'; $jsonListDocument:'.$jsonListDocument);
             if($individu->update() === true){
                 $this->redirect('/individus/update-individu-success');
             }else{
@@ -186,7 +200,7 @@ class Individus extends Authenticated
         if($current_user->hasPermission('modification')) {
             View::render('Individus/update-individu-success.php');
         }else{
-            View::render('Default/no-permission.php');
+            View::render('Default/no-p                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ermission.php');
         }
     }
 
@@ -198,6 +212,8 @@ class Individus extends Authenticated
         if(isset($_SESSION['current_user'])){$current_user=$_SESSION['current_user'];}else{$current_user='';}
         if($current_user->hasPermission('modification')) {
             $id = $_POST['id'];
+            $logger = new Logger(self::LOG_MODE, Config::LOG_ENABLED);
+            $logger->writeLog('IN CONTROLLER INDIVIDUS/DELETE :: $id:'.$id);
             if(Individu::delete($id) === true){
                 View::render('Individus/delete-individu-success.php');
             }else{

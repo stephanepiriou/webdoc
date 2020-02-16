@@ -7,6 +7,7 @@
 namespace App;
 use ZipArchive;
 use App\Config;
+use Core\Logger;
 /**
  * Downloader class of the application
  * @package App
@@ -18,21 +19,28 @@ class Downloader
 {
 
     /**
-     * @var string The complete path with the hashed file name
+     * Tell if download is successful.
+     * Return the number of bites read in case of success
+     * or false in case of faillure
+     * @var integer | false
      */
-    private $hashedZipPath;
+    private $success;
+
     /**
-     * @var The complete path of the original file
+     * The complete path of the original file
+     * @var string
      */
     private $originalFilePath;
 
     /**
-     * @var string The "normal" file name
+     * The "normal" file name
+     * @var string
      */
     private $regularFileName;
 
     /**
-     * @var string The Name under which the file is send, i.e. the document name + the file extention
+     * The Name under which the file is send, i.e. the document name + the file extention
+     * @var string
      */
     private $regularFilePath;
 
@@ -42,7 +50,7 @@ class Downloader
      * @param $documentName The name of the document
      */
     public function __construct($filename, $documentName){
-
+        $this->success = false;
         $this->getRegularFileName($filename, $documentName);
         $this->regularFilePath = Config::ABSOLUTE_UPLOAD_FOLDER.'/'.$this->regularFileName;
         $this->originalFilePath = Config::ABSOLUTE_UPLOAD_FOLDER.'/'.$filename;
@@ -72,9 +80,16 @@ class Downloader
             header('Cache-Control: must-revalidate');
             header('Pragma: public');
             header('Content-Length: ' . filesize($this->regularFilePath));
-            readfile($this->hashedZipPath);
-            //exit;
+            $this->success = readfile($this->regularFilePath);
+            unlink($this->regularFilePath);
         }
-        unlink($this->regularFilePath);
+    }
+
+    /**
+     * Return if download process is a success
+     * @return bool|false|int
+     */
+    public function isDownloadSuccess(){
+        return $this->success;
     }
 }

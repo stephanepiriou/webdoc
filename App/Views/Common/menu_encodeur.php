@@ -104,6 +104,11 @@ class Menu{}
                             <li><a href="/types-document/new" style="cursor: alias;color: blue;">Créer un Type de Document</a></li>
                         </ul>
                     </li>
+                    <li>Collecter
+                        <ul>
+                            <li><a href="/collect/new" style="cursor: alias;color: blue;">Collecter tous les documents</a></li>
+                        </ul>
+                    </li>
                     <li>Utilisateurs
                         <ul>
                             <li><a class="no-permission">Chercher un utilisateur</a></li>

@@ -7,6 +7,7 @@
 namespace App\Controllers;
 
 use App\Auth;
+use Core\Logger;
 use App\Flash;
 use \Core\View;
 use \App\Models\User;

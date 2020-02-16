@@ -8,6 +8,7 @@ use App\Config;
 use App\FtpClient\FtpException;
 use App\Models\Backup AS BackupModel;
 use App\FtpClient\FtpClient;
+use Core\Logger;
 
 /**
  * Class Backup
@@ -48,6 +49,10 @@ class Backup
         $this->checkBackupFolder();
     }
 
+    /**
+     * Create Backup and upload it
+     * @return bool
+     */
     public function createBackup(){
 
         $exitcode = $this->backupUploadFolder();
@@ -63,23 +68,6 @@ class Backup
         $idOldBackup = BackupModel::getLastIteration();
         BackupModel::createBackup($this->backupfilename);
         BackupModel::delateBackup($idOldBackup);
-
-        if($exitcode) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
-
-    public function restoreBackup(){
-        $exitcode = 0;
-        try {
-            $this->downloadBackupFromRemoteFTP();
-        } catch (FtpException $ftpException) {
-            $exitcode += 1;
-        }
 
         if($exitcode) {
             return false;
@@ -106,10 +94,8 @@ class Backup
         $exitcode = $archiveUploadFolderCommandShell->execute();
     }
 
-
     /**
      * Backup database in dump SQL file
-     * @return mixed
      */
     private function backupDB(){
         // Créate SQL dump of the database
@@ -127,6 +113,9 @@ class Backup
         $dumpDatabaseCommandShell->execute();
     }
 
+    /**
+     * Zip the whole backup directory
+     */
     private function zipBackup(){
         $archiveUploadFolderCommandShell = new Command(array(
             'command' => 'tar',
@@ -140,8 +129,6 @@ class Backup
         $archiveUploadFolderCommandShell->addArg('.', '');
         $archiveUploadFolderCommandShell->execute();
     }
-
-
 
     /**
      * Upload gzipped backup to remote ftp server
@@ -161,24 +148,6 @@ class Backup
 
         }
 
-        $ftp->close();
-    }
-
-    /**
-     * Download gzipped backup from remote ftp server
-     * @throws FtpException
-     */
-    private function downloadBackupFromRemoteFTP(){
-        $ftp = new FtpClient();
-        $ftp->setPhpLimit('5000MB');
-        try {
-            $ftp->connect(Config::REMOTE_FTP_HOST);
-            $ftp->login(Config::REMOTE_FTP_USER, Config::REMOTE_FTP_PASSWORD);
-            $ftp->chdir('/home/ftpuser/ftp/files/');
-
-        } catch (FTPException $ftpExceptione){
-
-        }
         $ftp->close();
     }
 

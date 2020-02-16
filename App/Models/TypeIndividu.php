@@ -23,6 +23,7 @@ use function var_dump;
 class TypeIndividu extends Model
 {
 
+
     /**
      * Errors from validation of user input before create and update operation (see validate() method)
      * @var array
@@ -270,5 +271,13 @@ class TypeIndividu extends Model
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
+    }
+
+    /**
+     * Magical function __toString
+     * Show the object as a json object.
+     */
+    public function __toString(){
+        return json_encode($this);
     }
 }

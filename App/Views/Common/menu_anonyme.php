@@ -103,6 +103,11 @@ class Menu{}
                             <li><a class="no-permission">Créer un Type de Document</a></li>
                         </ul>
                     </li>
+                    <li>Collecter
+                        <ul>
+                            <li><a class="no-permission">Collecter tous les documents</a></li>
+                        </ul>
+                    </li>
                     <li>Utilisateurs
                         <ul>
                             <li ><a class="no-permission">Chercher un utilisateur</a></li>

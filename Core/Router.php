@@ -39,18 +39,18 @@ class Router
      */
     public function add($route, $params = [])
     {
-        // Convert the route to a regular expression: escape forward slashes
+
         $route = preg_replace('/\//', '\\/', $route);
 
-        // Convert variables e.g. {controller}
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
 
-        // Convert variables with custom regular expressions e.g. {id:\d+}
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
-
+        //Debug
+        //echo 'route=' .$route.'<br>';;
         // Add start and end delimiters, and case insensitive flag
         $route = '/^' . $route . '$/i';
-
+        //Debug
+        //echo 'route=' .$route.'<br>';;
         $this->routes[$route] = $params;
     }
 
@@ -75,11 +75,13 @@ class Router
     public function match($url)
     {
         foreach ($this->routes as $route => $params) {
+
             if (preg_match($route, $url, $matches)) {
-                // Get named capture group values
+
                 foreach ($matches as $key => $match) {
                     if (is_string($key)) {
                         $params[$key] = $match;
+
                     }
                 }
                 $this->params = $params;
@@ -107,8 +109,11 @@ class Router
      * @return void
      */
     public function dispatch($url){
+        //echo '######################################'.'<b/>';
+        //echo 'IN DISPATCH'.'<br>';
+        //echo 'In dispatch 1 : url='.$url.'<br>';
         $url = $this->removeQueryStringVariables($url);
-
+        //echo 'In dispatch 2 : url='.$url.'<br>';
         if ($this->match($url)) {
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);

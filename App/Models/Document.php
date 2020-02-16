@@ -160,4 +160,31 @@ class Document extends Model
         $filename = $stmt->fetchColumn();
         return $filename;
     }
+
+    /**
+     * Return an array of ducument object mapped on the classe.
+     * @return array The list of document dobjact as recorded by database
+     */
+    public static function listArrayByIndividuId($individuid)
+    {
+        $sql = 'SELECT documents.id AS document_id, documents.name AS document_name, documents.filename AS filename, typesdocument.name AS type_document_name
+                FROM documents
+                INNER JOIN individus ON individus.id=documents.individuid
+                INNER JOIN typesdocument ON documents.typedocumentid=typesdocument.id
+                WHERE individuid=:individuid';
+
+        //$sql = 'SELECT documents.id AS document_id, documents.nom AS document_name, typesdocument.name AS type_document_name
+        //        FROM documents
+        //        INNER JOIN documents_individus ON documents.id=documents_individus.documentid
+        //        INNER JOIN individus ON individus.id=documents_individus.individuid
+        //        INNER JOIN typesdocument on documents.DocumentTypesid = typesdocument.id
+        //        WHERE individuid=:individuid';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':individuid', $individuid, PDO::PARAM_INT);
+        //$stmt->fetch(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+        $documents = $stmt->fetchAll();
+        return $documents;
+    }
 }

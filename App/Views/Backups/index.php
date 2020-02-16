@@ -111,7 +111,6 @@ if($current_user != '') {
 
         $("#button-create-backup").jqxButton({ width: "100%", height: "25", theme: "energyblue"});
         $("#button-create-backup").on('click', function (event) {
-            //$("#form-create-backup").submit();
             $.ajax({
                 url: "/backups/create-ajax",
                 type: "GET",
@@ -131,6 +130,7 @@ if($current_user != '') {
                 },
                 error: function (xhr, status) {
                     alert("Un problème a empêché la création d'un backup !");
+                    $("#button-create-backup").jqxButton({disabled: false});
                 },
                 complete: function (xhr, status) {
                     $("#jqxLoader").jqxLoader('close');
